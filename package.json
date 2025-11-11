@@ -1,0 +1,23 @@
+{
+  "name": "master-plan",
+  "version": "1.0.0",
+  "main": "hotjar.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soysebiche/masterplan.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/soysebiche/masterplan/issues"
+  },
+  "homepage": "https://github.com/soysebiche/masterplan#readme",
+  "description": "",
+  "dependencies": {
+    "@hotjar/browser": "^1.0.9"
+  }
+}
