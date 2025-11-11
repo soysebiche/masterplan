@@ -42,6 +42,25 @@
         const hotjarVersion = 6;
         Hotjar.init(siteId, hotjarVersion);
     </script>
+    <script>
+        // Check if user is logged in and update navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = localStorage.getItem('masterplan_user');
+            const navUser = document.querySelector('nav .flex.items-center.space-x-8');
+            if (navUser && !user) {
+                // User is not logged in, show guest state
+                const userSection = navUser.querySelector('.flex.items-center.space-x-3');
+                if (userSection) {
+                    userSection.innerHTML = `
+                        <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 font-semibold">
+                            G
+                        </div>
+                        <span class="font-medium text-gray-700">Guest</span>
+                    `;
+                }
+            }
+        });
+    </script>
 </head>
 <body class="antialiased">
     <!-- Navigation -->
@@ -53,7 +72,7 @@
                     <a href="dashboard.html" class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Dashboard</a>
                     <a href="simulator.html" class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Simulator</a>
                     <a href="pricing.html" class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Pricing</a>
-                    <a href="simulator.html" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition-all">Get Started</a>
+                    <a href="signupmodal.html" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition-all">Get Started</a>
                 </div>
             </div>
         </div>
@@ -72,7 +91,7 @@
                 personalized to your lifestyle and financial situation.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="simulator.html" class="gradient-bg text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
+                <a href="signupmodal.html" class="gradient-bg text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
                     Get Started - It's Free
                 </a>
                 <a href="pricing.html" class="bg-white border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-xl font-semibold text-lg hover:border-gray-300 hover:shadow-lg transition-all">
@@ -196,7 +215,7 @@
                 Join thousands of students who have taken control of their financial planning
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="simulator.html" class="gradient-bg text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
+                <a href="signupmodal.html" class="gradient-bg text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
                     Start Planning Now
                 </a>
                 <a href="dashboard.html" class="bg-white border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-xl font-semibold text-lg hover:border-gray-300 hover:shadow-lg transition-all">

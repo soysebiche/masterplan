@@ -125,6 +125,28 @@
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
+        .auth-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .auth-modal {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 3rem;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
     </style>
     <!-- Hotjar Tracking Code for https://masterplan-92uay74xk-sebbs21s-projects.vercel.app/ -->
     <script type="module">
@@ -132,6 +154,66 @@
         const siteId = 6573027;
         const hotjarVersion = 6;
         Hotjar.init(siteId, hotjarVersion);
+    </script>
+    <script>
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = localStorage.getItem('masterplan_user');
+            
+            // Update navigation based on auth status
+            const navUser = document.querySelector('nav .flex.items-center.space-x-8 .flex.items-center.space-x-3');
+            if (navUser) {
+                if (user) {
+                    const userData = JSON.parse(user);
+                    const firstLetter = userData.name ? userData.name.charAt(0).toUpperCase() : 'U';
+                    navUser.innerHTML = `
+                        <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+                            ${firstLetter}
+                        </div>
+                        <span class="font-semibold text-gray-900">${userData.name || 'User'}</span>
+                    `;
+                } else {
+                    navUser.innerHTML = `
+                        <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 font-semibold">
+                            G
+                        </div>
+                        <span class="font-medium text-gray-700">Guest</span>
+                    `;
+                }
+            }
+            
+            // Show auth overlay if not logged in
+            if (!user) {
+                const mainContent = document.getElementById('main-content');
+                if (mainContent) {
+                    mainContent.style.opacity = '0.3';
+                    mainContent.style.pointerEvents = 'none';
+                }
+                
+                const overlay = document.createElement('div');
+                overlay.className = 'auth-overlay';
+                overlay.innerHTML = `
+                    <div class="auth-modal text-center">
+                        <div class="w-20 h-20 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full mx-auto mb-6 flex items-center justify-center">
+                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-900 mb-3">Create Your Account First</h2>
+                        <p class="text-gray-600 mb-8">To start creating your financial plan, please create a free account. It only takes a minute!</p>
+                        <div class="space-y-3">
+                            <a href="signupmodal.html" class="gradient-bg text-white px-8 py-4 rounded-xl font-semibold hover:shadow-2xl transition-all transform hover:-translate-y-1 inline-block w-full">
+                                Create Free Account
+                            </a>
+                            <button onclick="this.closest('.auth-overlay').remove(); document.getElementById('main-content').style.opacity = '1'; document.getElementById('main-content').style.pointerEvents = 'auto';" class="text-gray-600 hover:text-gray-900 font-medium">
+                                Maybe Later
+                            </button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(overlay);
+            }
+        });
     </script>
 </head>
 <body class="antialiased">
@@ -145,10 +227,10 @@
                     <a href="simulator.html" class="text-gray-900 font-semibold border-b-2 border-indigo-600 pb-1">Simulator</a>
                     <a href="pricing.html" class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Pricing</a>
                     <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
-                            S
+                        <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 font-semibold">
+                            G
                         </div>
-                        <span class="font-semibold text-gray-900">Sofia</span>
+                        <span class="font-medium text-gray-700">Guest</span>
                     </div>
                 </div>
             </div>
@@ -156,7 +238,7 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="max-w-6xl mx-auto px-6 py-12">
+    <main class="max-w-6xl mx-auto px-6 py-12" id="main-content">
         <div class="text-center mb-12">
             <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Create Your Financial Plan</h1>
             <p class="text-xl text-gray-600">Follow these simple steps to calculate your funding gap</p>
