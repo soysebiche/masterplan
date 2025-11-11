@@ -3,31 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulator Wireframe - MasterPlan</title>
+    <title>Create Your Financial Plan - MasterPlan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Kalam:wght@300;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Kalam', cursive; background-color: #f9fafb; }
-        .wireframe-box { border: 2px dashed #9ca3af; padding: 1rem; }
-        .annotation { font-family: 'Caveat', cursive; color: #4f46e5; position: absolute; font-size: 1.1rem; }
-        .button-primary { border: 3px solid #1f2937; background-color: #d1d5db; padding: 0.75rem 1.5rem; font-weight: 700; text-align: center; }
-        .input-field { border: 2px solid #6b7280; width: 100%; padding: 0.5rem; }
-        .card-selectable { border: 3px solid #9ca3af; padding: 1.5rem; text-align: center; cursor: pointer; }
-        .card-selectable.selected { border-color: #1f2937; background-color: #e5e7eb; }
-        .university-option { border: 2px solid #9ca3af; padding: 1rem; margin-bottom: 0.5rem; cursor: pointer; transition: all 0.2s; }
-        .university-option:hover { border-color: #1f2937; background-color: #f3f4f6; }
-        .university-option.selected { border-color: #1d4ed8; background-color: #dbeafe; }
-        .search-dropdown { max-height: 400px; overflow-y: auto; border: 2px solid #6b7280; border-top: none; position: absolute; width: 100%; background-color: white; z-index: 10; }
-        .search-result { border-bottom: 1px solid #e5e7eb; padding: 0.75rem; cursor: pointer; }
-        .search-result:hover { background-color: #f3f4f6; }
-        .selected-program { border: 2px solid #1d4ed8; padding: 1rem; background-color: #dbeafe; position: relative; }
-        .remove-program { position: absolute; top: 0.5rem; right: 0.5rem; cursor: pointer; color: #dc2626; font-weight: bold; }
-        h1 { font-size: 2.5rem; font-weight: 700; }
-        h2 { font-size: 1.5rem; font-weight: 700; }
-        .step-indicator { font-size: 1.25rem; font-weight: 700; }
-        .step-indicator.active { color: #1d4ed8; }
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        body {
+            background: linear-gradient(to bottom, #fafbfc 0%, #ffffff 100%);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-selectable {
+            border: 2px solid #e5e7eb;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        .card-selectable:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.1);
+        }
+        .card-selectable.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+        .search-dropdown {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #e5e7eb;
+            border-top: none;
+            position: absolute;
+            width: 100%;
+            background-color: white;
+            z-index: 10;
+            border-radius: 0 0 0.75rem 0.75rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .search-result {
+            border-bottom: 1px solid #f3f4f6;
+            padding: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .search-result:hover {
+            background-color: #f9fafb;
+        }
+        .selected-program {
+            border: 2px solid #667eea;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
+            position: relative;
+            border-radius: 1rem;
+        }
+        .remove-program {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            cursor: pointer;
+            color: #ef4444;
+            font-weight: bold;
+            font-size: 1.5rem;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+        .remove-program:hover {
+            background: #fee2e2;
+        }
+        .step-indicator {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #9ca3af;
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+        .step-indicator.active {
+            color: #667eea;
+        }
+        .step-indicator.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 3px 3px 0 0;
+        }
+        input[type="text"],
+        input[type="number"] {
+            border: 2px solid #e5e7eb;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
     </style>
     <!-- Hotjar Tracking Code for https://masterplan-92uay74xk-sebbs21s-projects.vercel.app/ -->
     <script type="module">
@@ -37,400 +134,386 @@
         Hotjar.init(siteId, hotjarVersion);
     </script>
 </head>
-<body class="p-8">
-    <div class="max-w-6xl mx-auto space-y-8">
-        <!-- Persistent Nav -->
-        <header class="wireframe-box flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold">MasterPlan Logo</a>
-            <nav class="flex items-center space-x-6 text-lg">
-                <a href="dashboard.html">Dashboard</a>
-                <a href="simulator.html" class="font-bold">Simulator</a>
-                <a href="pricing.html">Pricing</a>
-            </nav>
-            <div class="flex items-center space-x-2">
-                <div>User Icon</div>
-                <div class="font-bold">Sofia</div>
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-2xl font-bold gradient-text">MasterPlan</a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="dashboard.html" class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Dashboard</a>
+                    <a href="simulator.html" class="text-gray-900 font-semibold border-b-2 border-indigo-600 pb-1">Simulator</a>
+                    <a href="pricing.html" class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Pricing</a>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+                            S
+                        </div>
+                        <span class="font-semibold text-gray-900">Sofia</span>
+                    </div>
+                </div>
             </div>
-        </header>
+        </div>
+    </nav>
 
-        <!-- Simulator Main -->
-        <main class="space-y-12">
-            <h1 class="text-center">Create Your Financial Plan</h1>
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Create Your Financial Plan</h1>
+            <p class="text-xl text-gray-600">Follow these simple steps to calculate your funding gap</p>
+        </div>
 
-            <!-- Progress Bar -->
-            <div class="wireframe-box flex justify-around p-4 relative">
-                <div class="annotation -top-8 left-4">Guides the user through the flow</div>
+        <!-- Progress Bar -->
+        <div class="bg-white rounded-2xl border border-gray-200 p-6 mb-8 shadow-sm">
+            <div class="flex justify-around">
                 <div class="step-indicator active">1. Programs</div>
                 <div class="step-indicator">2. Funds</div>
                 <div class="step-indicator">3. Lifestyle</div>
+                <div class="step-indicator">4. Income</div>
             </div>
+        </div>
 
-            <!-- Step 1: Programs -->
-            <section class="wireframe-box bg-white p-6 space-y-6 relative">
-                 <div class="annotation top-2 right-2 transform rotate-6">Side-by-side comparison is key</div>
-                <h2>Step 1: Select Your Programs</h2>
-                
-                <!-- Search Input -->
-                <div class="space-y-2 relative">
-                    <label class="font-bold">Search Universities</label>
-                    <input 
-                        type="text" 
-                        id="universitySearch" 
-                        class="input-field" 
-                        placeholder="Start typing to search..." 
-                        autocomplete="off"
-                    />
-                    <!-- Dropdown Results -->
-                    <div id="searchResults" class="search-dropdown hidden"></div>
-                </div>
-                
-                <!-- Selected Programs -->
-                <div id="selectedPrograms" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-                
-                <p id="emptyState" class="text-sm text-center text-gray-500 py-8">Search and select universities to compare</p>
-            </section>
+        <!-- Step 1: Programs -->
+        <section class="bg-white rounded-2xl border border-gray-200 p-8 mb-8 shadow-sm">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Step 1: Select Your Programs</h2>
             
-            <script>
-                // Universities database
-                const universities = [
-                    { name: "IE Business School", location: "Spain - Madrid", tuition: "$65,000", duration: "12 months", program: "MBA" },
-                    { name: "ESADE Business School", location: "Spain - Barcelona", tuition: "$72,000", duration: "15 months", program: "MBA" },
-                    { name: "IESE Business School", location: "Spain - Barcelona", tuition: "$89,000", duration: "15 months", program: "MBA" },
-                    { name: "London Business School (LBS)", location: "UK - London", tuition: "$95,000", duration: "21 months", program: "MBA" },
-                    { name: "Oxford Saïd Business School", location: "UK - Oxford", tuition: "$98,000", duration: "12 months", program: "MBA" },
-                    { name: "Cambridge Judge Business School", location: "UK - Cambridge", tuition: "$97,000", duration: "12 months", program: "MBA" },
-                    { name: "INSEAD", location: "France - Fontainebleau", tuition: "$91,000", duration: "10 months", program: "MBA" },
-                    { name: "HEC Paris", location: "France - Paris", tuition: "$78,000", duration: "16 months", program: "MBA" },
-                    { name: "Stanford Graduate School", location: "USA - California", tuition: "$142,000", duration: "21 months", program: "MBA" },
-                    { name: "Harvard Business School", location: "USA - Massachusetts", tuition: "$152,000", duration: "24 months", program: "MBA" },
-                    { name: "Wharton School of Business", location: "USA - Pennsylvania", tuition: "$148,000", duration: "21 months", program: "MBA" },
-                    { name: "Rotterdam School of Management", location: "Netherlands - Rotterdam", tuition: "$54,000", duration: "12 months", program: "MBA" }
-                ];
+            <!-- Search Input -->
+            <div class="space-y-2 relative mb-6">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Search Universities</label>
+                <input 
+                    type="text" 
+                    id="universitySearch" 
+                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 transition-all"
+                    placeholder="Start typing to search..." 
+                    autocomplete="off"
+                />
+                <!-- Dropdown Results -->
+                <div id="searchResults" class="search-dropdown hidden"></div>
+            </div>
+            
+            <!-- Selected Programs -->
+            <div id="selectedPrograms" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4"></div>
+            
+            <p id="emptyState" class="text-center text-gray-500 py-8 border-2 border-dashed border-gray-200 rounded-xl">
+                Search and select universities to compare
+            </p>
+        </section>
+        
+        <script>
+            // Universities database
+            const universities = [
+                { name: "IE Business School", location: "Spain - Madrid", tuition: "$65,000", duration: "12 months", program: "MBA" },
+                { name: "ESADE Business School", location: "Spain - Barcelona", tuition: "$72,000", duration: "15 months", program: "MBA" },
+                { name: "IESE Business School", location: "Spain - Barcelona", tuition: "$89,000", duration: "15 months", program: "MBA" },
+                { name: "London Business School (LBS)", location: "UK - London", tuition: "$95,000", duration: "21 months", program: "MBA" },
+                { name: "Oxford Saïd Business School", location: "UK - Oxford", tuition: "$98,000", duration: "12 months", program: "MBA" },
+                { name: "Cambridge Judge Business School", location: "UK - Cambridge", tuition: "$97,000", duration: "12 months", program: "MBA" },
+                { name: "INSEAD", location: "France - Fontainebleau", tuition: "$91,000", duration: "10 months", program: "MBA" },
+                { name: "HEC Paris", location: "France - Paris", tuition: "$78,000", duration: "16 months", program: "MBA" },
+                { name: "Stanford Graduate School", location: "USA - California", tuition: "$142,000", duration: "21 months", program: "MBA" },
+                { name: "Harvard Business School", location: "USA - Massachusetts", tuition: "$152,000", duration: "24 months", program: "MBA" },
+                { name: "Wharton School of Business", location: "USA - Pennsylvania", tuition: "$148,000", duration: "21 months", program: "MBA" },
+                { name: "Rotterdam School of Management", location: "Netherlands - Rotterdam", tuition: "$54,000", duration: "12 months", program: "MBA" }
+            ];
+            
+            // Make selectedPrograms global
+            window.selectedPrograms = [];
+            
+            const searchInput = document.getElementById('universitySearch');
+            const searchResults = document.getElementById('searchResults');
+            const selectedProgramsContainer = document.getElementById('selectedPrograms');
+            const emptyState = document.getElementById('emptyState');
+            
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase();
                 
-                // Make selectedPrograms global
-                window.selectedPrograms = [];
-                
-                const searchInput = document.getElementById('universitySearch');
-                const searchResults = document.getElementById('searchResults');
-                const selectedProgramsContainer = document.getElementById('selectedPrograms');
-                const emptyState = document.getElementById('emptyState');
-                
-                searchInput.addEventListener('input', function() {
-                    const query = this.value.toLowerCase();
-                    
-                    if (query.length < 2) {
-                        searchResults.classList.add('hidden');
-                        return;
-                    }
-                    
-                    const filtered = universities.filter(uni => 
-                        uni.name.toLowerCase().includes(query) || 
-                        uni.location.toLowerCase().includes(query)
-                    );
-                    
-                    if (filtered.length === 0) {
-                        searchResults.innerHTML = '<div class="search-result p-4 text-center text-gray-500">No universities found</div>';
-                    } else {
-                        searchResults.innerHTML = filtered.map(uni => `
-                            <div class="search-result" onclick="selectProgram(${universities.indexOf(uni)})">
-                                <div class="font-bold">${uni.name}</div>
-                                <div class="text-sm text-gray-600">${uni.location}</div>
-                                <div class="flex justify-between text-sm">
-                                    <span class="font-bold text-red-600">${uni.tuition}</span>
-                                    <span>${uni.duration}</span>
-                                </div>
-                            </div>
-                        `).join('');
-                    }
-                    
-                    searchResults.classList.remove('hidden');
-                });
-                
-                window.selectProgram = function(index) {
-                    const program = universities[index];
-                    
-                    // Check if already selected
-                    if (window.selectedPrograms.find(p => p.name === program.name)) {
-                        return;
-                    }
-                    
-                    window.selectedPrograms.push(program);
-                    
-                    // Hide search results
+                if (query.length < 2) {
                     searchResults.classList.add('hidden');
-                    searchInput.value = '';
-                    emptyState.classList.add('hidden');
-                    
-                    renderSelectedPrograms();
-                };
-                
-                function removeProgram(index) {
-                    window.selectedPrograms.splice(index, 1);
-                    
-                    if (window.selectedPrograms.length === 0) {
-                        emptyState.classList.remove('hidden');
-                    }
-                    
-                    renderSelectedPrograms();
+                    return;
                 }
                 
-                function renderSelectedPrograms() {
-                    selectedProgramsContainer.innerHTML = window.selectedPrograms.map((program, index) => `
-                        <div class="selected-program">
-                            <span class="remove-program" onclick="removeProgram(${index})">×</span>
-                            <div class="font-bold text-lg">${program.name}</div>
-                            <div class="text-sm text-gray-600">${program.location}</div>
-                            <div class="flex justify-between mt-2">
-                                <span class="font-bold text-red-600">${program.tuition}</span>
-                                <span class="text-sm">${program.duration}</span>
+                const filtered = universities.filter(uni => 
+                    uni.name.toLowerCase().includes(query) || 
+                    uni.location.toLowerCase().includes(query)
+                );
+                
+                if (filtered.length === 0) {
+                    searchResults.innerHTML = '<div class="search-result p-4 text-center text-gray-500">No universities found</div>';
+                } else {
+                    searchResults.innerHTML = filtered.map(uni => `
+                        <div class="search-result" onclick="selectProgram(${universities.indexOf(uni)})">
+                            <div class="font-bold text-gray-900">${uni.name}</div>
+                            <div class="text-sm text-gray-600">${uni.location}</div>
+                            <div class="flex justify-between text-sm mt-1">
+                                <span class="font-bold text-red-600">${uni.tuition}</span>
+                                <span class="text-gray-500">${uni.duration}</span>
                             </div>
-                            <div class="text-xs text-gray-500 mt-1">${program.program}</div>
                         </div>
                     `).join('');
-                    
-                    window.removeProgram = removeProgram;
                 }
                 
-                // Hide dropdown when clicking outside
-                document.addEventListener('click', function(event) {
-                    if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
-                        searchResults.classList.add('hidden');
-                    }
-                });
-            </script>
-
-            <!-- Step 2: Funds -->
-            <section class="wireframe-box bg-white p-6 space-y-4">
-                <h2>Step 2: Enter Your Available Funds</h2>
-                <div class="max-w-md mx-auto space-y-4">
-                    <div>
-                        <label class="font-bold">My Personal Savings ($)</label>
-                        <input type="text" id="input-savings" class="input-field" placeholder="Enter amount" />
-                    </div>
-                    <div>
-                        <label class="font-bold">Family Contribution ($)</label>
-                        <input type="text" id="input-family" class="input-field" placeholder="Enter amount" />
-                    </div>
-                    <div>
-                        <label class="font-bold">Confirmed Scholarships ($)</label>
-                        <input type="text" id="input-scholarships" class="input-field" placeholder="Enter amount" />
-                    </div>
-                </div>
-            </section>
-
-            <!-- Step 3: Lifestyle -->
-            <section class="wireframe-box bg-white p-6 space-y-6">
-                <h2>Step 3: Define Your Lifestyle</h2>
-                <p class="text-center">How do you plan to live in Madrid?</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="card-selectable" onclick="selectLifestyle('frugal', this)">
-                        <div class="text-2xl">Icon (Backpack)</div>
-                        <h3 class="text-xl font-bold mt-2">Frugal Student</h3>
-                        <p class="text-sm">Estimated ~$900/mo</p>
-                    </div>
-                    <div class="card-selectable selected" onclick="selectLifestyle('balanced', this)">
-                        <div class="text-2xl">Icon (Coffee)</div>
-                        <h3 class="text-xl font-bold mt-2">Balanced</h3>
-                        <p class="text-sm">Estimated ~$1,400/mo</p>
-                    </div>
-                    <div class="card-selectable" onclick="selectLifestyle('comfortable', this)">
-                        <div class="text-2xl">Icon (Restaurant)</div>
-                        <h3 class="text-xl font-bold mt-2">Comfortable</h3>
-                        <p class="text-sm">Estimated ~$2,100/mo</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Step 4: Income -->
-            <section class="wireframe-box bg-white p-6 space-y-6 relative">
-                <h2>Step 4: Will You Have Additional Income?</h2>
-                
-                <div class="space-y-6">
-                    <!-- Home Country Salary -->
-                    <div>
-                        <label class="font-bold mb-4 block">Will you maintain your salary from your home country?</label>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="card-selectable" onclick="selectSalary('yes', this)">
-                                <div class="text-2xl">Yes</div>
-                                <p class="text-sm mt-2">Continue earning</p>
-                            </div>
-                            <div class="card-selectable selected" onclick="selectSalary('no', this)">
-                                <div class="text-2xl">No</div>
-                                <p class="text-sm mt-2">No home salary</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="salary-amount-group" class="hidden">
-                        <label class="font-bold">Monthly Salary from Home Country ($)</label>
-                        <input type="text" id="input-home-salary" class="input-field" placeholder="Enter monthly amount in USD" />
-                    </div>
-                    
-                    <!-- On-Campus Job -->
-                    <div>
-                        <label class="font-bold mb-4 block">Will you have an on-campus job?</label>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="card-selectable" onclick="selectOnCampus('yes', this)">
-                                <div class="text-2xl">Yes</div>
-                                <p class="text-sm mt-2">Work on campus</p>
-                            </div>
-                            <div class="card-selectable selected" onclick="selectOnCampus('no', this)">
-                                <div class="text-2xl">No</div>
-                                <p class="text-sm mt-2">No on-campus job</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="oncampus-details-group" class="hidden space-y-3">
-                        <div>
-                            <label class="font-bold">Hours per Week (max 20)</label>
-                            <input type="number" id="input-hours-week" class="input-field" min="0" max="20" placeholder="Max 20 hours/week" />
-                        </div>
-                        <div>
-                            <label class="font-bold">Hourly Rate ($)</label>
-                            <input type="text" id="input-hourly-rate" class="input-field" placeholder="Enter rate per hour" />
-                        </div>
-                    </div>
-                </div>
-            </section>
+                searchResults.classList.remove('hidden');
+            });
             
-            <script>
-                window.selectedSalary = 'no';
-                window.selectedOnCampus = 'no';
-
-                function selectSalary(type, element) {
-                    // Remove selected class from all cards in the salary section
-                    const salarySection = element.closest('section').querySelector('.grid');
-                    if (salarySection) {
-                        salarySection.querySelectorAll('.card-selectable').forEach(card => {
-                            card.classList.remove('selected');
-                        });
-                    }
-                    
-                    // Add selected class to clicked card
-                    element.classList.add('selected');
-                    
-                    // Store selected salary option
-                    window.selectedSalary = type;
-                    
-                    // Show/hide input field
-                    document.getElementById('salary-amount-group').classList.toggle('hidden', type !== 'yes');
-                }
-
-                function selectOnCampus(type, element) {
-                    // Remove selected class from all cards in the on-campus section
-                    const oncampusSection = element.closest('section').querySelector('.grid');
-                    if (oncampusSection) {
-                        oncampusSection.querySelectorAll('.card-selectable').forEach(card => {
-                            card.classList.remove('selected');
-                        });
-                    }
-                    
-                    // Add selected class to clicked card
-                    element.classList.add('selected');
-                    
-                    // Store selected on-campus option
-                    window.selectedOnCampus = type;
-                    
-                    // Show/hide input fields
-                    document.getElementById('oncampus-details-group').classList.toggle('hidden', type !== 'yes');
-                }
-
-                function selectLifestyle(type, element) {
-                    // Remove selected class from all lifestyle cards in the lifestyle section
-                    const lifestyleSection = element.closest('section');
-                    if (lifestyleSection) {
-                        lifestyleSection.querySelectorAll('.card-selectable').forEach(card => {
-                            card.classList.remove('selected');
-                        });
-                    }
-                    
-                    // Add selected class to clicked card
-                    element.classList.add('selected');
-                    
-                    // Store selected lifestyle
-                    window.selectedLifestyle = type;
+            window.selectProgram = function(index) {
+                const program = universities[index];
+                
+                // Check if already selected
+                if (window.selectedPrograms.find(p => p.name === program.name)) {
+                    return;
                 }
                 
-                function calculatePlan() {
-                    // Get selected programs
-                    const programs = window.selectedPrograms || [];
-                    if (programs.length === 0) {
-                        alert('Please select at least one university');
-                        return;
-                    }
-                    
-                    // Get funds data
-                    const savings = parseFloat(document.getElementById('input-savings').value) || 0;
-                    const family = parseFloat(document.getElementById('input-family').value) || 0;
-                    const scholarships = parseFloat(document.getElementById('input-scholarships').value) || 0;
-                    
-                    // Get lifestyle
-                    const lifestyle = window.selectedLifestyle || 'balanced';
-                    const lifestyleMap = {
-                        'frugal': 900,
-                        'balanced': 1400,
-                        'comfortable': 2100
-                    };
-                    const monthlyLiving = lifestyleMap[lifestyle] || 1400;
-                    
-                    // Get income data
-                    const hasHomeSalary = window.selectedSalary === 'yes';
-                    const homeSalaryMonthly = hasHomeSalary ? parseFloat(document.getElementById('input-home-salary').value) || 0 : 0;
-                    
-                    const hasOnCampusJob = window.selectedOnCampus === 'yes';
-                    const hoursPerWeek = hasOnCampusJob ? parseFloat(document.getElementById('input-hours-week').value) || 0 : 0;
-                    const hourlyRate = hasOnCampusJob ? parseFloat(document.getElementById('input-hourly-rate').value) || 0 : 0;
-                    const monthlyOnCampusIncome = hoursPerWeek * hourlyRate * 4; // Approximate 4 weeks per month
-                    
-                    const totalMonthlyIncome = homeSalaryMonthly + monthlyOnCampusIncome;
-                    
-                    // Get first program data
-                    const program = programs[0];
-                    const tuition = parseInt(program.tuition.replace('$', '').replace(',', '')) || 0;
-                    
-                    // Calculate duration in months
-                    const durationMonths = parseInt(program.duration.replace(' months', '').replace(' month', '')) || 12;
-                    
-                    // Calculate costs
-                    const totalPersonalFunds = savings + family + scholarships;
-                    const totalLivingCost = monthlyLiving * durationMonths;
-                    const totalTuition = tuition;
-                    const totalCost = totalTuition + totalLivingCost;
-                    const fundingGap = totalCost - totalPersonalFunds;
-                    
-                    // Build URL with parameters
-                    const params = new URLSearchParams({
-                        simType: 'single',
-                        nameA: program.name,
-                        tuitionA: tuition,
-                        livingA: totalLivingCost,
-                        costA: totalCost,
-                        gapA: fundingGap,
-                        savings: savings,
-                        family: family,
-                        scholarships: scholarships,
-                        lifestyle: lifestyle,
-                        monthlyLiving: monthlyLiving,
-                        duration: durationMonths,
-                        hasHomeSalary: hasHomeSalary,
-                        homeSalaryMonthly: homeSalaryMonthly,
-                        hasOnCampusJob: hasOnCampusJob,
-                        hoursPerWeek: hoursPerWeek,
-                        hourlyRate: hourlyRate,
-                        monthlyOnCampusIncome: monthlyOnCampusIncome,
-                        totalMonthlyIncome: totalMonthlyIncome
-                    });
-                    
-                    // Navigate to results
-                    window.location.href = `results.html?${params.toString()}`;
-                }
-            </script>
+                window.selectedPrograms.push(program);
+                
+                // Hide search results
+                searchResults.classList.add('hidden');
+                searchInput.value = '';
+                emptyState.classList.add('hidden');
+                
+                renderSelectedPrograms();
+            };
             
-            <!-- Final CTA -->
-            <div class="text-center pt-8 relative">
-                <div class="annotation -top-8 left-1/2 transform -translate-x-1/2">The "Magic" feature - turns research into a simple choice.</div>
-                <a href="javascript:void(0)" onclick="calculatePlan()" class="button-primary text-2xl cursor-pointer inline-block px-8 py-4">Calculate My Plan</a>
+            function removeProgram(index) {
+                window.selectedPrograms.splice(index, 1);
+                
+                if (window.selectedPrograms.length === 0) {
+                    emptyState.classList.remove('hidden');
+                }
+                
+                renderSelectedPrograms();
+            }
+            
+            function renderSelectedPrograms() {
+                selectedProgramsContainer.innerHTML = window.selectedPrograms.map((program, index) => `
+                    <div class="selected-program">
+                        <span class="remove-program" onclick="removeProgram(${index})">×</span>
+                        <div class="font-bold text-lg text-gray-900 mb-1">${program.name}</div>
+                        <div class="text-sm text-gray-600 mb-2">${program.location}</div>
+                        <div class="flex justify-between items-center mt-3 pt-3 border-t border-gray-200">
+                            <span class="font-bold text-red-600 text-lg">${program.tuition}</span>
+                            <span class="text-sm text-gray-500">${program.duration}</span>
+                        </div>
+                        <div class="text-xs text-gray-500 mt-2">${program.program}</div>
+                    </div>
+                `).join('');
+                
+                window.removeProgram = removeProgram;
+            }
+            
+            // Hide dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
+                    searchResults.classList.add('hidden');
+                }
+            });
+        </script>
+
+        <!-- Step 2: Funds -->
+        <section class="bg-white rounded-2xl border border-gray-200 p-8 mb-8 shadow-sm">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Step 2: Enter Your Available Funds</h2>
+            <div class="max-w-md mx-auto space-y-5">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">My Personal Savings ($)</label>
+                    <input type="text" id="input-savings" placeholder="Enter amount" />
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Family Contribution ($)</label>
+                    <input type="text" id="input-family" placeholder="Enter amount" />
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Confirmed Scholarships ($)</label>
+                    <input type="text" id="input-scholarships" placeholder="Enter amount" />
+                </div>
             </div>
-        </main>
-    </div>
+        </section>
+
+        <!-- Step 3: Lifestyle -->
+        <section class="bg-white rounded-2xl border border-gray-200 p-8 mb-8 shadow-sm">
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">Step 3: Define Your Lifestyle</h2>
+            <p class="text-gray-600 mb-6 text-center">How do you plan to live during your studies?</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="card-selectable" onclick="selectLifestyle('frugal', this)">
+                    <div class="text-4xl mb-3">🎒</div>
+                    <h3 class="text-xl font-bold mb-2">Frugal Student</h3>
+                    <p class="text-sm text-gray-600">Estimated ~$900/mo</p>
+                </div>
+                <div class="card-selectable selected" onclick="selectLifestyle('balanced', this)">
+                    <div class="text-4xl mb-3">☕</div>
+                    <h3 class="text-xl font-bold mb-2">Balanced</h3>
+                    <p class="text-sm text-gray-600">Estimated ~$1,400/mo</p>
+                </div>
+                <div class="card-selectable" onclick="selectLifestyle('comfortable', this)">
+                    <div class="text-4xl mb-3">🍽️</div>
+                    <h3 class="text-xl font-bold mb-2">Comfortable</h3>
+                    <p class="text-sm text-gray-600">Estimated ~$2,100/mo</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 4: Income -->
+        <section class="bg-white rounded-2xl border border-gray-200 p-8 mb-8 shadow-sm">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Step 4: Will You Have Additional Income?</h2>
+            
+            <div class="space-y-8">
+                <!-- Home Country Salary -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-4">Will you maintain your salary from your home country?</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="card-selectable" onclick="selectSalary('yes', this)">
+                            <div class="text-3xl mb-2">✓</div>
+                            <div class="font-semibold text-gray-900">Yes</div>
+                            <p class="text-sm text-gray-600 mt-1">Continue earning</p>
+                        </div>
+                        <div class="card-selectable selected" onclick="selectSalary('no', this)">
+                            <div class="text-3xl mb-2">✗</div>
+                            <div class="font-semibold text-gray-900">No</div>
+                            <p class="text-sm text-gray-600 mt-1">No home salary</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="salary-amount-group" class="hidden">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Monthly Salary from Home Country ($)</label>
+                    <input type="text" id="input-home-salary" placeholder="Enter monthly amount in USD" />
+                </div>
+                
+                <!-- On-Campus Job -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-4">Will you have an on-campus job?</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="card-selectable" onclick="selectOnCampus('yes', this)">
+                            <div class="text-3xl mb-2">✓</div>
+                            <div class="font-semibold text-gray-900">Yes</div>
+                            <p class="text-sm text-gray-600 mt-1">Work on campus</p>
+                        </div>
+                        <div class="card-selectable selected" onclick="selectOnCampus('no', this)">
+                            <div class="text-3xl mb-2">✗</div>
+                            <div class="font-semibold text-gray-900">No</div>
+                            <p class="text-sm text-gray-600 mt-1">No on-campus job</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="oncampus-details-group" class="hidden space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Hours per Week (max 20)</label>
+                        <input type="number" id="input-hours-week" min="0" max="20" placeholder="Max 20 hours/week" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Hourly Rate ($)</label>
+                        <input type="text" id="input-hourly-rate" placeholder="Enter rate per hour" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <script>
+            window.selectedSalary = 'no';
+            window.selectedOnCampus = 'no';
+
+            function selectSalary(type, element) {
+                const salarySection = element.closest('section').querySelector('.grid');
+                if (salarySection) {
+                    salarySection.querySelectorAll('.card-selectable').forEach(card => {
+                        card.classList.remove('selected');
+                    });
+                }
+                element.classList.add('selected');
+                window.selectedSalary = type;
+                document.getElementById('salary-amount-group').classList.toggle('hidden', type !== 'yes');
+            }
+
+            function selectOnCampus(type, element) {
+                const oncampusSection = element.closest('section').querySelectorAll('.grid')[1];
+                if (oncampusSection) {
+                    oncampusSection.querySelectorAll('.card-selectable').forEach(card => {
+                        card.classList.remove('selected');
+                    });
+                }
+                element.classList.add('selected');
+                window.selectedOnCampus = type;
+                document.getElementById('oncampus-details-group').classList.toggle('hidden', type !== 'yes');
+            }
+
+            function selectLifestyle(type, element) {
+                const lifestyleSection = element.closest('section');
+                if (lifestyleSection) {
+                    lifestyleSection.querySelectorAll('.card-selectable').forEach(card => {
+                        card.classList.remove('selected');
+                    });
+                }
+                element.classList.add('selected');
+                window.selectedLifestyle = type;
+            }
+            
+            function calculatePlan() {
+                const programs = window.selectedPrograms || [];
+                if (programs.length === 0) {
+                    alert('Please select at least one university');
+                    return;
+                }
+                
+                const savings = parseFloat(document.getElementById('input-savings').value) || 0;
+                const family = parseFloat(document.getElementById('input-family').value) || 0;
+                const scholarships = parseFloat(document.getElementById('input-scholarships').value) || 0;
+                
+                const lifestyle = window.selectedLifestyle || 'balanced';
+                const lifestyleMap = {
+                    'frugal': 900,
+                    'balanced': 1400,
+                    'comfortable': 2100
+                };
+                const monthlyLiving = lifestyleMap[lifestyle] || 1400;
+                
+                const hasHomeSalary = window.selectedSalary === 'yes';
+                const homeSalaryMonthly = hasHomeSalary ? parseFloat(document.getElementById('input-home-salary').value) || 0 : 0;
+                
+                const hasOnCampusJob = window.selectedOnCampus === 'yes';
+                const hoursPerWeek = hasOnCampusJob ? parseFloat(document.getElementById('input-hours-week').value) || 0 : 0;
+                const hourlyRate = hasOnCampusJob ? parseFloat(document.getElementById('input-hourly-rate').value) || 0 : 0;
+                const monthlyOnCampusIncome = hoursPerWeek * hourlyRate * 4;
+                
+                const totalMonthlyIncome = homeSalaryMonthly + monthlyOnCampusIncome;
+                
+                const program = programs[0];
+                const tuition = parseInt(program.tuition.replace('$', '').replace(',', '')) || 0;
+                const durationMonths = parseInt(program.duration.replace(' months', '').replace(' month', '')) || 12;
+                
+                const totalPersonalFunds = savings + family + scholarships;
+                const totalLivingCost = monthlyLiving * durationMonths;
+                const totalTuition = tuition;
+                const totalCost = totalTuition + totalLivingCost;
+                const fundingGap = totalCost - totalPersonalFunds;
+                
+                const params = new URLSearchParams({
+                    simType: 'single',
+                    nameA: program.name,
+                    tuitionA: tuition,
+                    livingA: totalLivingCost,
+                    costA: totalCost,
+                    gapA: fundingGap,
+                    savings: savings,
+                    family: family,
+                    scholarships: scholarships,
+                    lifestyle: lifestyle,
+                    monthlyLiving: monthlyLiving,
+                    duration: durationMonths,
+                    hasHomeSalary: hasHomeSalary,
+                    homeSalaryMonthly: homeSalaryMonthly,
+                    hasOnCampusJob: hasOnCampusJob,
+                    hoursPerWeek: hoursPerWeek,
+                    hourlyRate: hourlyRate,
+                    monthlyOnCampusIncome: monthlyOnCampusIncome,
+                    totalMonthlyIncome: totalMonthlyIncome
+                });
+                
+                window.location.href = `results.html?${params.toString()}`;
+            }
+        </script>
+        
+        <!-- Final CTA -->
+        <div class="text-center pt-8">
+            <button onclick="calculatePlan()" class="gradient-bg text-white px-12 py-4 rounded-xl font-bold text-xl hover:shadow-2xl transition-all transform hover:-translate-y-1">
+                Calculate My Plan
+            </button>
+        </div>
+    </main>
 </body>
 </html>
