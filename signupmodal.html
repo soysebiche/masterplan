@@ -35,6 +35,33 @@
             font-size: 1rem;
             transition: all 0.2s;
             background-color: white;
+            min-height: 2.75rem;
+            color: #111827;
+        }
+        input[type="text"]::placeholder,
+        input[type="email"]::placeholder,
+        input[type="password"]::placeholder,
+        input[type="number"]::placeholder {
+            color: #9ca3af;
+        }
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+        }
+        select.empty-select {
+            color: #9ca3af;
+        }
+        select option {
+            color: #111827;
+            padding: 0.5rem;
+        }
+        select option[value=""] {
+            color: #9ca3af;
         }
         input[type="text"]:focus,
         input[type="email"]:focus,
@@ -156,7 +183,7 @@
                         <span class="text-gray-500 font-normal text-xs ml-1">(Optional)</span>
                     </label>
                     <select id="country">
-                        <option value="">Select your country</option>
+                        <option value="" selected>Select your country</option>
                         <option value="US">United States</option>
                         <option value="MX">Mexico</option>
                         <option value="CO">Colombia</option>
@@ -179,7 +206,7 @@
                         <span class="text-gray-500 font-normal text-xs ml-1">(Optional)</span>
                     </label>
                     <select id="undergrad">
-                        <option value="">Select your degree</option>
+                        <option value="" selected>Select your degree</option>
                         <option value="Business">Business / Management</option>
                         <option value="Engineering">Engineering</option>
                         <option value="Economics">Economics</option>
@@ -204,6 +231,36 @@
         function showEmailForm() {
             document.getElementById('initial-view').classList.add('hidden');
             document.getElementById('email-form-view').classList.remove('hidden');
+            
+            // Initialize select styling
+            const countrySelect = document.getElementById('country');
+            const undergradSelect = document.getElementById('undergrad');
+            
+            if (countrySelect) {
+                if (!countrySelect.value) {
+                    countrySelect.classList.add('empty-select');
+                }
+                countrySelect.addEventListener('change', function() {
+                    if (this.value) {
+                        this.classList.remove('empty-select');
+                    } else {
+                        this.classList.add('empty-select');
+                    }
+                });
+            }
+            
+            if (undergradSelect) {
+                if (!undergradSelect.value) {
+                    undergradSelect.classList.add('empty-select');
+                }
+                undergradSelect.addEventListener('change', function() {
+                    if (this.value) {
+                        this.classList.remove('empty-select');
+                    } else {
+                        this.classList.add('empty-select');
+                    }
+                });
+            }
         }
 
         function showInitialView() {
