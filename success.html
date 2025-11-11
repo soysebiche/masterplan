@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success - MasterPlan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Kalam:wght@300;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Kalam', cursive; background-color: #f9fafb; }
+        .wireframe-box { border: 2px dashed #9ca3af; padding: 1rem; }
+        .annotation { font-family: 'Caveat', cursive; color: #4f46e5; position: absolute; font-size: 1.1rem; }
+        .button-primary { border: 3px solid #1f2937; background-color: #d1d5db; padding: 0.75rem 1.5rem; font-weight: 700; text-align: center; }
+        h1 { font-size: 2.5rem; font-weight: 700; }
+        h2 { font-size: 1.5rem; font-weight: 700; }
+        .success-icon { color: #16a34a; font-size: 4rem; }
+        .celebration-animation { animation: bounce 1s ease-in-out infinite; }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="p-8">
+    <div class="max-w-4xl mx-auto space-y-8">
+        <!-- Persistent Nav -->
+        <header class="wireframe-box flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold">MasterPlan Logo</a>
+            <nav class="flex items-center space-x-6 text-lg">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="simulator.html">Simulator</a>
+                <a href="pricing.html">Pricing</a>
+            </nav>
+            <div class="flex items-center space-x-2">
+                <div>User Icon</div>
+                <div class="font-bold">Sofia</div>
+            </div>
+        </header>
+
+        <!-- Success Content -->
+        <main class="space-y-8">
+            <!-- Success Icon -->
+            <div class="text-center">
+                <div class="success-icon celebration-animation">✓</div>
+            </div>
+
+            <!-- Success Message -->
+            <div class="text-center space-y-4">
+                <h1 class="text-4xl font-bold text-green-600">Payment Successful!</h1>
+                <p class="text-2xl text-gray-700">Welcome to MasterPlan Pro</p>
+            </div>
+
+            <!-- Confirmation Details -->
+            <div class="wireframe-box bg-white p-6 space-y-4">
+                <h2 class="text-xl font-bold mb-4">Your Subscription Details</h2>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600">Plan:</span>
+                        <span class="font-bold">MasterPlan Pro (2-Year Plan)</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600">Amount Paid:</span>
+                        <span class="font-bold text-green-600">$60.00</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600">Access Granted Until:</span>
+                        <span class="font-bold">2026 - [Current Year + 2]</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Motivational Message -->
+            <div class="wireframe-box bg-blue-50 border-blue-300 p-8 text-center space-y-4">
+                <div class="text-3xl">🎓</div>
+                <h2 class="text-2xl font-bold text-blue-800">Let's Make Your Master Plan Happen!</h2>
+                <p class="text-lg text-gray-700">
+                    We're excited to partner with you on this journey. Together, we'll create a comprehensive financial roadmap that turns your dream of studying abroad into an achievable reality.
+                </p>
+                <p class="text-lg text-gray-700">
+                    Get ready to compare programs, calculate funding gaps, and build confidence in your financial future. Your success is our mission.
+                </p>
+            </div>
+
+            <!-- What's Next -->
+            <div class="wireframe-box bg-white p-6">
+                <h2 class="text-xl font-bold mb-4">What's Next?</h2>
+                <ul class="space-y-3 text-lg">
+                    <li class="flex items-start">
+                        <span class="text-green-600 font-bold mr-2">✓</span>
+                        <span>Create your first financial plan using our simulator</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-green-600 font-bold mr-2">✓</span>
+                        <span>Compare multiple programs side-by-side</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-green-600 font-bold mr-2">✓</span>
+                        <span>Access 24-month cash flow projections</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-green-600 font-bold mr-2">✓</span>
+                        <span>Save and edit unlimited plans in your dashboard</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-8">
+                <a href="simulator.html" class="button-primary bg-blue-500 border-blue-800 text-white text-xl px-8 py-4 block w-full sm:w-auto">
+                    Start Creating Your Plan
+                </a>
+                <a href="dashboard.html" class="button-primary text-xl px-8 py-4 block w-full sm:w-auto">
+                    Go to Dashboard
+                </a>
+            </div>
+
+            <!-- Support Message -->
+            <div class="text-center text-gray-600 py-4">
+                <p>Questions? We're here to help. Reach out anytime.</p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
+

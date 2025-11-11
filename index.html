@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MasterPlan - Your Complete Financial Roadmap for Graduate Studies</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Kalam:wght@300;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Kalam', cursive; background-color: #f9fafb; }
+        .wireframe-box { border: 2px dashed #9ca3af; padding: 1rem; }
+        .annotation { font-family: 'Caveat', cursive; color: #4f46e5; position: absolute; font-size: 1.1rem; }
+        .button-primary { border: 3px solid #1f2937; background-color: #d1d5db; padding: 0.75rem 1.5rem; font-weight: 700; text-align: center; }
+        .button-secondary { border: 2px solid #6b7280; padding: 0.5rem 1rem; font-weight: 700; text-align: center; }
+        h1 { font-size: 2.5rem; font-weight: 700; }
+        h2 { font-size: 1.5rem; font-weight: 700; }
+    </style>
+</head>
+<body class="p-8">
+    <div class="max-w-6xl mx-auto space-y-12">
+        <!-- Persistent Nav -->
+        <header class="wireframe-box flex justify-between items-center relative">
+            <a href="index.html" class="text-2xl font-bold">MasterPlan Logo</a>
+            <nav class="flex items-center space-x-6 text-lg">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="simulator.html">Simulator</a>
+                <a href="pricing.html">Pricing</a>
+            </nav>
+            <div class="annotation -top-8 left-4">Simplified Nav for new users</div>
+        </header>
+
+        <!-- Hero Section -->
+        <main class="text-center py-20 px-4 space-y-6 relative">
+            <div class="annotation top-12 right-12 transform rotate-12">Most prominent element on page!</div>
+            <h1 class="text-5xl">Stop guessing. Plan your Master's degree with confidence.</h1>
+            <p class="text-xl max-w-3xl mx-auto">MasterPlan is the only tool that calculates the true cost of your degree abroad, personalized to your lifestyle.</p>
+            <div class="flex justify-center gap-4">
+                <a href="simulator.html" class="button-primary inline-block text-xl px-8 py-4">Get Started - It's Free</a>
+                <a href="pricing.html" class="button-secondary inline-block text-xl px-8 py-4">View Pricing</a>
+            </div>
+        </main>
+
+        <!-- Success Stories Section -->
+        <section class="wireframe-box py-12 relative">
+            <div class="annotation -top-8 left-4">Powerful social proof!</div>
+            <h2 class="text-center mb-8">See Where Our Planners Are Now</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <!-- Story 1 -->
+                <div class="space-y-2">
+                    <div class="w-24 h-24 bg-gray-300 rounded-full mx-auto flex items-center justify-center">Photo</div>
+                    <p class="font-bold">Luis L.</p>
+                    <p class="text-sm">MBA SMU, 2024</p>
+                </div>
+                <!-- Story 2 -->
+                <div class="space-y-2">
+                    <div class="w-24 h-24 bg-gray-300 rounded-full mx-auto flex items-center justify-center">Photo</div>
+                    <p class="font-bold">Carlos V.</p>
+                    <p class="text-sm">MBA ESADE, 2023</p>
+                </div>
+                <!-- Story 3 -->
+                <div class="space-y-2">
+                    <div class="w-24 h-24 bg-gray-300 rounded-full mx-auto flex items-center justify-center">Photo</div>
+                    <p class="font-bold">Ana G.</p>
+                    <p class="text-sm">MSc LSE, 2024</p>
+                </div>
+                <!-- Story 4 -->
+                <div class="space-y-2">
+                    <div class="w-24 h-24 bg-gray-300 rounded-full mx-auto flex items-center justify-center">Photo</div>
+                    <p class="font-bold">Sofia R.</p>
+                    <p class="text-sm">LL.M. Columbia, 2023</p>
+                </div>
+            </div>
+             <div class="annotation -bottom-8 right-4">(This would be an interactive slider)</div>
+        </section>
+
+        <!-- Social Proof Section -->
+        <section class="wireframe-box py-12 relative">
+             <div class="annotation -top-8 left-4">Builds trust immediately</div>
+            <h2 class="text-center mb-8">As featured in:</h2>
+            <div class="flex justify-around items-center">
+                <div class="text-gray-500 text-2xl font-bold">Logo 1</div>
+                <div class="text-gray-500 text-2xl font-bold">Logo 2</div>
+                <div class="text-gray-500 text-2xl font-bold">Logo 3</div>
+                <div class="text-gray-500 text-2xl font-bold">Logo 4</div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="space-y-8">
+            <h2 class="text-center text-3xl font-bold">Everything you need to plan your Master's abroad</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="wireframe-box bg-white p-6 text-center">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="text-xl font-bold mb-2">Calculate Funding Gap</h3>
+                    <p>Know exactly how much you need to fund your education</p>
+                </div>
+                <div class="wireframe-box bg-white p-6 text-center">
+                    <div class="text-4xl mb-4">🔍</div>
+                    <h3 class="text-xl font-bold mb-2">Compare Programs</h3>
+                    <p>Side-by-side comparison of multiple programs</p>
+                </div>
+                <div class="wireframe-box bg-white p-6 text-center">
+                    <div class="text-4xl mb-4">💰</div>
+                    <h3 class="text-xl font-bold mb-2">24-Month Cash Flow</h3>
+                    <p>See your financial journey month by month (Pro)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="text-center space-y-6 py-12">
+            <h2 class="text-3xl font-bold">Ready to plan your future?</h2>
+            <div class="flex justify-center gap-4">
+                <a href="simulator.html" class="button-primary text-xl px-8 py-4">Start Planning Now</a>
+                <a href="dashboard.html" class="button-secondary text-xl px-8 py-4">View Dashboard</a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="wireframe-box text-center py-6">
+            <nav class="flex justify-center gap-6 mb-4">
+                <a href="index.html" class="text-gray-600">Home</a>
+                <a href="dashboard.html" class="text-gray-600">Dashboard</a>
+                <a href="simulator.html" class="text-gray-600">Simulator</a>
+                <a href="pricing.html" class="text-gray-600">Pricing</a>
+                <a href="results.html" class="text-gray-600">Results</a>
+            </nav>
+            <p class="text-sm text-gray-500">&copy; 2025 MasterPlan. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
+

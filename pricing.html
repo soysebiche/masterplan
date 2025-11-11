@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Wireframe - MasterPlan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Kalam:wght@300;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Kalam', cursive; background-color: #f9fafb; }
+        .wireframe-box { border: 2px dashed #9ca3af; padding: 1rem; }
+        .annotation { font-family: 'Caveat', cursive; color: #4f46e5; position: absolute; font-size: 1.1rem; }
+        .button-primary { border: 3px solid #1f2937; background-color: #d1d5db; padding: 0.75rem 1.5rem; font-weight: 700; text-align: center; }
+        h1 { font-size: 2.5rem; font-weight: 700; }
+        h2 { font-size: 1.5rem; font-weight: 700; }
+        .plan-card { border: 3px solid #6b7280; padding: 2rem; background-color: #f3f4f6; }
+        .plan-card.pro { border-color: #1d4ed8; background-color: #fff; }
+        .checkmark { color: #16a34a; font-weight: 700; }
+        .x-mark { color: #dc2626; font-weight: 700; }
+    </style>
+</head>
+<body class="p-8">
+    <div class="max-w-6xl mx-auto space-y-8">
+        <!-- Persistent Nav -->
+        <header class="wireframe-box flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold">MasterPlan Logo</a>
+            <nav class="flex items-center space-x-6 text-lg">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="simulator.html">Simulator</a>
+                <a href="pricing.html" class="font-bold">Pricing</a>
+            </nav>
+            <div class="flex items-center space-x-2">
+                <div>User Icon</div>
+                <div class="font-bold">Guest</div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="space-y-12">
+            <h1 class="text-center text-4xl">Your Complete Financial Roadmap.</h1>
+            <p class="text-center text-xl -mt-8">Choose the plan that matches your journey.</p>
+
+            <!-- Pricing Table -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto relative items-stretch">
+                <div class="annotation -top-8 left-4">Clear comparison as requested</div>
+                <!-- Free Plan -->
+                <div class="plan-card flex flex-col h-full w-full">
+                    <div class="flex-grow space-y-4">
+                        <h2 class="text-2xl">Free Plan</h2>
+                        <p class="text-4xl font-bold">$0</p>
+                        <p>Get a clear estimate of your total costs and funding gap.</p>
+                        <ul class="space-y-2 text-lg">
+                            <li class="checkmark">&#10003; Funding Gap Calculation</li>
+                            <li class="checkmark">&#10003; Compare 2 Programs</li>
+                            <li class="checkmark">&#10003; Lifestyle Cost Estimates</li>
+                            <li class="x-mark">&#10007; 24-Month Cash Flow</li>
+                            <li class="x-mark">&#10007; Dynamic Scenario Planning</li>
+                            <li class="x-mark">&#10007; Save & Edit Unlimited Plans</li>
+                        </ul>
+                    </div>
+                    <div class="button-primary bg-gray-400 text-center mt-6">Your Current Plan</div>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="plan-card pro flex flex-col h-full w-full">
+                    <div class="annotation -top-6 -right-6 transform rotate-12 text-blue-800">New Subscription Model!</div>
+                    <div class="flex-grow space-y-4">
+                        <h2 class="text-2xl text-blue-800">MasterPlan Pro</h2>
+                        <p class="text-4xl font-bold">$60</p>
+                        <p>A one-time payment for 2 years of full access. Your entire journey, covered.</p>
+                        <ul class="space-y-2 text-lg">
+                            <li class="checkmark">&#10003; Funding Gap Calculation</li>
+                            <li class="checkmark">&#10003; Compare Unlimited Programs</li>
+                            <li class="checkmark">&#10003; Lifestyle Cost Estimates</li>
+                            <li class="checkmark">&#10003; <strong>24-Month Cash Flow</strong></li>
+                            <li class="checkmark">&#10003; <strong>Dynamic Scenario Planning</strong></li>
+                            <li class="checkmark">&#10003; <strong>Save & Edit Unlimited Plans</strong></li>
+                        </ul>
+                    </div>
+                    <a href="signupmodal.html" class="button-primary bg-blue-500 border-blue-800 text-white text-center mt-6 block">Choose Pro Plan</a>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

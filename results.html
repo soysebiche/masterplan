@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results Dashboard - MasterPlan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Kalam:wght@300;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Consistent styles */
+        body { font-family: 'Kalam', cursive; background-color: #f9fafb; }
+        .wireframe-box { border: 2px dashed #9ca3af; padding: 1.5rem; border-radius: 0.5rem; }
+        .annotation { font-family: 'Caveat', cursive; color: #4f46e5; position: absolute; font-size: 1.1rem; }
+        .button-primary { border: 3px solid #1f2937; background-color: #d1d5db; padding: 0.75rem 1.5rem; font-weight: 700; text-align: center; border-radius: 0.5rem; transition: all 0.2s; }
+        .button-primary:hover { background-color: #1f2937; color: white; }
+        .button-secondary { border: 2px solid #6b7280; padding: 0.5rem 1rem; font-weight: 700; text-align: center; border-radius: 0.5rem; transition: all 0.2s; }
+        .button-secondary:hover { background-color: #6b7280; color: white; }
+        h1 { font-size: 2.5rem; font-weight: 700; }
+        h2 { font-size: 1.5rem; font-weight: 700; }
+        h3 { font-size: 1.25rem; font-weight: 700; }
+        
+        /* Sidebar Input Styles */
+        .sidebar-label { font-weight: 700; margin-bottom: 0.25rem; display: block; font-size: 0.9rem; }
+        .sidebar-input, .sidebar-select {
+            border: 2px solid #9ca3af;
+            padding: 0.5rem 0.75rem;
+            width: 100%;
+            font-family: 'Kalam', cursive;
+            font-size: 1rem;
+            border-radius: 0.25rem;
+        }
+
+        .hidden-view { display: none; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-6xl mx-auto space-y-8">
+        <!-- Persistent Nav -->
+        <header class="wireframe-box flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold">MasterPlan Logo</a>
+            <nav class="flex items-center space-x-6 text-lg">
+                <a href="dashboard.html" class="hidden md:inline">Dashboard</a>
+                <a href="simulator.html">Simulator</a>
+                <a href="pricing.html" class="hidden md:inline">Pricing</a>
+            </nav>
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-sm">SO</div>
+                <div class="font-bold hidden md:inline">Sofia</div>
+            </div>
+        </header>
+
+        <!-- NEW: Main layout with Sidebar -->
+        <div class="lg:grid lg:grid-cols-4 gap-8">
+
+            <!-- ====================================================== -->
+            <!-- NEW: INTERACTIVE SIDEBAR -->
+            <!-- ====================================================== -->
+            <aside id="sidebar-controls" class="lg:col-span-1 space-y-6 hidden-view">
+                <div class="wireframe-box bg-white p-4 space-y-4">
+                    <h3>Your Funds</h3>
+                    <div>
+                        <label for="input-savings" class="sidebar-label">My Personal Savings ($)</label>
+                        <input type="number" id="input-savings" class="sidebar-input" value="5000">
+                    </div>
+                    <div>
+                        <label for="input-family" class="sidebar-label">Family Contribution ($)</label>
+                        <input type="number" id="input-family" class="sidebar-input" value="10000">
+                    </div>
+                    <div>
+                        <label for="input-scholarships" class="sidebar-label">Confirmed Scholarships ($)</label>
+                        <input type="number" id="input-scholarships" class="sidebar-input" value="3000">
+                    </div>
+                </div>
+
+                <div class="wireframe-box bg-white p-4 space-y-4">
+                    <h3>Program Costs</h3>
+                    <div>
+                        <label for="input-tuition" class="sidebar-label">Total Tuition ($)</label>
+                        <input type="number" id="input-tuition" class="sidebar-input" value="45000">
+                    </div>
+                    <div>
+                        <label for="input-duration" class="sidebar-label">Duration (Months)</label>
+                        <input type="number" id="input-duration" class="sidebar-input" value="24" min="1">
+                    </div>
+                </div>
+
+                <div class="wireframe-box bg-white p-4 space-y-4">
+                    <h3>Your Lifestyle</h3>
+                    <div>
+                        <label for="input-lifestyle" class="sidebar-label">Lifestyle Choice</label>
+                        <select id="input-lifestyle" class="sidebar-select">
+                            <!-- Values from user's image -->
+                            <option value="900">Frugal Student (~$900/mo)</option>
+                            <option value="1400" selected>Balanced (~$1,400/mo)</option>
+                            <option value="2100">Comfortable (~$2,100/mo)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="input-living-monthly" class="sidebar-label">Custom Monthly Living ($)</label>
+                        <input type="number" id="input-living-monthly" class="sidebar-input" value="1400">
+                    </div>
+                </div>
+
+                <div class="wireframe-box bg-white p-4 space-y-4">
+                    <h3>Your Income</h3>
+                    <div>
+                        <label for="input-home-salary-result" class="sidebar-label">Home Country Salary ($/mo)</label>
+                        <input type="number" id="input-home-salary-result" class="sidebar-input" value="0">
+                    </div>
+                    <div>
+                        <label for="input-oncampus-income" class="sidebar-label">On-Campus Job Income ($/mo)</label>
+                        <input type="number" id="input-oncampus-income" class="sidebar-input" value="0">
+                    </div>
+                </div>
+            </aside>
+
+            <!-- ====================================================== -->
+            <!-- MAIN CONTENT AREA -->
+            <!-- ====================================================== -->
+            <div id="main-content-area" class="lg:col-span-4">
+                
+                <!-- VISTA DE RESULTADO ÚNICO (Single) -->
+                <main id="single-result-view" class="space-y-12 hidden-view">
+                    <h1 id="single-title" class="text-center">Your Financial Roadmap: [Program]</h1>
+
+                    <!-- Historical View -->
+            <section class="wireframe-box bg-white text-center p-8 relative">
+                        <div class="annotation top-4 right-4 transform rotate-12">Historical View</div>
+                        <h2 class="text-2xl text-gray-700 mb-6">Your Starting Financial Picture</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="p-4 border-2 border-dashed border-gray-300 rounded-lg">
+                                <p class="text-sm text-gray-600 mb-2">Your Starting Balance</p>
+                                <p id="snapshot-balance" class="text-4xl font-bold text-blue-600">$0</p>
+                                <p class="text-xs text-gray-500 mt-2">Savings + Family + Scholarships</p>
+                            </div>
+                            <div class="p-4 border-2 border-dashed border-gray-300 rounded-lg">
+                                <p class="text-sm text-gray-600 mb-2">Future Income</p>
+                                <p id="historical-future-income" class="text-4xl font-bold text-green-600">$0</p>
+                                <p class="text-xs text-gray-500 mt-2">Salary + On-Campus Job</p>
+                            </div>
+                            <div class="p-4 border-2 border-dashed border-gray-300 rounded-lg">
+                                <p class="text-sm text-gray-600 mb-2">Total Cost</p>
+                                <p id="historical-total-cost" class="text-4xl font-bold text-gray-800">$0</p>
+                                <p class="text-xs text-gray-500 mt-2">Tuition + Living Expenses</p>
+                            </div>
+                            <div class="p-4 border-2 border-dashed border-gray-300 rounded-lg">
+                                <p class="text-sm text-gray-600 mb-2">Total Funding Gap</p>
+                                <p id="historical-funding-gap" class="text-4xl font-bold text-red-600">$0</p>
+                                <p class="text-xs text-gray-500 mt-2">Amount to Secure</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Today View -->
+                    <section class="wireframe-box bg-blue-50 text-center p-8 relative border-blue-300">
+                        <div class="annotation top-4 left-4 transform -rotate-12">Today View</div>
+                        <h2 class="text-2xl text-blue-800 mb-6">Where You Are Today</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="p-6 bg-white rounded-lg shadow-md">
+                                <p class="text-sm text-gray-600 mb-2">Your Current Bank Balance</p>
+                                <p id="today-balance" class="text-5xl font-bold text-green-600">$0</p>
+                                <p class="text-xs text-gray-500 mt-2">Available funds right now</p>
+                            </div>
+                            <div class="p-6 bg-white rounded-lg shadow-md">
+                                <p class="text-sm text-gray-600 mb-2">Next Payment Due</p>
+                                <p id="today-next-payment" class="text-5xl font-bold text-orange-600">$0</p>
+                                <p class="text-xs text-gray-500 mt-2">Due end of this month</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 24-Month Cash Flow -->
+                    <section class="wireframe-box bg-white p-6 relative">
+                        <div class="annotation -top-8 left-4">24-Month Cash Flow</div>
+                        <h2 class="text-blue-800">Your 24-Month Bank Balance</h2>
+                        <p class="my-4">This chart shows your bank balance over time. The red line is your "Funding Gap".</p>
+                        <div class="w-full h-80 flex items-center justify-center text-gray-500">
+                            <canvas id="cash-flow-chart"></canvas>
+                        </div>
+            </section>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Monthly Expense (Spikes) Chart -->
+                <section class="wireframe-box bg-white p-6">
+                            <h2 class="mb-4">Monthly Expense Chart</h2>
+                            <p class="text-sm mb-4">Note the spikes for tuition payments in September and January.</p>
+                            <div class="w-full h-64 flex items-center justify-center text-gray-500">
+                                <canvas id="monthly-expense-chart"></canvas>
+                    </div>
+                </section>
+
+                        <!-- Expense Breakdown Pie Chart -->
+                        <section class="wireframe-box bg-white p-6">
+                            <h2 id="single-chart-title" class="mb-4">Living Cost Breakdown</h2>
+                            <p class="text-sm mb-4">A breakdown of your *monthly* living expenses.</p>
+                            <div class="w-full h-64 flex items-center justify-center text-gray-500">
+                                <canvas id="category-pie-chart"></canvas>
+                            </div>
+                        </section>
+                    </div>
+                </main>
+
+                <!-- VISTA DE COMPARACIÓN (Compare) -->
+                <main id="compare-result-view" class="space-y-12 hidden-view">
+                    <!-- ... (El HTML de la vista de comparación no cambia) ... -->
+                    <h1 class="text-center">Your Roadmap Comparison</h1>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <section class="wireframe-box bg-white text-center p-6 md:p-8">
+                            <h2 id="compare-name-a" class="text-2xl">[Program A]</h2>
+                            <p class="text-lg text-gray-700 mt-4">Total Funding Gap:</p>
+                            <p id="compare-gap-a" class="text-7xl font-bold text-red-600 my-3">$22,000</p>
+                            <p class="text-md">Starting Balance: <span id="compare-balance-a">$43,000</span></p>
+                        </section>
+                        <section class="wireframe-box bg-white text-center p-6 md:p-8">
+                            <h2 id="compare-name-b" class="text-2xl">[Program B]</h2>
+                            <p class="text-lg text-gray-700 mt-4">Total Funding Gap:</p>
+                            <p id="compare-gap-b" class="text-7xl font-bold text-green-600 my-3">$14,500</p>
+                            <p class="text-md">Starting Balance: <span id="compare-balance-b">$43,000</span></p>
+                        </section>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <section class="wireframe-box bg-white p-6">
+                            <h2 id="compare-chart-title-a" class="mb-4">24-Month Cash Flow: [Program A]</h2>
+                            <div class="w-full h-80 flex items-center justify-center text-gray-500">
+                                <canvas id="compare-chart-a"></canvas>
+                            </div>
+                        </section>
+                        <section class="wireframe-box bg-white p-6">
+                            <h2 id="compare-chart-title-b" class="mb-4">24-Month Cash Flow: [Program B]</h2>
+                            <div class="w-full h-80 flex items-center justify-center text-gray-500">
+                                <canvas id="compare-chart-b"></canvas>
+                    </div>
+                </section>
+            </div>
+                </main>
+                
+                <!-- Final Actions (Common to both views) -->
+                <footer id="final-actions" class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6 pt-8">
+                    <a href="simulator.html" class="button-secondary text-lg">← Start Over</a>
+                    <a href="dashboard.html" id="save-button" class="button-primary text-xl block" onclick="return confirm('Your plan will be saved to your dashboard. Continue?')">Save Plan</a>
+                </footer>
+
+            </div> <!-- End Main Content Area -->
+        </div> <!-- End Grid Wrapper -->
+    </div> <!-- End Max-width Container -->
+
+    <script>
+        // --- START OF SCRIPT ---
+
+        // Global store for chart instances to destroy them before re-drawing
+        let chartInstances = {};
+
+        // Destroy a chart if it exists
+        const destroyChart = (chartId) => {
+            if (chartInstances[chartId]) {
+                chartInstances[chartId].destroy();
+                delete chartInstances[chartId];
+            }
+        };
+
+        // Currency formatter
+        const formatCurrency = (num) => {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+            }).format(num);
+        };
+
+        // Get gap color (red for gap, green for surplus)
+        const getGapColor = (num) => {
+            return num > 0 ? '#dc2626' : '#16a34a'; // Red or Green
+        };
+        
+        // --- Chart Generation Functions ---
+        // (These are unchanged, but we store the instance)
+
+        const createCashFlowChart = (ctxId, duration, personalFunds, monthlyLiving, tuition, monthlyIncome = 0) => {
+            destroyChart(ctxId); // Destroy previous chart
+            const ctx = document.getElementById(ctxId).getContext('2d');
+            
+            // Calculate tuition payments based on duration
+            let tuitionPayment;
+            let tuitionMonths; // Months when tuition is due
+            
+            if (duration === 12) {
+                // 12-month program: 2 payments (Aug = month 1, Jan = month 6)
+                tuitionPayment = tuition / 2;
+                tuitionMonths = [0, 5]; // Will be adjusted to [1, 6] for August and February
+            } else {
+                // 24-month program: 4 payments (Aug=1, Jan=6, Aug=13, Jan=18)
+                tuitionPayment = tuition / 4;
+                tuitionMonths = [0, 5, 12, 17]; // Will be adjusted to [1, 6, 13, 18]
+            }
+            
+            // Adjust duration to always end in May
+            // Start in July, so duration is +1 month
+            const adjustedDuration = duration <= 12 ? 11 : 23;
+            
+            const labels = [];
+            const balanceData = [];
+            const todayPointData = [];
+            let currentBalance = personalFunds;
+            const startDate = new Date(2025, 6, 1); // July 2025 (6 = July in JS) - Start in July to show August tuition
+            
+            // Calculate current month index
+            const today = new Date();
+            const currentMonthIndex = Math.max(0, Math.min(adjustedDuration + 1 - 1, Math.floor((today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 30))));
+
+            for (let i = 0; i < adjustedDuration; i++) {
+                const currentDate = new Date(startDate.getFullYear(), startDate.getMonth() + i, 1);
+                const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+                const year = currentDate.getFullYear().toString().slice(-2);
+                
+                // Mark current month in labels
+                if (i === currentMonthIndex) {
+                    labels.push('Current Month');
+                } else {
+                    labels.push(`${month}/${year}`);
+                }
+                
+                // Base expense is always monthly living
+                let monthlyExpense = monthlyLiving;
+                
+                // Add tuition payment if it's a tuition month (month 1 = August, since we start in July)
+                // Adjust tuition months: add 1 to each because we start in July instead of August
+                const adjustedTuitionMonths = tuitionMonths.map(m => m + 1);
+                if (adjustedTuitionMonths.includes(i)) {
+                    monthlyExpense += tuitionPayment;
+                }
+                
+                // Subtract expense and add income
+                currentBalance -= monthlyExpense;
+                currentBalance += monthlyIncome;
+                
+                balanceData.push(currentBalance);
+                
+                // Create data for today's point (only non-null at current month)
+                todayPointData.push(i === currentMonthIndex ? currentBalance : null);
+            }
+
+            chartInstances[ctxId] = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Your Bank Balance',
+                            data: balanceData,
+                            borderColor: '#3b82f6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            fill: true,
+                            tension: 0.1,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'Today',
+                            data: todayPointData,
+                            borderColor: '#16a34a',
+                            backgroundColor: '#16a34a',
+                            pointRadius: 8,
+                            pointHoverRadius: 10,
+                            pointStyle: 'circle',
+                            borderWidth: 3
+                        },
+                        {
+                            label: 'Funding Gap (Zero Line)',
+                            data: Array(adjustedDuration).fill(0),
+                            borderColor: '#dc2626',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            fill: false,
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { ticks: { callback: (value) => formatCurrency(value) } } },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: (context) => `Balance: ${formatCurrency(context.raw)}` } }
+                    }
+                }
+            });
+        };
+
+        const createMonthlyExpenseChart = (ctxId, duration, monthlyLiving, tuition) => {
+            destroyChart(ctxId); // Destroy previous chart
+            const ctx = document.getElementById(ctxId).getContext('2d');
+            
+            // Calculate tuition payments based on duration
+            let tuitionPayment;
+            let tuitionMonths;
+            
+            if (duration === 12) {
+                tuitionPayment = tuition / 2;
+                tuitionMonths = [0, 5];
+            } else {
+                tuitionPayment = tuition / 4;
+                tuitionMonths = [0, 5, 12, 17];
+            }
+            
+            // Adjust duration to always end in May (+1 because starting in July)
+            const adjustedDuration = duration <= 12 ? 11 : 23;
+            
+            const labels = [];
+            const expenseData = [];
+            const startDate = new Date(2025, 6, 1); // July 2025
+            
+            // Adjust tuition months for starting in July
+            const adjustedTuitionMonths = tuitionMonths.map(m => m + 1);
+
+            for (let i = 0; i < adjustedDuration; i++) {
+                const currentDate = new Date(startDate.getFullYear(), startDate.getMonth() + i, 1);
+                const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+                const year = currentDate.getFullYear().toString().slice(-2);
+                labels.push(`${month}/${year}`);
+
+                let monthlyExpense = monthlyLiving;
+                if (adjustedTuitionMonths.includes(i)) {
+                    monthlyExpense += tuitionPayment;
+                }
+                expenseData.push(monthlyExpense);
+            }
+
+            chartInstances[ctxId] = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Monthly Expense',
+                        data: expenseData,
+                        backgroundColor: expenseData.map(d => d > monthlyLiving ? '#f59e0b' : '#3b82f6'), // Highlight spikes
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { ticks: { callback: (value) => formatCurrency(value) } } },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: (context) => `Expense: ${formatCurrency(context.raw)}` } }
+                    }
+                }
+            });
+        };
+
+        const createCategoryPieChart = (ctxId, monthlyLiving) => {
+            destroyChart(ctxId); // Destroy previous chart
+            const ctx = document.getElementById(ctxId).getContext('2d');
+            
+            // Simulate breakdown
+            const housing = monthlyLiving * 0.5; // Assume 50%
+            const lifestyle = monthlyLiving * 0.3; // Assume 30%
+            const other = monthlyLiving * 0.2; // Assume 20% (car, etc.)
+
+            chartInstances[ctxId] = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Housing', 'Lifestyle (Food, etc)', 'Other (Car, etc)'],
+                    datasets: [{
+                        data: [housing, lifestyle, other],
+                        backgroundColor: ['#3b82f6', '#fbbf24', '#10b981'],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { family: "'Kalam', cursive", size: 14 } } },
+                        tooltip: { callbacks: { label: (context) => `${context.label}: ${formatCurrency(context.raw)}/mo` } }
+                    }
+                }
+            });
+        };
+
+        // --- NEW: Main dashboard update function ---
+        const updateDashboard = () => {
+            // 1. Read all values from sidebar inputs
+            const savings = parseFloat(document.getElementById('input-savings').value) || 0;
+            const family = parseFloat(document.getElementById('input-family').value) || 0;
+            const scholarships = parseFloat(document.getElementById('input-scholarships').value) || 0;
+            const tuition = parseFloat(document.getElementById('input-tuition').value) || 0;
+            const duration = parseFloat(document.getElementById('input-duration').value) || 1;
+            const monthlyLiving = parseFloat(document.getElementById('input-living-monthly').value) || 0;
+            const homeSalaryMonthly = parseFloat(document.getElementById('input-home-salary-result').value) || 0;
+            const oncampusIncome = parseFloat(document.getElementById('input-oncampus-income').value) || 0;
+            const monthlyIncome = homeSalaryMonthly + oncampusIncome;
+
+            // 2. Perform calculations
+            const personalFunds = savings + family + scholarships;
+            const totalLivingCost = monthlyLiving * duration;
+            const totalCost = tuition + totalLivingCost;
+            const totalIncome = monthlyIncome * duration;
+            const fundingGap = totalCost - personalFunds - totalIncome;
+            const firstMonthPayment = monthlyLiving + (tuition / 4); // Assume 1st month is tuition month
+
+            // 3. Update Historical View
+            document.getElementById('snapshot-balance').textContent = formatCurrency(personalFunds);
+            document.getElementById('historical-future-income').textContent = formatCurrency(totalIncome);
+            document.getElementById('historical-total-cost').textContent = formatCurrency(totalCost);
+            const gapEl = document.getElementById('historical-funding-gap');
+            gapEl.textContent = formatCurrency(fundingGap);
+            gapEl.style.color = getGapColor(fundingGap);
+            
+            // 4. Update Today View (simulated current position)
+            // Calculate current month index (0 = July 2025)
+            const today = new Date();
+            const startDate = new Date(2025, 6, 1); // July 2025
+            const currentMonthIndex = Math.max(0, Math.floor((today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 30)));
+            
+            // Calculate balance up to current month (simplified)
+            let currentBalance = personalFunds;
+            for (let i = 0; i < currentMonthIndex; i++) {
+                let monthlyExpense = monthlyLiving;
+                // Add tuition if it's a tuition month (adjusted for starting in July)
+                const isTuitionMonth = (duration === 12 && (i === 1 || i === 6)) || 
+                                       (duration === 24 && (i === 1 || i === 6 || i === 13 || i === 18));
+                if (isTuitionMonth) {
+                    monthlyExpense += (duration === 12 ? tuition / 2 : tuition / 4);
+                }
+                currentBalance -= monthlyExpense;
+                currentBalance += monthlyIncome;
+            }
+            
+            // Next payment calculation (adjusted for starting in July)
+            const isCurrentMonthTuition = (duration === 12 && (currentMonthIndex === 1 || currentMonthIndex === 6)) ||
+                                          (duration === 24 && (currentMonthIndex === 1 || currentMonthIndex === 6 || currentMonthIndex === 13 || currentMonthIndex === 18));
+            const nextPayment = monthlyLiving + (isCurrentMonthTuition ? (duration === 12 ? tuition / 2 : tuition / 4) : 0);
+            
+            document.getElementById('today-balance').textContent = formatCurrency(currentBalance);
+            document.getElementById('today-next-payment').textContent = formatCurrency(nextPayment);
+            
+            // 5. Re-draw all charts
+            createCashFlowChart('cash-flow-chart', duration, personalFunds, monthlyLiving, tuition, monthlyIncome);
+            createMonthlyExpenseChart('monthly-expense-chart', duration, monthlyLiving, tuition);
+            createCategoryPieChart('category-pie-chart', monthlyLiving);
+        };
+
+
+        // --- Main logic on page load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const simType = params.get('simType') || 'single';
+
+            // Get Program A data from URL (to set initial state)
+            const nameA = params.get('nameA') || 'Master in Management';
+            const gapA = parseFloat(params.get('gapA')) || 22000;
+            const costA = parseFloat(params.get('costA')) || 65000;
+            const tuitionA = parseFloat(params.get('tuitionA')) || 45000;
+            const livingA = parseFloat(params.get('livingA')) || 20000;
+            const durationA = 24; // Assume 24
+            const personalFundsA = costA - gapA;
+            const monthlyLivingA = livingA / durationA;
+            // Get personal funds breakdown (assuming from simulator.html)
+            const savingsA = parseFloat(params.get('savings')) || 18000;
+            const familyA = parseFloat(params.get('family')) || 20000;
+            const scholarshipsA = parseFloat(params.get('scholarships')) || 5000;
+            
+            if (simType === 'single') {
+                // --- SETUP SINGLE (INTERACTIVE) VIEW ---
+                
+                // 1. Adjust layout
+                document.getElementById('sidebar-controls').classList.remove('hidden-view');
+                document.getElementById('main-content-area').classList.remove('lg:col-span-4');
+                document.getElementById('main-content-area').classList.add('lg:col-span-3');
+                document.getElementById('single-result-view').classList.remove('hidden-view');
+                
+                // Get actual savings values from URL
+                const savingsFromUrl = parseFloat(params.get('savings')) || savingsA;
+                const familyFromUrl = parseFloat(params.get('family')) || familyA;
+                const scholarshipsFromUrl = parseFloat(params.get('scholarships')) || scholarshipsA;
+                const monthlyLivingFromUrl = parseFloat(params.get('monthlyLiving')) || monthlyLivingA;
+                
+                // 2. Set sidebar inputs to values from URL
+                document.getElementById('single-title').textContent = `Your Financial Roadmap: ${nameA}`;
+                document.getElementById('save-button').textContent = 'Save Plan to Dashboard';
+                document.getElementById('input-savings').value = savingsFromUrl;
+                document.getElementById('input-family').value = familyFromUrl;
+                document.getElementById('input-scholarships').value = scholarshipsFromUrl;
+                document.getElementById('input-tuition').value = tuitionA;
+                document.getElementById('input-duration').value = durationA;
+                
+                // Set lifestyle select based on URL parameter
+                const lifestyleFromUrl = params.get('lifestyle') || 'balanced';
+                const lifestyleValue = lifestyleFromUrl === 'frugal' ? 900 : lifestyleFromUrl === 'comfortable' ? 2100 : 1400;
+                document.getElementById('input-lifestyle').value = lifestyleValue.toString();
+                
+                // Use monthlyLiving from URL if available, otherwise use lifestyle value
+                document.getElementById('input-living-monthly').value = Math.round(monthlyLivingFromUrl || lifestyleValue);
+                
+                // Set income values from URL
+                const homeSalaryFromUrl = parseFloat(params.get('homeSalaryMonthly')) || 0;
+                const oncampusIncomeFromUrl = parseFloat(params.get('monthlyOnCampusIncome')) || 0;
+                document.getElementById('input-home-salary-result').value = homeSalaryFromUrl;
+                document.getElementById('input-oncampus-income').value = Math.round(oncampusIncomeFromUrl);
+                
+                // 3. Add event listeners to all inputs
+                const inputs = document.querySelectorAll('#sidebar-controls input, #sidebar-controls select');
+                inputs.forEach(input => {
+                    input.addEventListener('change', updateDashboard);
+                });
+
+                // Link lifestyle select to custom input
+                document.getElementById('input-lifestyle').addEventListener('change', (e) => {
+                    const selectedValue = e.target.options[e.target.selectedIndex].value;
+                    document.getElementById('input-living-monthly').value = selectedValue;
+                    updateDashboard(); // Trigger update
+                });
+                 document.getElementById('input-living-monthly').addEventListener('change', () => {
+                    updateDashboard();
+                });
+
+                // 4. Run initial calculation
+                updateDashboard();
+
+            } else {
+                // --- SETUP COMPARE (STATIC) VIEW ---
+                
+                // 1. Adjust layout
+                document.getElementById('main-content-area').classList.add('lg:col-span-4');
+                document.getElementById('sidebar-controls').classList.add('hidden-view');
+                document.getElementById('compare-result-view').classList.remove('hidden-view');
+
+                // 2. Get Program B data
+                const nameB = params.get('nameB') || 'MSc in Finance';
+                const gapB = parseFloat(params.get('gapB')) || 14500;
+                const costB = parseFloat(params.get('costB')) || 52500;
+                const tuitionB = parseFloat(params.get('tuitionB')) || 38000;
+                const livingB = parseFloat(params.get('livingB')) || 14500;
+                const durationB = 24;
+                const personalFundsB = costB - gapB;
+                const monthlyLivingB = livingB / durationB;
+
+                // 3. Populate Compare View (Static)
+                document.getElementById('compare-name-a').textContent = nameA;
+                document.getElementById('compare-gap-a').textContent = formatCurrency(gapA);
+                document.getElementById('compare-gap-a').style.color = getGapColor(gapA);
+                document.getElementById('compare-balance-a').textContent = formatCurrency(personalFundsA);
+                document.getElementById('compare-chart-title-a').textContent = `24-Month Cash Flow: ${nameA}`;
+                
+                document.getElementById('compare-name-b').textContent = nameB;
+                document.getElementById('compare-gap-b').textContent = formatCurrency(gapB);
+                document.getElementById('compare-gap-b').style.color = getGapColor(gapB);
+                document.getElementById('compare-balance-b').textContent = formatCurrency(personalFundsB);
+                document.getElementById('compare-chart-title-b').textContent = `24-Month Cash Flow: ${nameB}`;
+                
+                document.getElementById('save-button').textContent = 'Save Comparison';
+
+                // Highlight best option
+                const boxA = document.getElementById('compare-gap-a').closest('.wireframe-box');
+                const boxB = document.getElementById('compare-gap-b').closest('.wireframe-box');
+                if (gapA < gapB) {
+                    boxA.classList.add('border-4', 'border-blue-600');
+                } else {
+                    boxB.classList.add('border-4', 'border-blue-600');
+                }
+
+                // 4. Create static compare charts
+                createCashFlowChart('compare-chart-a', durationA, personalFundsA, monthlyLivingA, tuitionA);
+                createCashFlowChart('compare-chart-b', durationB, personalFundsB, monthlyLivingB, tuitionB);
+            }
+        });
+        // --- END OF SCRIPT ---
+    </script>
+</body>
+</html>
+
