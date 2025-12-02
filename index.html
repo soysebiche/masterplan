@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,30 +8,37 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         * {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
+
         body {
             background: linear-gradient(to bottom, #fafbfc 0%, #ffffff 100%);
         }
+
         .gradient-text {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
+
         .card-hover {
             transition: all 0.3s ease;
         }
+
         .card-hover:hover {
             transform: translateY(-4px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
+
         .avatar-gradient {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
@@ -44,7 +52,7 @@
     </script>
     <script>
         // Check if user is logged in and update navigation
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const user = localStorage.getItem('masterplan_user');
             const navUser = document.querySelector('nav .flex.items-center.space-x-8');
             if (navUser && !user) {
@@ -62,6 +70,7 @@
         });
     </script>
 </head>
+
 <body class="antialiased">
     <!-- Navigation -->
     <nav class="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
@@ -69,10 +78,15 @@
             <div class="flex justify-between items-center">
                 <a href="index.html" class="text-2xl font-bold gradient-text">MasterPlan</a>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="dashboard.html" class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Dashboard</a>
-                    <a href="simulator.html" class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Simulator</a>
-                    <a href="pricing.html" class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Pricing</a>
-                    <a href="signupmodal.html" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition-all">Get Started</a>
+                    <a href="dashboard.html"
+                        class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Dashboard</a>
+                    <a href="simulator.html"
+                        class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Simulator</a>
+                    <a href="pricing.html"
+                        class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Pricing</a>
+                    <a href="signupmodal.html"
+                        class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition-all">Create
+                        Free Plan</a>
                 </div>
             </div>
         </div>
@@ -82,36 +96,41 @@
     <section class="max-w-7xl mx-auto px-6 py-20 md:py-32">
         <div class="text-center max-w-4xl mx-auto">
             <h1 class="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-                Stop guessing.<br/>
-                <span class="gradient-text">Plan your Master's</span><br/>
+                Stop guessing.<br />
+                <span class="gradient-text">Plan your Master's</span><br />
                 with confidence.
             </h1>
             <p class="text-xl md:text-2xl text-gray-600 mb-10 leading-relaxed">
-                MasterPlan is the only tool that calculates the true cost of your degree abroad, 
+                MasterPlan is the only tool that calculates the true cost of your degree abroad,
                 personalized to your lifestyle and financial situation.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="signupmodal.html" class="gradient-bg text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-                    Get Started - It's Free
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="signupmodal.html"
+                    class="gradient-bg text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
+                    Create Free Plan
                 </a>
-                <a href="pricing.html" class="bg-white border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-xl font-semibold text-lg hover:border-gray-300 hover:shadow-lg transition-all">
+                <a href="pricing.html"
+                    class="bg-white border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-xl font-semibold text-lg hover:border-gray-300 hover:shadow-lg transition-all">
                     View Pricing
                 </a>
             </div>
+            <p class="text-sm text-gray-500 mt-4">No credit card required for sign up</p>
         </div>
     </section>
 
     <!-- Success Stories Section -->
     <section class="bg-white py-20">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-4">See Where Our Planners Are Now</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-4">See Where Our Planners Are Now
+            </h2>
             <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
                 Join hundreds of students who have successfully planned their graduate studies abroad
             </p>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div class="text-center card-hover p-6 rounded-2xl bg-gradient-to-br from-indigo-50 to-purple-50">
                     <div class="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden ring-4 ring-white shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=faces" alt="Luis L." class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=faces"
+                            alt="Luis L." class="w-full h-full object-cover">
                     </div>
                     <p class="font-semibold text-gray-900 mb-1">Luis L.</p>
                     <p class="text-sm text-gray-600">MBA SMU, 2024</p>
@@ -119,7 +138,8 @@
                 </div>
                 <div class="text-center card-hover p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50">
                     <div class="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden ring-4 ring-white shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=faces" alt="Carlos V." class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=faces"
+                            alt="Carlos V." class="w-full h-full object-cover">
                     </div>
                     <p class="font-semibold text-gray-900 mb-1">Carlos V.</p>
                     <p class="text-sm text-gray-600">MBA ESADE, 2023</p>
@@ -127,7 +147,8 @@
                 </div>
                 <div class="text-center card-hover p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50">
                     <div class="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden ring-4 ring-white shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=faces" alt="Ana G." class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=faces"
+                            alt="Ana G." class="w-full h-full object-cover">
                     </div>
                     <p class="font-semibold text-gray-900 mb-1">Ana G.</p>
                     <p class="text-sm text-gray-600">MSc LSE, 2024</p>
@@ -135,7 +156,8 @@
                 </div>
                 <div class="text-center card-hover p-6 rounded-2xl bg-gradient-to-br from-indigo-50 to-blue-50">
                     <div class="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden ring-4 ring-white shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=faces" alt="Sofia R." class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=faces"
+                            alt="Sofia R." class="w-full h-full object-cover">
                     </div>
                     <p class="font-semibold text-gray-900 mb-1">Sofia R.</p>
                     <p class="text-sm text-gray-600">LL.M. Columbia, 2023</p>
@@ -173,34 +195,43 @@
                 <div class="card-hover bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
                     <div class="w-14 h-14 gradient-bg rounded-xl flex items-center justify-center mb-6">
                         <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Calculate Funding Gap</h3>
                     <p class="text-gray-600 leading-relaxed">
-                        Know exactly how much you need to fund your education. Get precise calculations based on tuition, living costs, and your available resources.
+                        Know exactly how much you need to fund your education. Get precise calculations based on
+                        tuition, living costs, and your available resources.
                     </p>
                 </div>
                 <div class="card-hover bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
                     <div class="w-14 h-14 gradient-bg rounded-xl flex items-center justify-center mb-6">
                         <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Compare Programs</h3>
                     <p class="text-gray-600 leading-relaxed">
-                        Side-by-side comparison of multiple programs. Evaluate costs, funding gaps, and financial feasibility across different universities.
+                        Side-by-side comparison of multiple programs. Evaluate costs, funding gaps, and financial
+                        feasibility across different universities.
                     </p>
                 </div>
                 <div class="card-hover bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
                     <div class="w-14 h-14 gradient-bg rounded-xl flex items-center justify-center mb-6">
                         <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">24-Month Cash Flow</h3>
                     <p class="text-gray-600 leading-relaxed">
-                        See your financial journey month by month. Visualize your bank balance over time and plan for tuition payments and living expenses. (Pro feature)
+                        See your financial journey month by month. Visualize your bank balance over time and plan for
+                        tuition payments and living expenses. (Pro feature)
                     </p>
                 </div>
             </div>
@@ -215,10 +246,12 @@
                 Join thousands of students who have taken control of their financial planning
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="signupmodal.html" class="gradient-bg text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
+                <a href="signupmodal.html"
+                    class="gradient-bg text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
                     Start Planning Now
                 </a>
-                <a href="dashboard.html" class="bg-white border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-xl font-semibold text-lg hover:border-gray-300 hover:shadow-lg transition-all">
+                <a href="dashboard.html"
+                    class="bg-white border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-xl font-semibold text-lg hover:border-gray-300 hover:shadow-lg transition-all">
                     View Dashboard
                 </a>
             </div>
@@ -232,7 +265,7 @@
                 <div class="col-span-2">
                     <h3 class="text-2xl font-bold text-white mb-4">MasterPlan</h3>
                     <p class="text-gray-400 text-sm leading-relaxed">
-                        Your complete financial roadmap for graduate studies abroad. 
+                        Your complete financial roadmap for graduate studies abroad.
                         Plan with confidence, study with clarity.
                     </p>
                 </div>
@@ -266,4 +299,5 @@
         </div>
     </footer>
 </body>
+
 </html>
