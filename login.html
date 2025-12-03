@@ -137,79 +137,66 @@
     </div>
 
     <script type="module">
-        import { auth, googleProvider, signInWithPopup } from './js/firebase-config.js';
+        import { auth, googleProvider, signInWithPopup, signInWithEmailAndPassword } from './js/firebase-config.js';
 
         window.handleGoogleLogin = async function () {
             try {
                 const result = await signInWithPopup(auth, googleProvider);
                 const user = result.user;
 
-                // Create user object matching existing structure
+                // Store user info in localStorage (legacy support)
                 const userData = {
                     name: user.displayName,
                     email: user.email,
                     photoURL: user.photoURL,
                     uid: user.uid,
-                    method: 'google',
-                    lastLogin: new Date().toISOString()
+                    loginMethod: 'google',
+                    timestamp: new Date().toISOString()
                 };
-
-                // Save to localStorage
                 localStorage.setItem('masterplan_user', JSON.stringify(userData));
 
                 // Redirect to dashboard
                 window.location.href = 'dashboard.html';
             } catch (error) {
-                console.error("Error signing in with Google", error);
-                alert("Failed to sign in with Google. Please try again.");
+                console.error('Error logging in with Google:', error);
+                alert('Error logging in with Google: ' + error.message);
             }
         }
 
-        function handleLogin(event) {
+        window.handleLogin = async function (event) {
             event.preventDefault();
-
-            const email = document.getElementById('loginEmail').value.trim();
+            const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             const errorMessage = document.getElementById('errorMessage');
 
-            // Check if user exists in localStorage
-            const savedUser = localStorage.getItem('masterplan_user');
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
 
-            if (savedUser) {
-                const userData = JSON.parse(savedUser);
+                // Store user info in localStorage (legacy support)
+                const userData = {
+                    name: user.displayName || email.split('@')[0], // Fallback name
+                    email: user.email,
+                    photoURL: user.photoURL,
+                    uid: user.uid,
+                    loginMethod: 'email',
+                    timestamp: new Date().toISOString()
+                };
+                localStorage.setItem('masterplan_user', JSON.stringify(userData));
 
-                // Check if email matches
-                if (userData.email && userData.email.toLowerCase() === email.toLowerCase()) {
-                    // In demo mode, check password if it exists
-                    if (userData.password) {
-                        if (userData.password !== password) {
-                            errorMessage.style.display = 'block';
-                            document.getElementById('loginPassword').value = '';
-                            setTimeout(() => {
-                                errorMessage.style.display = 'none';
-                            }, 5000);
-                            return;
-                        }
-                    }
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
 
-                    // Update user session
-                    userData.lastLogin = new Date().toISOString();
-                    localStorage.setItem('masterplan_user', JSON.stringify(userData));
+            } catch (error) {
+                console.error('Error logging in:', error);
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'Invalid email or password.';
 
-                    // Redirect to dashboard
-                    window.location.href = 'dashboard.html';
-                    return;
-                }
+                // Hide error after 5 seconds
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 5000);
             }
-
-            // If no user found or email doesn't match, show error
-            errorMessage.style.display = 'block';
-            document.getElementById('loginPassword').value = '';
-
-            // Hide error after 5 seconds
-            setTimeout(() => {
-                errorMessage.style.display = 'none';
-            }, 5000);
         }
 
         // Check if user is already logged in

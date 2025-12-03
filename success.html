@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,31 +8,38 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         * {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
+
         body {
             background: linear-gradient(to bottom, #fafbfc 0%, #ffffff 100%);
         }
+
         .gradient-text {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
+
         .success-icon {
             animation: scaleIn 0.5s ease-out;
         }
+
         @keyframes scaleIn {
             0% {
                 transform: scale(0);
                 opacity: 0;
             }
+
             100% {
                 transform: scale(1);
                 opacity: 1;
@@ -46,6 +54,7 @@
         Hotjar.init(siteId, hotjarVersion);
     </script>
 </head>
+
 <body class="antialiased">
     <!-- Navigation -->
     <nav class="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
@@ -53,11 +62,15 @@
             <div class="flex justify-between items-center">
                 <a href="index.html" class="text-2xl font-bold gradient-text">MasterPlan</a>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="dashboard.html" class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Dashboard</a>
-                    <a href="simulator.html" class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Simulator</a>
-                    <a href="pricing.html" class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Pricing</a>
+                    <a href="dashboard.html" id="nav-dashboard"
+                        class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Dashboard</a>
+                    <a href="simulator.html" id="nav-simulator"
+                        class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Simulator</a>
+                    <a href="pricing.html" id="nav-pricing"
+                        class="text-gray-700 hover:text-gray-900 font-medium transition-colors">Pricing</a>
                     <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+                        <div
+                            class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
                             S
                         </div>
                         <span class="font-semibold text-gray-900">Sofia</span>
@@ -71,7 +84,8 @@
     <main class="max-w-4xl mx-auto px-6 py-16">
         <!-- Success Icon -->
         <div class="text-center mb-8">
-            <div class="success-icon w-24 h-24 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full mx-auto flex items-center justify-center mb-6">
+            <div
+                class="success-icon w-24 h-24 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full mx-auto flex items-center justify-center mb-6">
                 <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
                 </svg>
@@ -104,14 +118,17 @@
         </div>
 
         <!-- Motivational Message -->
-        <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100 p-10 text-center space-y-4 mb-8">
+        <div
+            class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100 p-10 text-center space-y-4 mb-8">
             <div class="text-5xl mb-4">🎓</div>
             <h2 class="text-3xl font-bold text-gray-900">Let's Make Your Master Plan Happen!</h2>
             <p class="text-lg text-gray-700 leading-relaxed max-w-2xl mx-auto">
-                We're excited to partner with you on this journey. Together, we'll create a comprehensive financial roadmap that turns your dream of studying abroad into an achievable reality.
+                We're excited to partner with you on this journey. Together, we'll create a comprehensive financial
+                roadmap that turns your dream of studying abroad into an achievable reality.
             </p>
             <p class="text-lg text-gray-700 leading-relaxed max-w-2xl mx-auto">
-                Get ready to compare programs, calculate funding gaps, and build confidence in your financial future. Your success is our mission.
+                Get ready to compare programs, calculate funding gaps, and build confidence in your financial future.
+                Your success is our mission.
             </p>
         </div>
 
@@ -120,25 +137,29 @@
             <h2 class="text-2xl font-bold text-gray-900 mb-6">What's Next?</h2>
             <ul class="space-y-4">
                 <li class="flex items-start">
-                    <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                     </svg>
                     <span class="text-gray-700 text-lg">Create your first financial plan using our simulator</span>
                 </li>
                 <li class="flex items-start">
-                    <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                     </svg>
                     <span class="text-gray-700 text-lg">Compare multiple programs side-by-side</span>
                 </li>
                 <li class="flex items-start">
-                    <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                     </svg>
                     <span class="text-gray-700 text-lg">Access 24-month cash flow projections</span>
                 </li>
                 <li class="flex items-start">
-                    <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                     </svg>
                     <span class="text-gray-700 text-lg">Save and edit unlimited plans in your dashboard</span>
@@ -148,10 +169,12 @@
 
         <!-- CTA Buttons -->
         <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-            <a href="simulator.html" class="gradient-bg text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 w-full sm:w-auto text-center">
+            <a href="simulator.html"
+                class="gradient-bg text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 w-full sm:w-auto text-center">
                 Start Creating Your Plan
             </a>
-            <a href="dashboard.html" class="bg-white border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-xl font-bold text-lg hover:border-gray-300 hover:shadow-lg transition-all w-full sm:w-auto text-center">
+            <a href="dashboard.html"
+                class="bg-white border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-xl font-bold text-lg hover:border-gray-300 hover:shadow-lg transition-all w-full sm:w-auto text-center">
                 Go to Dashboard
             </a>
         </div>
@@ -161,5 +184,9 @@
             <p>Questions? We're here to help. Reach out anytime.</p>
         </div>
     </main>
+    </main>
+
+    <script type="module" src="./js/auth-state.js"></script>
 </body>
+
 </html>

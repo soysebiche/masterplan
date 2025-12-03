@@ -102,7 +102,7 @@
     <div id="initial-view" class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 space-y-6">
         <div class="text-center">
             <h1 class="text-3xl font-bold text-gray-900 mb-2">One last step!</h1>
-            <p class="text-lg text-gray-600">Create a free account to save your plan and unlock your Pro features.</p>
+            <p class="text-lg text-gray-600">Create a free account to save your plan and access your dashboard.</p>
         </div>
 
         <div class="space-y-4">
@@ -471,12 +471,10 @@
             }
         }
 
-        function showInitialView() {
+        window.showInitialView = function () {
             document.getElementById('email-form-view').classList.add('hidden');
             document.getElementById('initial-view').classList.remove('hidden');
         }
-
-        import { auth, googleProvider, signInWithPopup } from './js/firebase-config.js';
 
         window.handleSignup = async function (method) {
             if (method === 'google') {
@@ -484,50 +482,28 @@
                     const result = await signInWithPopup(auth, googleProvider);
                     const user = result.user;
 
-                    // Create user object matching existing structure
+                    // Store user info in localStorage (legacy support for now, will be replaced by auth-state.js)
                     const userData = {
                         name: user.displayName,
                         email: user.email,
                         photoURL: user.photoURL,
                         uid: user.uid,
-                        method: 'google',
-                        createdAt: new Date().toISOString()
+                        loginMethod: 'google',
+                        timestamp: new Date().toISOString()
                     };
-
-                    // Save to localStorage
                     localStorage.setItem('masterplan_user', JSON.stringify(userData));
 
-                    // Redirect to simulator
-                    window.location.href = 'simulator.html';
+                    // Redirect to dashboard
+                    window.location.href = 'dashboard.html';
                 } catch (error) {
-                    console.error("Error signing in with Google", error);
-                    alert("Failed to sign in with Google. Please try again.");
+                    console.error('Error signing in with Google:', error);
+                    alert('Error signing in with Google: ' + error.message);
                 }
-            } else {
-                // Generate a random user name for demo purposes (fallback/legacy)
-                const names = ['Alex', 'Maria', 'David', 'Emma', 'James', 'Sophia', 'Michael', 'Olivia', 'Daniel', 'Isabella'];
-                const randomName = names[Math.floor(Math.random() * names.length)];
-
-                // Create a simple user object
-                const user = {
-                    name: randomName,
-                    email: `${randomName.toLowerCase()}@example.com`,
-                    method: method,
-                    createdAt: new Date().toISOString()
-                };
-
-                // Save to localStorage
-                localStorage.setItem('masterplan_user', JSON.stringify(user));
-
-                // Redirect to simulator
-                window.location.href = 'simulator.html';
             }
         }
 
-        function handleEmailSignup(event) {
+        window.handleEmailSignup = async function (event) {
             event.preventDefault();
-
-            // Get form values
             const firstName = document.getElementById('firstName').value.trim();
             const lastName = document.getElementById('lastName').value.trim();
             const email = document.getElementById('email').value.trim();
