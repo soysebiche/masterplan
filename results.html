@@ -87,7 +87,7 @@
                             class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
                             SO
                         </div>
-                        <span class="font-semibold text-gray-900">Sofia</span>
+                        <span class="font-semibold text-gray-900" id="nav-user-name">User</span>
                     </div>
                 </div>
             </div>
@@ -98,73 +98,85 @@
     <div class="max-w-7xl mx-auto px-6 py-8">
         <div class="lg:grid lg:grid-cols-4 gap-8">
             <!-- Sidebar Controls -->
-            <aside id="sidebar-controls" class="lg:col-span-1 space-y-6">
-                <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-                    <h3 class="text-lg font-bold text-gray-900 mb-4">Your Funds</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <label for="input-savings" class="sidebar-label">My Personal Savings ($)</label>
-                            <input type="number" id="input-savings" class="sidebar-input" value="5000">
-                        </div>
-                        <div>
-                            <label for="input-family" class="sidebar-label">Family Contribution ($)</label>
-                            <input type="number" id="input-family" class="sidebar-input" value="10000">
-                        </div>
-                        <div>
-                            <label for="input-scholarships" class="sidebar-label">Confirmed Scholarships ($)</label>
-                            <input type="number" id="input-scholarships" class="sidebar-input" value="3000">
+            <div class="lg:col-span-1">
+                <button id="sidebar-toggle"
+                    class="mb-4 flex items-center gap-2 text-gray-600 hover:text-indigo-600 font-medium transition-colors lg:hidden"
+                    onclick="toggleSidebar()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <span>Show Filters</span>
+                </button>
+                <aside id="sidebar-controls" class="space-y-6 hidden lg:block">
+                    <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">Your Funds</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="input-savings" class="sidebar-label">My Personal Savings ($)</label>
+                                <input type="number" id="input-savings" class="sidebar-input" value="5000">
+                            </div>
+                            <div>
+                                <label for="input-family" class="sidebar-label">Family Contribution ($)</label>
+                                <input type="number" id="input-family" class="sidebar-input" value="10000">
+                            </div>
+                            <div>
+                                <label for="input-scholarships" class="sidebar-label">Confirmed Scholarships ($)</label>
+                                <input type="number" id="input-scholarships" class="sidebar-input" value="3000">
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-                    <h3 class="text-lg font-bold text-gray-900 mb-4">Program Costs</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <label for="input-tuition" class="sidebar-label">Total Tuition ($)</label>
-                            <input type="number" id="input-tuition" class="sidebar-input" value="45000">
-                        </div>
-                        <div>
-                            <label for="input-duration" class="sidebar-label">Duration (Months)</label>
-                            <input type="number" id="input-duration" class="sidebar-input" value="24" min="1">
+                    <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">Program Costs</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="input-tuition" class="sidebar-label">Total Tuition ($)</label>
+                                <input type="number" id="input-tuition" class="sidebar-input" value="45000">
+                            </div>
+                            <div>
+                                <label for="input-duration" class="sidebar-label">Duration (Months)</label>
+                                <input type="number" id="input-duration" class="sidebar-input" value="24" min="1">
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-                    <h3 class="text-lg font-bold text-gray-900 mb-4">Your Lifestyle</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <label for="input-lifestyle" class="sidebar-label">Lifestyle Choice</label>
-                            <select id="input-lifestyle" class="sidebar-select">
-                                <option value="900">Frugal Student (~$900/mo)</option>
-                                <option value="1400" selected>Balanced (~$1,400/mo)</option>
-                                <option value="2100">Comfortable (~$2,100/mo)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="input-living-monthly" class="sidebar-label">Custom Monthly Living ($)</label>
-                            <input type="number" id="input-living-monthly" class="sidebar-input" value="1400">
+                    <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">Your Lifestyle</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="input-lifestyle" class="sidebar-label">Lifestyle Choice</label>
+                                <select id="input-lifestyle" class="sidebar-select">
+                                    <option value="900">Frugal Student (~$900/mo)</option>
+                                    <option value="1400" selected>Balanced (~$1,400/mo)</option>
+                                    <option value="2100">Comfortable (~$2,100/mo)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="input-living-monthly" class="sidebar-label">Custom Monthly Living
+                                    ($)</label>
+                                <input type="number" id="input-living-monthly" class="sidebar-input" value="1400">
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-                    <h3 class="text-lg font-bold text-gray-900 mb-4">Your Income</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <label for="input-home-salary-result" class="sidebar-label">Home Country Salary
-                                ($/mo)</label>
-                            <input type="number" id="input-home-salary-result" class="sidebar-input" value="0">
-                        </div>
-                        <div>
-                            <label for="input-oncampus-income" class="sidebar-label">On-Campus Job Income ($/mo)</label>
-                            <input type="number" id="input-oncampus-income" class="sidebar-input" value="0">
+                    <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">Your Income</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="input-home-salary-result" class="sidebar-label">Home Country Salary
+                                    ($/mo)</label>
+                                <input type="number" id="input-home-salary-result" class="sidebar-input" value="0">
+                            </div>
+                            <div>
+                                <label for="input-oncampus-income" class="sidebar-label">On-Campus Job Income
+                                    ($/mo)</label>
+                                <input type="number" id="input-oncampus-income" class="sidebar-input" value="0">
+                            </div>
                         </div>
                     </div>
-                </div>
+            </div>
         </div>
-    </div>
     </div>
 
     <!-- Hidden inputs for new costs -->
@@ -173,6 +185,7 @@
     <input type="hidden" id="input-insurance" value="0">
     <input type="hidden" id="input-deposit" value="0">
     </aside>
+    </div>
 
     <!-- Main Content Area -->
     <div id="main-content-area" class="lg:col-span-3">
@@ -766,6 +779,44 @@
                 createCashFlowChart('compare-chart-b', durationB, personalFundsB, monthlyLivingB, tuitionB);
             }
         });
+    </script>
+    <script type="module">
+        import { auth, onAuthStateChanged } from './js/firebase-config.js';
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const userName = user.displayName || 'User';
+                const firstName = userName.split(' ')[0];
+                const navUserName = document.getElementById('nav-user-name');
+                if (navUserName) {
+                    navUserName.textContent = firstName;
+                }
+            }
+        });
+    </script>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar-controls');
+            const toggleBtn = document.getElementById('sidebar-toggle');
+
+            if (sidebar.classList.contains('hidden')) {
+                sidebar.classList.remove('hidden');
+                toggleBtn.innerHTML = `
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    <span>Hide Filters</span>
+                `;
+            } else {
+                sidebar.classList.add('hidden');
+                toggleBtn.innerHTML = `
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <span>Show Filters</span>
+                `;
+            }
+        }
     </script>
 </body>
 
