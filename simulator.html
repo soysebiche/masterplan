@@ -749,18 +749,36 @@
                     container.innerHTML = '';
                     return;
                 }
-                container.innerHTML = window.selectedPrograms.map((program, index) => `
-                    <div class="selected-program">
-                        <span class="remove-program" onclick="removeProgram(${index})">×</span>
-                        <div class="font-bold text-lg text-gray-900 mb-1">${program.name}</div>
+
+                let html = window.selectedPrograms.map((program, index) => `
+                    <div class="selected-program relative bg-white rounded-xl border-2 border-indigo-100 p-6 shadow-sm hover:shadow-md transition-all">
+                        <button class="absolute top-2 right-2 text-gray-400 hover:text-red-500 font-bold p-1" onclick="removeProgram(${index})">×</button>
+                        <div class="font-bold text-lg text-gray-900 mb-1 pr-6">${program.name}</div>
                         <div class="text-sm text-gray-600 mb-2">${program.location}</div>
-                        <div class="flex justify-between items-center mt-3 pt-3 border-t border-gray-200">
-                            <span class="font-bold text-red-600 text-lg">${program.tuition}</span>
-                            <span class="text-sm text-gray-500">${program.duration}</span>
+                        <div class="flex justify-between items-center mt-3 pt-3 border-t border-gray-100">
+                            <span class="font-bold text-indigo-600 text-lg">${program.tuition}</span>
+                            <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-md">${program.duration}</span>
                         </div>
-                        <div class="text-xs text-gray-500 mt-2">${program.program}</div>
+                        <div class="text-xs text-gray-400 mt-2 uppercase tracking-wide font-semibold">${program.program}</div>
                     </div>
                 `).join('');
+
+                // Add "Add Comparison" card if only 1 program selected
+                if (window.selectedPrograms.length === 1) {
+                    html += `
+                        <div class="selected-program border-2 border-dashed border-gray-300 rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-50 transition-all group" onclick="document.getElementById('search-university-input').focus(); document.getElementById('search-university-input').scrollIntoView({behavior: 'smooth', block: 'center'});">
+                            <div class="w-12 h-12 rounded-full bg-gray-100 group-hover:bg-indigo-100 flex items-center justify-center mb-3 transition-colors">
+                                <svg class="w-6 h-6 text-gray-400 group-hover:text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                </svg>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 group-hover:text-indigo-700">Add Program to Compare</h3>
+                            <p class="text-xs text-gray-500 mt-1">Select another program above</p>
+                        </div>
+                    `;
+                }
+
+                container.innerHTML = html;
                 window.removeProgram = removeProgram;
             }
 
@@ -1003,6 +1021,78 @@
 
                 const totalMonthlyIncome = homeSalaryMonthly + monthlyOnCampusIncome;
 
+                // One-time expenses
+                const oneTimeExpenses = flights + visa + deposit;
+                const totalPersonalFunds = savings + family + scholarships;
+
+                if (programs.length === 2) {
+                    // Comparison Mode
+                    const p1 = programs[0];
+                    const p2 = programs[1];
+
+                    // Helper to calc cost for a program
+                    const calcCost = (prog) => {
+                        const t = prog.tuitionNum || parseInt(prog.tuition.replace('$', '').replace(/,/g, '')) || 0;
+                        const d = prog.durationNum || parseInt(prog.duration.replace(' months', '').replace(' month', '')) || 12;
+                        const lc = prog.livingCost || baseMonthlyLiving;
+                        let adjLc = lc;
+                        if (lifestyle === 'frugal') adjLc = lc * 0.8;
+                        if (lifestyle === 'comfortable') adjLc = lc * 1.4;
+
+                        const totalL = adjLc * d;
+                        const recAnn = insurance * (d / 12);
+                        return {
+                            tuition: t,
+                            living: totalL,
+                            cost: t + totalL + oneTimeExpenses + recAnn,
+                            duration: d
+                        };
+                    };
+
+                    const c1 = calcCost(p1);
+                    const c2 = calcCost(p2);
+
+                    const gap1 = c1.cost - totalPersonalFunds;
+                    const gap2 = c2.cost - totalPersonalFunds;
+
+                    const params = new URLSearchParams({
+                        simType: 'compare',
+                        // Program A
+                        nameA: p1.name,
+                        tuitionA: c1.tuition,
+                        livingA: c1.living,
+                        costA: c1.cost,
+                        gapA: gap1,
+                        // Program B
+                        nameB: p2.name,
+                        tuitionB: c2.tuition,
+                        livingB: c2.living,
+                        costB: c2.cost,
+                        gapB: gap2,
+                        // Shared
+                        savings: savings,
+                        family: family,
+                        scholarships: scholarships,
+                        lifestyle: lifestyle,
+                        monthlyLiving: baseMonthlyLiving, // Approx
+                        duration: c1.duration, // Use A's duration for charts? Or max? Results.html might need update for this.
+                        hasHomeSalary: hasHomeSalary,
+                        homeSalaryMonthly: homeSalaryMonthly,
+                        hasOnCampusJob: hasOnCampusJob,
+                        hoursPerWeek: hoursPerWeek,
+                        hourlyRate: hourlyRate,
+                        monthlyOnCampusIncome: monthlyOnCampusIncome,
+                        totalMonthlyIncome: totalMonthlyIncome,
+                        flights: flights,
+                        visa: visa,
+                        insurance: insurance,
+                        deposit: deposit,
+                        oneTimeExpenses: oneTimeExpenses
+                    });
+                    window.location.href = `results.html?${params.toString()}`;
+                    return;
+                }
+
                 const program = programs[0];
                 // Use tuitionNum and durationNum if available, otherwise parse from strings
                 const tuition = program.tuitionNum || parseInt(program.tuition.replace('$', '').replace(/,/g, '')) || 0;
@@ -1048,7 +1138,7 @@
                 // I will proceed with the calculation logic as requested:
 
                 // One-time expenses
-                const oneTimeExpenses = flights + visa + deposit;
+
                 // Recurring annual expenses (insurance)
                 // Insurance is usually annual. If course is > 12 months, do we multiply?
                 // Requirement: "recurringAnnual = insurance * (duration / 12);"
