@@ -175,200 +175,200 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <!-- Hidden inputs for new costs -->
+                    <input type="hidden" id="input-flights" value="0">
+                    <input type="hidden" id="input-visa" value="0">
+                    <input type="hidden" id="input-insurance" value="0">
+                    <input type="hidden" id="input-deposit" value="0">
+                </aside>
+            </div>
+
+            <!-- Main Content Area -->
+            <div id="main-content-area" class="lg:col-span-3">
+                <!-- Single Result View -->
+                <main id="single-result-view" class="space-y-8 hidden-view">
+                    <h1 id="single-title" class="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-8">Your
+                        Financial Roadmap: [Program]</h1>
+
+                    <!-- New 2-Column Layout (Inflows vs Outflows) -->
+                    <section class="mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                            <!-- Inflows -->
+                            <div
+                                class="bg-white rounded-2xl border border-blue-100 p-8 shadow-sm relative overflow-hidden">
+                                <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-6">What You Have (Inflows)</h3>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">Savings & Family</span>
+                                        <span class="font-semibold text-gray-900" id="inflow-savings">$0</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">Scholarships</span>
+                                        <span class="font-semibold text-gray-900" id="inflow-scholarships">$0</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">Future Income (Est.)</span>
+                                        <span class="font-semibold text-gray-900" id="inflow-income">$0</span>
+                                    </div>
+                                    <div class="border-t border-gray-100 pt-4 flex justify-between items-center">
+                                        <span class="font-bold text-gray-900">Total Available</span>
+                                        <span class="font-bold text-2xl text-blue-600" id="total-inflows">$0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Outflows -->
+                            <div
+                                class="bg-white rounded-2xl border border-red-100 p-8 shadow-sm relative overflow-hidden">
+                                <div class="absolute top-0 left-0 w-2 h-full bg-red-500"></div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-6">What It Costs (Outflows)</h3>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">Tuition</span>
+                                        <span class="font-semibold text-gray-900" id="outflow-tuition">$0</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">Living Expenses</span>
+                                        <span class="font-semibold text-gray-900" id="outflow-living">$0</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">One-time & Annual</span>
+                                        <span class="font-semibold text-gray-900" id="outflow-hidden">$0</span>
+                                    </div>
+                                    <div class="border-t border-gray-100 pt-4 flex justify-between items-center">
+                                        <span class="font-bold text-gray-900">Total Cost</span>
+                                        <span class="font-bold text-2xl text-gray-800" id="total-outflows">$0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Funding Gap Highlight -->
+                        <div class="bg-white rounded-2xl border-2 border-gray-200 p-10 shadow-lg text-center relative overflow-hidden transition-all"
+                            id="gap-card">
+                            <h2 class="text-2xl font-bold text-gray-900 mb-2">Final Result</h2>
+                            <p class="text-gray-600 mb-6" id="gap-text">Calculating...</p>
+                            <div class="text-6xl font-bold mb-4" id="funding-gap-display">$0</div>
+                            <p class="text-sm text-gray-500" id="gap-subtext">Funding Gap</p>
+                        </div>
+
+                        <!-- Comparison Card (Task C) -->
+                        <div class="mt-8 border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-50 transition-all group"
+                            onclick="startComparison()">
+                            <div class="text-4xl mb-2 text-gray-400 group-hover:text-indigo-500 transition-colors">+
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-600 group-hover:text-indigo-700 transition-colors">
+                                Compare with another program</h3>
+                            <p class="text-sm text-gray-500 mt-2">See how this stacks up against another option</p>
+                        </div>
+                    </section>
+
+                    <!-- Today View -->
+                    <section
+                        class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100 p-8 shadow-sm">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Where You Are Today</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-white p-8 rounded-xl shadow-md">
+                                <p class="text-sm text-gray-600 mb-2">Your Current Bank Balance</p>
+                                <p id="today-balance" class="text-5xl font-bold text-green-600">$0</p>
+                                <p class="text-xs text-gray-500 mt-2">Available funds right now</p>
+                            </div>
+                            <div class="bg-white p-8 rounded-xl shadow-md">
+                                <p class="text-sm text-gray-600 mb-2">Next Payment Due</p>
+                                <p id="today-next-payment" class="text-5xl font-bold text-orange-600">$0</p>
+                                <p class="text-xs text-gray-500 mt-2">Due end of this month</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 24-Month Cash Flow -->
+                    <section class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-2">Your 24-Month Bank Balance</h2>
+                        <p class="text-gray-600 mb-6">This chart shows your bank balance over time. The red line is your
+                            "Funding Gap".</p>
+                        <div class="w-full h-80">
+                            <canvas id="cash-flow-chart"></canvas>
+                        </div>
+                    </section>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Monthly Expense Chart -->
+                        <section class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
+                            <h2 class="text-xl font-bold text-gray-900 mb-2">Monthly Expense Chart</h2>
+                            <p class="text-sm text-gray-600 mb-6">Note the spikes for tuition payments in September and
+                                January.</p>
+                            <div class="w-full h-64">
+                                <canvas id="monthly-expense-chart"></canvas>
+                            </div>
+                        </section>
+
+                        <!-- Expense Breakdown Pie Chart -->
+                        <section class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
+                            <h2 id="single-chart-title" class="text-xl font-bold text-gray-900 mb-2">Living Cost
+                                Breakdown</h2>
+                            <p class="text-sm text-gray-600 mb-6">A breakdown of your *monthly* living expenses.</p>
+                            <div class="w-full h-64">
+                                <canvas id="category-pie-chart"></canvas>
+                            </div>
+                        </section>
+                    </div>
+                </main>
+
+                <!-- Compare Result View -->
+                <main id="compare-result-view" class="space-y-8 hidden-view">
+                    <h1 class="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-8">Your Roadmap Comparison
+                    </h1>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <section class="bg-white rounded-2xl border border-gray-200 text-center p-8 shadow-sm">
+                            <h2 id="compare-name-a" class="text-2xl font-bold text-gray-900 mb-4">[Program A]</h2>
+                            <p class="text-lg text-gray-700 mb-2">Total Funding Gap:</p>
+                            <p id="compare-gap-a" class="text-6xl md:text-7xl font-bold text-red-600 my-4">$22,000</p>
+                            <p class="text-md text-gray-600">Starting Balance: <span id="compare-balance-a"
+                                    class="font-semibold">$43,000</span></p>
+                        </section>
+                        <section class="bg-white rounded-2xl border border-gray-200 text-center p-8 shadow-sm">
+                            <h2 id="compare-name-b" class="text-2xl font-bold text-gray-900 mb-4">[Program B]</h2>
+                            <p class="text-lg text-gray-700 mb-2">Total Funding Gap:</p>
+                            <p id="compare-gap-b" class="text-6xl md:text-7xl font-bold text-green-600 my-4">$14,500</p>
+                            <p class="text-md text-gray-600">Starting Balance: <span id="compare-balance-b"
+                                    class="font-semibold">$43,000</span></p>
+                        </section>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <section class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
+                            <h2 id="compare-chart-title-a" class="text-xl font-bold text-gray-900 mb-6">24-Month Cash
+                                Flow: [Program A]</h2>
+                            <div class="w-full h-80">
+                                <canvas id="compare-chart-a"></canvas>
+                            </div>
+                        </section>
+                        <section class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
+                            <h2 id="compare-chart-title-b" class="text-xl font-bold text-gray-900 mb-6">24-Month Cash
+                                Flow: [Program B]</h2>
+                            <div class="w-full h-80">
+                                <canvas id="compare-chart-b"></canvas>
+                            </div>
+                        </section>
+                    </div>
+                </main>
+
+                <!-- Final Actions -->
+                <footer id="final-actions" class="flex flex-col md:flex-row justify-center items-center gap-4 pt-8">
+                    <a href="simulator.html"
+                        class="bg-white border-2 border-gray-200 text-gray-700 px-6 py-3 rounded-xl font-semibold hover:border-gray-300 hover:shadow-lg transition-all">
+                        ← Start Over
+                    </a>
+                    <a href="dashboard.html" id="save-button"
+                        class="gradient-bg text-white px-8 py-3 rounded-xl font-bold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1"
+                        onclick="return confirm('Your plan will be saved to your dashboard. Continue?')">
+                        Save Plan
+                    </a>
+                </footer>
             </div>
         </div>
-    </div>
-
-    <!-- Hidden inputs for new costs -->
-    <input type="hidden" id="input-flights" value="0">
-    <input type="hidden" id="input-visa" value="0">
-    <input type="hidden" id="input-insurance" value="0">
-    <input type="hidden" id="input-deposit" value="0">
-    </aside>
-    </div>
-
-    <!-- Main Content Area -->
-    <div id="main-content-area" class="lg:col-span-3">
-        <!-- Single Result View -->
-        <main id="single-result-view" class="space-y-8 hidden-view">
-            <h1 id="single-title" class="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-8">Your
-                Financial Roadmap: [Program]</h1>
-
-            <!-- New 2-Column Layout (Inflows vs Outflows) -->
-            <section class="mb-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                    <!-- Inflows -->
-                    <div class="bg-white rounded-2xl border border-blue-100 p-8 shadow-sm relative overflow-hidden">
-                        <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-6">What You Have (Inflows)</h3>
-                        <div class="space-y-4">
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-600">Savings & Family</span>
-                                <span class="font-semibold text-gray-900" id="inflow-savings">$0</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-600">Scholarships</span>
-                                <span class="font-semibold text-gray-900" id="inflow-scholarships">$0</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-600">Future Income (Est.)</span>
-                                <span class="font-semibold text-gray-900" id="inflow-income">$0</span>
-                            </div>
-                            <div class="border-t border-gray-100 pt-4 flex justify-between items-center">
-                                <span class="font-bold text-gray-900">Total Available</span>
-                                <span class="font-bold text-2xl text-blue-600" id="total-inflows">$0</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Outflows -->
-                    <div class="bg-white rounded-2xl border border-red-100 p-8 shadow-sm relative overflow-hidden">
-                        <div class="absolute top-0 left-0 w-2 h-full bg-red-500"></div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-6">What It Costs (Outflows)</h3>
-                        <div class="space-y-4">
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-600">Tuition</span>
-                                <span class="font-semibold text-gray-900" id="outflow-tuition">$0</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-600">Living Expenses</span>
-                                <span class="font-semibold text-gray-900" id="outflow-living">$0</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-600">One-time & Annual</span>
-                                <span class="font-semibold text-gray-900" id="outflow-hidden">$0</span>
-                            </div>
-                            <div class="border-t border-gray-100 pt-4 flex justify-between items-center">
-                                <span class="font-bold text-gray-900">Total Cost</span>
-                                <span class="font-bold text-2xl text-gray-800" id="total-outflows">$0</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Funding Gap Highlight -->
-                <div class="bg-white rounded-2xl border-2 border-gray-200 p-10 shadow-lg text-center relative overflow-hidden transition-all"
-                    id="gap-card">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Final Result</h2>
-                    <p class="text-gray-600 mb-6" id="gap-text">Calculating...</p>
-                    <div class="text-6xl font-bold mb-4" id="funding-gap-display">$0</div>
-                    <p class="text-sm text-gray-500" id="gap-subtext">Funding Gap</p>
-                </div>
-
-                <!-- Comparison Card (Task C) -->
-                <div class="mt-8 border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-50 transition-all group"
-                    onclick="startComparison()">
-                    <div class="text-4xl mb-2 text-gray-400 group-hover:text-indigo-500 transition-colors">+
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-600 group-hover:text-indigo-700 transition-colors">
-                        Compare with another program</h3>
-                    <p class="text-sm text-gray-500 mt-2">See how this stacks up against another option</p>
-                </div>
-            </section>
-
-            <!-- Today View -->
-            <section
-                class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100 p-8 shadow-sm">
-                <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Where You Are Today</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white p-8 rounded-xl shadow-md">
-                        <p class="text-sm text-gray-600 mb-2">Your Current Bank Balance</p>
-                        <p id="today-balance" class="text-5xl font-bold text-green-600">$0</p>
-                        <p class="text-xs text-gray-500 mt-2">Available funds right now</p>
-                    </div>
-                    <div class="bg-white p-8 rounded-xl shadow-md">
-                        <p class="text-sm text-gray-600 mb-2">Next Payment Due</p>
-                        <p id="today-next-payment" class="text-5xl font-bold text-orange-600">$0</p>
-                        <p class="text-xs text-gray-500 mt-2">Due end of this month</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 24-Month Cash Flow -->
-            <section class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
-                <h2 class="text-2xl font-bold text-gray-900 mb-2">Your 24-Month Bank Balance</h2>
-                <p class="text-gray-600 mb-6">This chart shows your bank balance over time. The red line is your
-                    "Funding Gap".</p>
-                <div class="w-full h-80">
-                    <canvas id="cash-flow-chart"></canvas>
-                </div>
-            </section>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Monthly Expense Chart -->
-                <section class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
-                    <h2 class="text-xl font-bold text-gray-900 mb-2">Monthly Expense Chart</h2>
-                    <p class="text-sm text-gray-600 mb-6">Note the spikes for tuition payments in September and
-                        January.</p>
-                    <div class="w-full h-64">
-                        <canvas id="monthly-expense-chart"></canvas>
-                    </div>
-                </section>
-
-                <!-- Expense Breakdown Pie Chart -->
-                <section class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
-                    <h2 id="single-chart-title" class="text-xl font-bold text-gray-900 mb-2">Living Cost
-                        Breakdown</h2>
-                    <p class="text-sm text-gray-600 mb-6">A breakdown of your *monthly* living expenses.</p>
-                    <div class="w-full h-64">
-                        <canvas id="category-pie-chart"></canvas>
-                    </div>
-                </section>
-            </div>
-        </main>
-
-        <!-- Compare Result View -->
-        <main id="compare-result-view" class="space-y-8 hidden-view">
-            <h1 class="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-8">Your Roadmap Comparison
-            </h1>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <section class="bg-white rounded-2xl border border-gray-200 text-center p-8 shadow-sm">
-                    <h2 id="compare-name-a" class="text-2xl font-bold text-gray-900 mb-4">[Program A]</h2>
-                    <p class="text-lg text-gray-700 mb-2">Total Funding Gap:</p>
-                    <p id="compare-gap-a" class="text-6xl md:text-7xl font-bold text-red-600 my-4">$22,000</p>
-                    <p class="text-md text-gray-600">Starting Balance: <span id="compare-balance-a"
-                            class="font-semibold">$43,000</span></p>
-                </section>
-                <section class="bg-white rounded-2xl border border-gray-200 text-center p-8 shadow-sm">
-                    <h2 id="compare-name-b" class="text-2xl font-bold text-gray-900 mb-4">[Program B]</h2>
-                    <p class="text-lg text-gray-700 mb-2">Total Funding Gap:</p>
-                    <p id="compare-gap-b" class="text-6xl md:text-7xl font-bold text-green-600 my-4">$14,500</p>
-                    <p class="text-md text-gray-600">Starting Balance: <span id="compare-balance-b"
-                            class="font-semibold">$43,000</span></p>
-                </section>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <section class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
-                    <h2 id="compare-chart-title-a" class="text-xl font-bold text-gray-900 mb-6">24-Month Cash
-                        Flow: [Program A]</h2>
-                    <div class="w-full h-80">
-                        <canvas id="compare-chart-a"></canvas>
-                    </div>
-                </section>
-                <section class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
-                    <h2 id="compare-chart-title-b" class="text-xl font-bold text-gray-900 mb-6">24-Month Cash
-                        Flow: [Program B]</h2>
-                    <div class="w-full h-80">
-                        <canvas id="compare-chart-b"></canvas>
-                    </div>
-                </section>
-            </div>
-        </main>
-
-        <!-- Final Actions -->
-        <footer id="final-actions" class="flex flex-col md:flex-row justify-center items-center gap-4 pt-8">
-            <a href="simulator.html"
-                class="bg-white border-2 border-gray-200 text-gray-700 px-6 py-3 rounded-xl font-semibold hover:border-gray-300 hover:shadow-lg transition-all">
-                ← Start Over
-            </a>
-            <a href="dashboard.html" id="save-button"
-                class="gradient-bg text-white px-8 py-3 rounded-xl font-bold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1"
-                onclick="return confirm('Your plan will be saved to your dashboard. Continue?')">
-                Save Plan
-            </a>
-        </footer>
-    </div>
-    </div>
     </div>
 
     <script>
