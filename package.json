@@ -18,6 +18,7 @@
   "homepage": "https://github.com/soysebiche/masterplan#readme",
   "description": "",
   "dependencies": {
-    "@hotjar/browser": "^1.0.9"
+    "@hotjar/browser": "^1.0.9",
+    "firebase": "^12.6.0"
   }
 }
