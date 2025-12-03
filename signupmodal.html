@@ -435,7 +435,8 @@
         </form>
     </div>
 
-    <script type="module">
+    <script>
+        // UI Functions - Defined in standard script to ensure availability
         function showEmailForm() {
             document.getElementById('initial-view').classList.add('hidden');
             document.getElementById('email-form-view').classList.remove('hidden');
@@ -471,11 +472,16 @@
             }
         }
 
-        window.showInitialView = function () {
+        function showInitialView() {
             document.getElementById('email-form-view').classList.add('hidden');
             document.getElementById('initial-view').classList.remove('hidden');
         }
+    </script>
 
+    <script type="module">
+        import { auth, googleProvider, signInWithPopup, createUserWithEmailAndPassword, updateProfile } from './js/firebase-config.js';
+
+        // Auth Functions - Defined in module script
         window.handleSignup = async function (method) {
             if (method === 'google') {
                 try {
