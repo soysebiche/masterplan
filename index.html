@@ -316,6 +316,70 @@
             </div>
         </div>
     </footer>
+
+    <!-- Social Proof Notification Container -->
+    <div id="social-proof-container"></div>
+
+    <script>
+        // Social Proof System
+        const socialProofMessages = [
+            { name: "Sarah", country: "Mexico", action: "created a plan", time: "2 min ago" },
+            { name: "John", country: "Brazil", action: "compared 3 programs", time: "5 min ago" },
+            { name: "Maria", country: "Colombia", action: "signed up for Pro", time: "8 min ago" },
+            { name: "Ahmed", country: "Egypt", action: "created a plan", time: "12 min ago" },
+            { name: "Li", country: "China", action: "compared 2 programs", time: "15 min ago" },
+            { name: "Sophie", country: "France", action: "created a plan", time: "18 min ago" },
+            { name: "Carlos", country: "Spain", action: "signed up for Pro", time: "22 min ago" },
+            { name: "Priya", country: "India", action: "created a plan", time: "25 min ago" },
+            { name: "Alex", country: "USA", action: "compared 4 programs", time: "30 min ago" },
+            { name: "Emma", country: "UK", action: "created a plan", time: "35 min ago" }
+        ];
+
+        let notificationIndex = 0;
+        let currentNotification = null;
+
+        function showSocialProof() {
+            // Remove existing notification if any
+            if (currentNotification) {
+                currentNotification.classList.add('fade-out');
+                setTimeout(() => currentNotification.remove(), 500);
+            }
+
+            // Get next message
+            const message = socialProofMessages[notificationIndex];
+            notificationIndex = (notificationIndex + 1) % socialProofMessages.length;
+
+            // Create notification
+            const notification = document.createElement('div');
+            notification.className = 'social-proof-notification';
+            notification.innerHTML = `
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white font-bold flex-shrink-0">
+                    ${message.name.charAt(0)}
+                </div>
+                <div class="flex-1">
+                    <p class="text-sm font-semibold text-gray-900">${message.name} from ${message.country}</p>
+                    <p class="text-xs text-gray-600">${message.action} • ${message.time}</p>
+                </div>
+            `;
+
+            document.getElementById('social-proof-container').appendChild(notification);
+            currentNotification = notification;
+
+            // Auto-dismiss after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.classList.add('fade-out');
+                    setTimeout(() => notification.remove(), 500);
+                }
+            }, 5000);
+        }
+
+        // Show first notification after 3 seconds, then every 15 seconds
+        setTimeout(() => {
+            showSocialProof();
+            setInterval(showSocialProof, 15000);
+        }, 3000);
+    </script>
 </body>
 
 </html>

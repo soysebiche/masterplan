@@ -311,6 +311,13 @@
             <!-- Selected Programs -->
             <div id="selectedPrograms" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4"></div>
 
+            <!-- Smart Recommendations (shows after first program selected) -->
+            <div id="smart-recommendations"
+                class="hidden mt-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-200 p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-3">💡 Students like you also considered...</h3>
+                <div id="recommendations-list" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+            </div>
+
             <p id="emptyState" class="text-center text-gray-500 py-8 border-2 border-dashed border-gray-200 rounded-xl">
                 Start typing to search for programs
             </p>
@@ -591,6 +598,83 @@
                 // Hide empty state and render programs
                 document.getElementById('emptyState').classList.add('hidden');
                 renderSelectedPrograms();
+
+                // Generate smart recommendations
+                generateSmartRecommendations();
+            };
+
+            // Smart Recommendations System
+            window.generateSmartRecommendations = function () {
+                if (window.selectedPrograms.length === 0) {
+                    document.getElementById('smart-recommendations').classList.add('hidden');
+                    return;
+                }
+
+                // Get first selected program as reference
+                const reference = window.selectedPrograms[0];
+
+                // Find similar programs based on:
+                // 1. Same program type, different country (cheaper)
+                // 2. Same country, different program
+                // 3. Similar tuition range (±20%)
+
+                const recommendations = [];
+                const selectedNames = window.selectedPrograms.map(p => `${p.name}-${p.program}`);
+
+                // Rule 1: Same program, cheaper country
+                const sameProgram = universitiesDatabase.filter(item =>
+                    item.program === reference.program &&
+                    item.country !== reference.country &&
+                    item.tuition < reference.tuitionNum &&
+                    !selectedNames.includes(`${item.name}-${item.program}`)
+                ).sort((a, b) => a.tuition - b.tuition).slice(0, 2);
+
+                recommendations.push(...sameProgram);
+
+                // Rule 2: Same country, related program (if we need more)
+                if (recommendations.length < 3) {
+                    const sameCountry = universitiesDatabase.filter(item =>
+                        item.country === reference.country &&
+                        item.program !== reference.program &&
+                        !selectedNames.includes(`${item.name}-${item.program}`)
+                    ).slice(0, 3 - recommendations.length);
+
+                    recommendations.push(...sameCountry);
+                }
+
+                // Rule 3: Similar budget (if we still need more)
+                if (recommendations.length < 3) {
+                    const similarBudget = universitiesDatabase.filter(item =>
+                        Math.abs(item.tuition - reference.tuitionNum) / reference.tuitionNum <= 0.2 &&
+                        item.country !== reference.country &&
+                        !selectedNames.includes(`${item.name}-${item.program}`)
+                    ).slice(0, 3 - recommendations.length);
+
+                    recommendations.push(...similarBudget);
+                }
+
+                // Display recommendations
+                const container = document.getElementById('recommendations-list');
+                if (recommendations.length > 0) {
+                    container.innerHTML = recommendations.slice(0, 3).map(item => `
+                        <div class="bg-white rounded-xl p-4 shadow-sm border border-purple-100 card-hover cursor-pointer"
+                             onclick="selectProgram('${item.name.replace(/'/g, "\\'")}', '${item.program.replace(/'/g, "\\'")}', '${item.country}', '${item.countryName}', ${item.tuition}, ${item.duration}, ${item.livingCost})">
+                            <h4 class="font-bold text-gray-900 text-sm mb-1">${item.name}</h4>
+                            <p class="text-xs text-gray-600 mb-2">${item.program}</p>
+                            <p class="text-xs text-gray-500 mb-2">${item.countryName}</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-bold text-purple-600">$${item.tuition.toLocaleString()}</span>
+                                <button class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded hover:bg-purple-200">
+                                    + Add
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    document.getElementById('smart-recommendations').classList.remove('hidden');
+                } else {
+                    document.getElementById('smart-recommendations').classList.add('hidden');
+                }
             };
 
             // Remove old search method functions (no longer needed)
