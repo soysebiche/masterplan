@@ -249,16 +249,22 @@ function updateUserUI(user) {
 }
 
 function updateGuestUI() {
+    // Update Nav Bar to Guest
+    const userProfileSection = document.getElementById('user-profile-section') || document.querySelector('.flex.items-center.space-x-3');
+
+    // ALWAYS hide restricted nav links first (critical for security)
+    const dashboardLink = document.getElementById('nav-dashboard');
+    const simulatorLink = document.getElementById('nav-simulator');
+    if (dashboardLink) dashboardLink.style.display = 'none';
+    if (simulatorLink) simulatorLink.style.display = 'none';
+
     // IMPORTANT: Don't show Guest UI if we have cached user data
     // This prevents the flash while Firebase is verifying the auth token
     const cachedUserData = localStorage.getItem('masterplan_user');
     if (cachedUserData) {
-        console.log('Skipping Guest UI - user data cached, waiting for Firebase verification');
+        console.log('Skipping Guest UI update - user data cached, waiting for Firebase verification');
         return;
     }
-
-    // Update Nav Bar to Guest
-    const userProfileSection = document.getElementById('user-profile-section') || document.querySelector('.flex.items-center.space-x-3');
 
     if (userProfileSection) {
         userProfileSection.innerHTML = `
@@ -268,10 +274,4 @@ function updateGuestUI() {
             <span class="font-medium text-gray-700">Guest</span>
         `;
     }
-
-    // Hide restricted nav links
-    const dashboardLink = document.getElementById('nav-dashboard');
-    const simulatorLink = document.getElementById('nav-simulator');
-    if (dashboardLink) dashboardLink.style.display = 'none';
-    if (simulatorLink) simulatorLink.style.display = 'none';
 }
