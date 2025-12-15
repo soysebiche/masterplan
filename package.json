@@ -19,6 +19,10 @@
   "description": "",
   "dependencies": {
     "@hotjar/browser": "^1.0.9",
-    "firebase": "^12.6.0"
+    "clsx": "^2.1.1",
+    "firebase": "^12.6.0",
+    "react-hot-toast": "^2.6.0",
+    "react-sparklines": "^1.7.0",
+    "tailwind-merge": "^3.4.0"
   }
 }
