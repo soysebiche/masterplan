@@ -17,22 +17,52 @@ function initializeUserProfileSection() {
             const firstLetter = userData.name ? userData.name.charAt(0).toUpperCase() : 'U';
             const displayName = userData.name || userData.email?.split('@')[0] || 'User';
 
+
             userProfileSection.innerHTML = `
-                <div class="relative group cursor-pointer">
-                    <div class="flex items-center space-x-3">
+                <div class="relative">
+                    <div id="user-profile-trigger" class="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity">
                         <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
                             ${firstLetter}
                         </div>
                         <span class="font-semibold text-gray-900">${displayName}</span>
+                        <svg class="w-4 h-4 text-gray-500 transition-transform" id="dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
                     </div>
                     <!-- Dropdown Menu -->
-                    <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg py-2 hidden group-hover:block border border-gray-100">
+                    <div id="user-dropdown-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg py-2 hidden border border-gray-100 z-50">
                         <a href="#" id="logout-btn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors">
                             Sign Out
                         </a>
                     </div>
                 </div>
             `;
+
+            // Attach dropdown toggle listener
+            const profileTrigger = document.getElementById('user-profile-trigger');
+            const dropdownMenu = document.getElementById('user-dropdown-menu');
+            const dropdownArrow = document.getElementById('dropdown-arrow');
+
+            if (profileTrigger && dropdownMenu) {
+                profileTrigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isHidden = dropdownMenu.classList.contains('hidden');
+                    dropdownMenu.classList.toggle('hidden');
+                    if (dropdownArrow) {
+                        dropdownArrow.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+                    }
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!dropdownMenu.classList.contains('hidden')) {
+                        dropdownMenu.classList.add('hidden');
+                        if (dropdownArrow) {
+                            dropdownArrow.style.transform = 'rotate(0deg)';
+                        }
+                    }
+                });
+            }
 
             // Attach logout listener
             const logoutBtn = document.getElementById('logout-btn');
@@ -151,21 +181,50 @@ function updateUserUI(user) {
         console.log('🔄 Updating UI with Firebase-verified user:', displayName);
 
         userProfileSection.innerHTML = `
-            <div class="relative group cursor-pointer">
-                <div class="flex items-center space-x-3">
+            <div class="relative">
+                <div id="user-profile-trigger" class="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity">
                     <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
                         ${firstLetter}
                     </div>
                     <span class="font-semibold text-gray-900">${displayName}</span>
+                    <svg class="w-4 h-4 text-gray-500 transition-transform" id="dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
                 </div>
                 <!-- Dropdown Menu -->
-                <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg py-2 hidden group-hover:block border border-gray-100">
+                <div id="user-dropdown-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg py-2 hidden border border-gray-100 z-50">
                     <a href="#" id="logout-btn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors">
                         Sign Out
                     </a>
                 </div>
             </div>
         `;
+
+        // Attach dropdown toggle listener
+        const profileTrigger = document.getElementById('user-profile-trigger');
+        const dropdownMenu = document.getElementById('user-dropdown-menu');
+        const dropdownArrow = document.getElementById('dropdown-arrow');
+
+        if (profileTrigger && dropdownMenu) {
+            profileTrigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isHidden = dropdownMenu.classList.contains('hidden');
+                dropdownMenu.classList.toggle('hidden');
+                if (dropdownArrow) {
+                    dropdownArrow.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+                }
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!dropdownMenu.classList.contains('hidden')) {
+                    dropdownMenu.classList.add('hidden');
+                    if (dropdownArrow) {
+                        dropdownArrow.style.transform = 'rotate(0deg)';
+                    }
+                }
+            });
+        }
 
         // Attach Logout Listener
         const logoutBtn = document.getElementById('logout-btn');
