@@ -1,5 +1,21 @@
 import { auth, onAuthStateChanged, signOut } from './firebase-config.js';
 
+// Initialize user profile section with loading state
+function initializeUserProfileSection() {
+    const userProfileSection = document.getElementById('user-profile-section') || document.querySelector('.flex.items-center.space-x-3');
+
+    if (userProfileSection) {
+        userProfileSection.innerHTML = `
+            <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                <div class="w-5 h-5 border-2 border-gray-300 border-t-indigo-600 rounded-full animate-spin"></div>
+            </div>
+        `;
+    }
+}
+
+// Call initialization immediately
+initializeUserProfileSection();
+
 // Global Auth State Observer
 onAuthStateChanged(auth, (user) => {
     const currentPath = window.location.pathname;
