@@ -31,6 +31,48 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
+        /* Semantic colors for financial data */
+        .gradient-deficit {
+            background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
+        }
+
+        .gradient-surplus {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        }
+
+        /* Hero card animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        .animate-slideInUp {
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .animate-pulse-subtle {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
         .sidebar-label {
             font-weight: 600;
             margin-bottom: 0.5rem;
@@ -58,6 +100,16 @@
 
         .hidden-view {
             display: none;
+        }
+
+        /* Hover states for better UX */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
     </style>
     <!-- Hotjar Tracking Code for https://masterplan-92uay74xk-sebbs21s-projects.vercel.app/ -->
@@ -197,8 +249,8 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                             <!-- Inflows -->
                             <div
-                                class="bg-white rounded-2xl border border-blue-100 p-8 shadow-sm relative overflow-hidden">
-                                <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+                                class="card-hover bg-white rounded-2xl border-2 border-green-200 p-8 shadow-sm relative overflow-hidden">
+                                <div class="absolute top-0 left-0 w-2 h-full bg-green-500"></div>
                                 <h3 class="text-xl font-bold text-gray-900 mb-6">What You Have (Inflows)</h3>
                                 <div class="space-y-4">
                                     <div class="flex justify-between items-center">
@@ -222,7 +274,7 @@
 
                             <!-- Outflows -->
                             <div
-                                class="bg-white rounded-2xl border border-red-100 p-8 shadow-sm relative overflow-hidden">
+                                class="card-hover bg-white rounded-2xl border-2 border-red-200 p-8 shadow-sm relative overflow-hidden">
                                 <div class="absolute top-0 left-0 w-2 h-full bg-red-500"></div>
                                 <h3 class="text-xl font-bold text-gray-900 mb-6">What It Costs (Outflows)</h3>
                                 <div class="space-y-4">
@@ -246,13 +298,80 @@
                             </div>
                         </div>
 
-                        <!-- Funding Gap Highlight -->
-                        <div class="bg-white rounded-2xl border-2 border-gray-200 p-10 shadow-lg text-center relative overflow-hidden transition-all"
+                        <!-- Funding Gap Hero Card -->
+                        <div class="rounded-3xl border-2 p-12 shadow-2xl text-center relative overflow-hidden transition-all animate-slideInUp"
                             id="gap-card">
-                            <h2 class="text-2xl font-bold text-gray-900 mb-2">Final Result</h2>
-                            <p class="text-gray-600 mb-6" id="gap-text">Calculating...</p>
-                            <div class="text-6xl font-bold mb-4" id="funding-gap-display">$0</div>
-                            <p class="text-sm text-gray-500" id="gap-subtext">Funding Gap</p>
+                            <div class="relative z-10">
+                                <h2 class="text-3xl font-bold text-white mb-3" id="gap-title">Your Funding Gap</h2>
+                                <p class="text-white/90 mb-8 text-lg" id="gap-text">Calculating...</p>
+                                <div class="text-8xl md:text-9xl font-extrabold mb-6 text-white animate-pulse-subtle"
+                                    id="funding-gap-display">$0</div>
+                                <p class="text-lg text-white/80 font-semibold" id="gap-subtext">Funding Gap</p>
+                            </div>
+                        </div>
+
+                        <!-- Action Recommendations Box (only shows when gap > 0) -->
+                        <div id="action-recommendations"
+                            class="hidden mt-8 bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-200 rounded-2xl p-8 shadow-lg">
+                            <div class="flex items-start mb-6">
+                                <div class="text-4xl mr-4">💡</div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-gray-900 mb-2">How to Close Your Gap</h3>
+                                    <p class="text-gray-600">Here are practical ways to bridge your funding gap:</p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                                <!-- Scholarships -->
+                                <div class="bg-white rounded-xl p-6 border border-orange-100 card-hover">
+                                    <div class="text-3xl mb-3">🎓</div>
+                                    <h4 class="font-bold text-gray-900 mb-2">Scholarships</h4>
+                                    <p class="text-2xl font-bold text-orange-600 mb-2" id="scholarship-amount">$10-15K
+                                    </p>
+                                    <p class="text-sm text-gray-600 mb-3">Merit-based and need-based options available
+                                    </p>
+                                    <ul class="text-xs text-gray-500 space-y-1">
+                                        <li>→ Prodigy Finance</li>
+                                        <li>→ School Merit Awards</li>
+                                        <li>→ Country-specific grants</li>
+                                    </ul>
+                                </div>
+
+                                <!-- Part-time Work -->
+                                <div class="bg-white rounded-xl p-6 border border-orange-100 card-hover">
+                                    <div class="text-3xl mb-3">💼</div>
+                                    <h4 class="font-bold text-gray-900 mb-2">Part-Time Work</h4>
+                                    <p class="text-2xl font-bold text-orange-600 mb-2" id="work-amount">$800-1,200/mo
+                                    </p>
+                                    <p class="text-sm text-gray-600 mb-3">On-campus or remote opportunities</p>
+                                    <ul class="text-xs text-gray-500 space-y-1">
+                                        <li>→ Teaching assistant</li>
+                                        <li>→ Research assistant</li>
+                                        <li>→ Campus jobs (15-20 hrs/week)</li>
+                                    </ul>
+                                </div>
+
+                                <!-- Student Loans -->
+                                <div class="bg-white rounded-xl p-6 border border-orange-100 card-hover">
+                                    <div class="text-3xl mb-3">🏦</div>
+                                    <h4 class="font-bold text-gray-900 mb-2">Student Loans</h4>
+                                    <p class="text-2xl font-bold text-orange-600 mb-2" id="loan-amount">Varies</p>
+                                    <p class="text-sm text-gray-600 mb-3">Competitive rates for international students
+                                    </p>
+                                    <ul class="text-xs text-gray-500 space-y-1">
+                                        <li>→ 3.5-6% APR typical</li>
+                                        <li>→ No cosigner options</li>
+                                        <li>→ Flexible repayment</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button
+                                    class="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl transition-all transform hover:-translate-y-1">
+                                    Explore Funding Solutions
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Comparison Card (Task C) -->
@@ -626,25 +745,48 @@
             const gapCard = document.getElementById('gap-card');
             const gapText = document.getElementById('gap-text');
             const gapSubtext = document.getElementById('gap-subtext');
+            const gapTitle = document.getElementById('gap-title');
 
             gapDisplay.textContent = formatCurrency(Math.abs(fundingGap));
 
             if (fundingGap > 0) {
-                // Deficit
-                gapDisplay.classList.add('text-red-600');
-                gapDisplay.classList.remove('text-green-600');
-                gapCard.classList.add('border-red-200', 'bg-red-50');
-                gapCard.classList.remove('border-green-200', 'bg-green-50');
-                gapText.textContent = `You are missing ${formatCurrency(fundingGap)} to complete your plan.`;
-                gapSubtext.textContent = "Funding Gap (Deficit)";
+                // Deficit - Red gradient
+                gapCard.classList.remove('gradient-surplus');
+                gapCard.classList.add('gradient-deficit');
+                gapText.textContent = `You need ${formatCurrency(fundingGap)} more to complete your plan.`;
+                gapSubtext.textContent = "Funding Gap";
+                gapTitle.textContent = "Your Funding Gap";
             } else {
-                // Surplus
-                gapDisplay.classList.add('text-green-600');
-                gapDisplay.classList.remove('text-red-600');
-                gapCard.classList.add('border-green-200', 'bg-green-50');
-                gapCard.classList.remove('border-red-200', 'bg-red-50');
-                gapText.textContent = "Great news! You are fully funded.";
-                gapSubtext.textContent = "Funding Surplus";
+                // Surplus - Green gradient
+                gapCard.classList.remove('gradient-deficit');
+                gapCard.classList.add('gradient-surplus');
+                gapText.textContent = "Congratulations! You're fully funded with a surplus.";
+                gapSubtext.textContent = "Surplus";
+                gapTitle.textContent = "You're Fully Funded!";
+            }
+
+            // Show/hide action recommendations based on funding gap
+            const recommendationsBox = document.getElementById('action-recommendations');
+            if (fundingGap > 0) {
+                recommendationsBox.classList.remove('hidden');
+                // Update scholarship amount (suggest 20-30% of gap)
+                const scholarshipSuggestion = Math.round(fundingGap * 0.25 / 1000) * 1000;
+                document.getElementById('scholarship-amount').textContent = `$${(scholarshipSuggestion / 1000).toFixed(0)}-${((scholarshipSuggestion * 1.5) / 1000).toFixed(0)}K`;
+
+                // Update work amount based on duration
+                const monthlyWork = 1000; // Average
+                const totalWorkIncome = monthlyWork * duration;
+                document.getElementById('work-amount').textContent = `$${monthlyWork.toLocaleString()}/mo`;
+
+                // Update loan amount (remaining gap after scholarships and work)
+                const remainingGap = Math.max(0, fundingGap - scholarshipSuggestion - totalWorkIncome);
+                if (remainingGap > 0) {
+                    document.getElementById('loan-amount').textContent = formatCurrency(remainingGap);
+                } else {
+                    document.getElementById('loan-amount').textContent = 'Optional';
+                }
+            } else {
+                recommendationsBox.classList.add('hidden');
             }
 
             // Update Charts
