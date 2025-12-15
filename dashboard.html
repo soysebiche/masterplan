@@ -91,6 +91,51 @@
             </a>
         </div>
 
+        <!-- Gamification Section -->
+        <div id="gamification-section" class="mb-12 hidden">
+            <!-- Progress Overview -->
+            <div class="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-8 text-white mb-8">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <h2 class="text-2xl font-bold mb-1">Your Progress</h2>
+                        <p class="text-indigo-100">Level <span id="user-level">1</span> • <span id="user-xp">0</span> XP
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-4xl font-bold" id="completion-percentage">0%</div>
+                        <p class="text-sm text-indigo-100">Complete</p>
+                    </div>
+                </div>
+                <div class="w-full bg-indigo-800 rounded-full h-4 overflow-hidden">
+                    <div id="progress-bar"
+                        class="bg-gradient-to-r from-yellow-400 to-orange-400 h-4 rounded-full transition-all duration-500"
+                        style="width: 0%"></div>
+                </div>
+                <div class="grid grid-cols-3 gap-4 mt-6">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold" id="plans-count">0</div>
+                        <p class="text-sm text-indigo-100">Plans Created</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold" id="comparisons-count">0</div>
+                        <p class="text-sm text-indigo-100">Comparisons</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold" id="days-active">0</div>
+                        <p class="text-sm text-indigo-100">Days Active</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievement Badges -->
+            <div class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm mb-8">
+                <h3 class="text-xl font-bold text-gray-900 mb-6">🏆 Achievements</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="achievements-container">
+                    <!-- Achievements will be inserted here -->
+                </div>
+            </div>
+        </div>
+
         <!-- Empty State -->
         <div id="empty-state" class="text-center">
             <!-- Hero Message -->
@@ -230,17 +275,153 @@
 
     <script type="module" src="./js/auth-state.js"></script>
     <script type="module">
-        import { auth, onAuthStateChanged } from './js/firebase-config.js';
+        import { auth, onAuthStateChanged, db, doc, getDoc, setDoc, onSnapshot, serverTimestamp } from './js/firebase-config.js';
 
-        onAuthStateChanged(auth, (user) => {
+        // Achievement definitions
+        const achievements = [
+            { id: 'first_plan', name: 'First Steps', description: 'Created your first plan', icon: '🎯', requirement: 1, type: 'plans' },
+            { id: 'comparison_pro', name: 'Comparison Pro', description: 'Compared 3+ programs', icon: '⚖️', requirement: 3, type: 'comparisons' },
+            { id: 'budget_master', name: 'Budget Master', description: 'Created 5+ plans', icon: '💰', requirement: 5, type: 'plans' },
+            { id: 'early_bird', name: 'Early Bird', description: 'Active for 7+ days', icon: '🌅', requirement: 7, type: 'days' }
+        ];
+
+        // Initialize or get user progress
+        async function initializeUserProgress(userId) {
+            const userRef = doc(db, 'users', userId);
+            const userSnap = await getDoc(userRef);
+
+            if (!userSnap.exists()) {
+                // Create new user progress
+                const initialData = {
+                    createdAt: serverTimestamp(),
+                    lastActive: serverTimestamp(),
+                    progress: {
+                        plansCreated: 0,
+                        comparisons: 0,
+                        stepsCompleted: [],
+                        xp: 0,
+                        level: 1
+                    },
+                    achievements: [],
+                    milestones: []
+                };
+                await setDoc(userRef, initialData);
+                return initialData;
+            }
+
+            return userSnap.data();
+        }
+
+        // Calculate level from XP
+        function calculateLevel(xp) {
+            return Math.floor(xp / 100) + 1;
+        }
+
+        // Calculate days active
+        function calculateDaysActive(createdAt) {
+            if (!createdAt) return 0;
+            const created = createdAt.toDate();
+            const now = new Date();
+            const diffTime = Math.abs(now - created);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        }
+
+        // Check and award achievements
+        function checkAchievements(userData) {
+            const earned = userData.achievements || [];
+            const newAchievements = [];
+
+            achievements.forEach(achievement => {
+                if (!earned.includes(achievement.id)) {
+                    let count = 0;
+                    if (achievement.type === 'plans') {
+                        count = userData.progress?.plansCreated || 0;
+                    } else if (achievement.type === 'comparisons') {
+                        count = userData.progress?.comparisons || 0;
+                    } else if (achievement.type === 'days') {
+                        count = calculateDaysActive(userData.createdAt);
+                    }
+
+                    if (count >= achievement.requirement) {
+                        newAchievements.push(achievement.id);
+                    }
+                }
+            });
+
+            return newAchievements;
+        }
+
+        // Render achievements
+        function renderAchievements(userData) {
+            const container = document.getElementById('achievements-container');
+            const earned = userData.achievements || [];
+
+            container.innerHTML = achievements.map(achievement => {
+                const isEarned = earned.includes(achievement.id);
+                return `
+                    <div class="text-center p-4 rounded-xl border-2 ${isEarned ? 'bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-300' : 'bg-gray-50 border-gray-200 opacity-50'}">
+                        <div class="text-4xl mb-2 ${isEarned ? '' : 'grayscale'}">${achievement.icon}</div>
+                        <h4 class="font-bold text-sm text-gray-900 mb-1">${achievement.name}</h4>
+                        <p class="text-xs text-gray-600">${achievement.description}</p>
+                        ${isEarned ? '<p class="text-xs text-green-600 font-semibold mt-2">✓ Unlocked</p>' : '<p class="text-xs text-gray-400 mt-2">🔒 Locked</p>'}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Update dashboard UI
+        function updateDashboardUI(userData) {
+            const progress = userData.progress || {};
+            const xp = progress.xp || 0;
+            const level = calculateLevel(xp);
+            const plansCreated = progress.plansCreated || 0;
+            const comparisons = progress.comparisons || 0;
+            const daysActive = calculateDaysActive(userData.createdAt);
+
+            // Update stats
+            document.getElementById('user-level').textContent = level;
+            document.getElementById('user-xp').textContent = xp;
+            document.getElementById('plans-count').textContent = plansCreated;
+            document.getElementById('comparisons-count').textContent = comparisons;
+            document.getElementById('days-active').textContent = daysActive;
+
+            // Calculate completion percentage (out of 100 XP per level)
+            const xpInLevel = xp % 100;
+            const percentage = xpInLevel;
+            document.getElementById('completion-percentage').textContent = `${percentage}%`;
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+
+            // Render achievements
+            renderAchievements(userData);
+
+            // Show gamification section if user has any activity
+            if (plansCreated > 0 || comparisons > 0) {
+                document.getElementById('gamification-section').classList.remove('hidden');
+            }
+        }
+
+        // Auth state listener
+        onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const userName = user.displayName || 'User';
-                // Get first name
                 const firstName = userName.split(' ')[0];
                 const welcomeNameElement = document.getElementById('welcome-user-name');
                 if (welcomeNameElement) {
                     welcomeNameElement.textContent = firstName;
                 }
+
+                // Initialize user progress
+                const userData = await initializeUserProgress(user.uid);
+                updateDashboardUI(userData);
+
+                // Listen for real-time updates
+                const userRef = doc(db, 'users', user.uid);
+                onSnapshot(userRef, (doc) => {
+                    if (doc.exists()) {
+                        updateDashboardUI(doc.data());
+                    }
+                });
             }
         });
     </script>
