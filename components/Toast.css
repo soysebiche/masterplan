@@ -1,0 +1,147 @@
+/**
+ * Toast Notification System
+ * Using react-hot-toast library
+ * 
+ * Installation:
+ * npm install react-hot-toast
+ * 
+ * Usage in JavaScript:
+ * import toast, { Toaster } from 'react-hot-toast';
+ * 
+ * // In your root component
+ * <Toaster position="bottom-right" />
+ * 
+ * // Trigger toasts
+ * toast.success('Plan saved successfully!');
+ * toast.error('Error saving plan');
+ * toast.loading('Calculating your plan...');
+ * toast('Custom message');
+ */
+
+/* Custom Toast Styles */
+.toast-custom {
+    background-color: var(--color-bg-card);
+    color: var(--color-text-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-elevated);
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    max-width: 24rem;
+    font-size: var(--font-size-body);
+    font-weight: 500;
+    border: 1px solid var(--color-border);
+}
+
+/* Success Toast */
+.toast-success {
+    border-left: 3px solid var(--color-success);
+}
+
+.toast-success-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--color-success);
+    flex-shrink: 0;
+}
+
+/* Error Toast */
+.toast-error {
+    border-left: 3px solid var(--color-danger);
+}
+
+.toast-error-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--color-danger);
+    flex-shrink: 0;
+}
+
+/* Info Toast */
+.toast-info {
+    border-left: 3px solid var(--color-primary);
+}
+
+.toast-info-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+/* Loading Toast */
+.toast-loading {
+    border-left: 3px solid var(--color-primary);
+}
+
+.toast-loading-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--color-primary);
+    flex-shrink: 0;
+    animation: spin 1s linear infinite;
+}
+
+/* Toast Message */
+.toast-message {
+    flex: 1;
+    line-height: 1.5;
+}
+
+/* Close Button */
+.toast-close {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--color-text-tertiary);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.toast-close:hover {
+    background-color: var(--color-hover-bg);
+    color: var(--color-text-primary);
+}
+
+.toast-close svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Animation */
+@keyframes toast-enter {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes toast-exit {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.toast-enter {
+    animation: toast-enter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toast-exit {
+    animation: toast-exit 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
