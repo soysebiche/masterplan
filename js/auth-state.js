@@ -1,16 +1,68 @@
 import { auth, onAuthStateChanged, signOut } from './firebase-config.js';
 
-// Initialize user profile section with loading state
+// Initialize user profile section with cached data or loading state
 function initializeUserProfileSection() {
     const userProfileSection = document.getElementById('user-profile-section') || document.querySelector('.flex.items-center.space-x-3');
 
-    if (userProfileSection) {
-        userProfileSection.innerHTML = `
-            <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                <div class="w-5 h-5 border-2 border-gray-300 border-t-indigo-600 rounded-full animate-spin"></div>
-            </div>
-        `;
+    if (!userProfileSection) return;
+
+    // Check if we have cached user data in localStorage
+    const cachedUserData = localStorage.getItem('masterplan_user');
+
+    if (cachedUserData) {
+        try {
+            const userData = JSON.parse(cachedUserData);
+            // Display cached user data immediately
+            const firstLetter = userData.name ? userData.name.charAt(0).toUpperCase() : 'U';
+            const displayName = userData.name || userData.email?.split('@')[0] || 'User';
+
+            userProfileSection.innerHTML = `
+                <div class="relative group cursor-pointer">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+                            ${firstLetter}
+                        </div>
+                        <span class="font-semibold text-gray-900">${displayName}</span>
+                    </div>
+                    <!-- Dropdown Menu -->
+                    <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg py-2 hidden group-hover:block border border-gray-100">
+                        <a href="#" id="logout-btn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors">
+                            Sign Out
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            // Attach logout listener
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    try {
+                        await signOut(auth);
+                        window.location.href = 'index.html';
+                    } catch (error) {
+                        console.error('Error signing out:', error);
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('Error parsing cached user data:', error);
+            // Show loading state if cache is corrupted
+            showLoadingState(userProfileSection);
+        }
+    } else {
+        // No cached data, show loading state
+        showLoadingState(userProfileSection);
     }
+}
+
+function showLoadingState(userProfileSection) {
+    userProfileSection.innerHTML = `
+        <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+            <div class="w-5 h-5 border-2 border-gray-300 border-t-indigo-600 rounded-full animate-spin"></div>
+        </div>
+    `;
 }
 
 // Call initialization immediately
@@ -81,6 +133,17 @@ function updateUserUI(user) {
     if (userProfileSection) {
         const firstLetter = user.displayName ? user.displayName.charAt(0).toUpperCase() : (user.email ? user.email.charAt(0).toUpperCase() : 'U');
         const displayName = user.displayName || user.email.split('@')[0];
+
+        // Check if UI already shows this user (to avoid unnecessary updates)
+        const currentDisplayName = userProfileSection.querySelector('.font-semibold.text-gray-900');
+        if (currentDisplayName && currentDisplayName.textContent === displayName) {
+            // UI already correct, just ensure nav links are visible
+            const dashboardLink = document.getElementById('nav-dashboard');
+            const simulatorLink = document.getElementById('nav-simulator');
+            if (dashboardLink) dashboardLink.style.display = 'inline-block';
+            if (simulatorLink) simulatorLink.style.display = 'inline-block';
+            return;
+        }
 
         userProfileSection.innerHTML = `
             <div class="relative group cursor-pointer">
