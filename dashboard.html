@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - MasterPlan</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="design-tokens.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -74,8 +75,8 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-6 py-12">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+    <main class="max-w-7xl mx-auto px-6 py-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
             <div>
                 <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">Welcome back, <span
                         id="welcome-user-name">User</span>!</h1>
@@ -88,9 +89,9 @@
         </div>
 
         <!-- Gamification Section -->
-        <div id="gamification-section" class="mb-12 hidden">
+        <div id="gamification-section" class="mb-6 hidden">
             <!-- Progress Overview -->
-            <div class="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-8 text-white mb-8">
+            <div class="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-5 text-white mb-4">
                 <div class="flex justify-between items-center mb-4">
                     <div>
                         <h2 class="text-2xl font-bold mb-1">Your Progress</h2>
@@ -124,7 +125,7 @@
             </div>
 
             <!-- Achievement Badges -->
-            <div class="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm mb-8">
+            <div class="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm mb-4">
                 <h3 class="text-xl font-bold text-gray-900 mb-6">🏆 Achievements</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="achievements-container">
                     <!-- Achievements will be inserted here -->
@@ -135,7 +136,7 @@
         <!-- Empty State -->
         <div id="empty-state" class="text-center">
             <!-- Hero Message -->
-            <div class="mb-12">
+            <div class="mb-6">
                 <div class="text-6xl mb-4">🎓</div>
                 <h2 class="text-3xl font-bold text-gray-900 mb-3">Ready to plan your Master's abroad?</h2>
                 <p class="text-gray-600 text-lg mb-4">Join 1,247 students who created their financial plan this month
@@ -143,7 +144,7 @@
             </div>
 
             <!-- 3-Step Visual Guide -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 max-w-4xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 max-w-4xl mx-auto">
                 <div class="bg-white rounded-2xl border-2 border-indigo-100 p-6 card-hover">
                     <div
                         class="w-16 h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">
@@ -171,7 +172,7 @@
             </div>
 
             <!-- Sample Result Preview (Expandable) -->
-            <div class="max-w-2xl mx-auto mb-12">
+            <div class="max-w-2xl mx-auto mb-6">
                 <details
                     class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border-2 border-indigo-200 p-6">
                     <summary class="cursor-pointer font-semibold text-indigo-700 text-lg">
