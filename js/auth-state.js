@@ -12,6 +12,7 @@ function initializeUserProfileSection() {
     if (cachedUserData) {
         try {
             const userData = JSON.parse(cachedUserData);
+            console.log('✅ Displaying cached user data immediately:', userData.name || userData.email);
             // Display cached user data immediately
             const firstLetter = userData.name ? userData.name.charAt(0).toUpperCase() : 'U';
             const displayName = userData.name || userData.email?.split('@')[0] || 'User';
@@ -53,6 +54,7 @@ function initializeUserProfileSection() {
         }
     } else {
         // No cached data, show loading state
+        console.log('⏳ No cached data found, showing loading state');
         showLoadingState(userProfileSection);
     }
 }
@@ -137,6 +139,7 @@ function updateUserUI(user) {
         // Check if UI already shows this user (to avoid unnecessary updates)
         const currentDisplayName = userProfileSection.querySelector('.font-semibold.text-gray-900');
         if (currentDisplayName && currentDisplayName.textContent === displayName) {
+            console.log('✓ UI already shows correct user, skipping update');
             // UI already correct, just ensure nav links are visible
             const dashboardLink = document.getElementById('nav-dashboard');
             const simulatorLink = document.getElementById('nav-simulator');
@@ -144,6 +147,8 @@ function updateUserUI(user) {
             if (simulatorLink) simulatorLink.style.display = 'inline-block';
             return;
         }
+
+        console.log('🔄 Updating UI with Firebase-verified user:', displayName);
 
         userProfileSection.innerHTML = `
             <div class="relative group cursor-pointer">
@@ -185,6 +190,14 @@ function updateUserUI(user) {
 }
 
 function updateGuestUI() {
+    // IMPORTANT: Don't show Guest UI if we have cached user data
+    // This prevents the flash while Firebase is verifying the auth token
+    const cachedUserData = localStorage.getItem('masterplan_user');
+    if (cachedUserData) {
+        console.log('Skipping Guest UI - user data cached, waiting for Firebase verification');
+        return;
+    }
+
     // Update Nav Bar to Guest
     const userProfileSection = document.getElementById('user-profile-section') || document.querySelector('.flex.items-center.space-x-3');
 
