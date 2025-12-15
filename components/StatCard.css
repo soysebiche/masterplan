@@ -1,0 +1,160 @@
+/**
+ * StatCard Component
+ * Compact stat card with optional trend indicator and sparkline
+ * 
+ * Usage:
+ * <div class="stat-card">
+ *   <div class="stat-card-header">
+ *     <div class="stat-card-icon">
+ *       <svg>...</svg>
+ *     </div>
+ *     <span class="stat-card-label">Total Plans</span>
+ *     <span class="stat-card-trend stat-card-trend-positive">+12%</span>
+ *   </div>
+ *   <div class="stat-card-value">$18,000</div>
+ *   <div class="stat-card-comparison">vs last month: $20,000</div>
+ *   <div class="stat-card-sparkline">
+ *     <!-- Sparkline chart here -->
+ *   </div>
+ * </div>
+ */
+
+.stat-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: var(--spacing-card-md);
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    transition: all var(--transition-base);
+    position: relative;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--color-primary-border);
+}
+
+/* Header */
+.stat-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    height: 2rem;
+}
+
+.stat-card-icon {
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--color-primary-light);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.stat-card-icon svg {
+    width: 1rem;
+    height: 1rem;
+    color: var(--color-primary);
+}
+
+.stat-card-label {
+    font-size: var(--font-size-label);
+    font-weight: var(--font-weight-label);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-label);
+    color: var(--color-text-secondary);
+    flex: 1;
+}
+
+.stat-card-trend {
+    font-size: var(--font-size-label);
+    font-weight: var(--font-weight-label);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.stat-card-trend-positive {
+    color: var(--color-success);
+}
+
+.stat-card-trend-negative {
+    color: var(--color-danger);
+}
+
+.stat-card-trend svg {
+    width: 0.75rem;
+    height: 0.75rem;
+}
+
+/* Value */
+.stat-card-value {
+    font-size: var(--font-size-heading-lg);
+    font-weight: var(--font-weight-heading-lg);
+    color: var(--color-text-primary);
+    margin-bottom: 0.25rem;
+    line-height: 1;
+}
+
+/* Comparison */
+.stat-card-comparison {
+    font-size: var(--font-size-label);
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+/* Sparkline */
+.stat-card-sparkline {
+    height: 24px;
+    width: 100%;
+    margin-top: auto;
+}
+
+.stat-card-sparkline canvas {
+    width: 100% !important;
+    height: 24px !important;
+}
+
+/* Variants */
+.stat-card-primary {
+    border-left: 3px solid var(--color-primary);
+}
+
+.stat-card-success {
+    border-left: 3px solid var(--color-success);
+}
+
+.stat-card-warning {
+    border-left: 3px solid var(--color-warning);
+}
+
+.stat-card-danger {
+    border-left: 3px solid var(--color-danger);
+}
+
+/* Loading State */
+.stat-card-loading .stat-card-value,
+.stat-card-loading .stat-card-comparison {
+    background: linear-gradient(90deg, #F3F4F6 0%, #E5E7EB 50%, #F3F4F6 100%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite linear;
+    border-radius: var(--radius-sm);
+    color: transparent;
+}
+
+.stat-card-loading .stat-card-value {
+    width: 60%;
+    height: 1.5rem;
+}
+
+.stat-card-loading .stat-card-comparison {
+    width: 80%;
+    height: 0.75rem;
+}

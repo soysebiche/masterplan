@@ -1,0 +1,178 @@
+/**
+ * Skeleton Component
+ * Loading state placeholders
+ * 
+ * Usage:
+ * <div class="skeleton skeleton-text"></div>
+ * <div class="skeleton skeleton-title"></div>
+ * <div class="skeleton skeleton-avatar"></div>
+ * <div class="skeleton skeleton-button"></div>
+ */
+
+/* Base Skeleton */
+.skeleton {
+    background: linear-gradient(90deg,
+            #F3F4F6 0%,
+            #E5E7EB 50%,
+            #F3F4F6 100%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite linear;
+    border-radius: var(--radius-md);
+}
+
+/* Text Variants */
+.skeleton-text {
+    height: 0.875rem;
+    /* 14px */
+    width: 100%;
+    border-radius: var(--radius-sm);
+}
+
+.skeleton-text-sm {
+    height: 0.75rem;
+    /* 12px */
+    width: 80%;
+}
+
+.skeleton-text-lg {
+    height: 1rem;
+    /* 16px */
+    width: 100%;
+}
+
+.skeleton-title {
+    height: 1.5rem;
+    /* 24px */
+    width: 40%;
+    border-radius: var(--radius-md);
+}
+
+.skeleton-heading {
+    height: 2rem;
+    /* 32px */
+    width: 60%;
+    border-radius: var(--radius-md);
+}
+
+/* Avatar */
+.skeleton-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+}
+
+.skeleton-avatar-sm {
+    width: 2rem;
+    height: 2rem;
+}
+
+.skeleton-avatar-lg {
+    width: 4rem;
+    height: 4rem;
+}
+
+/* Button */
+.skeleton-button {
+    height: 2.5rem;
+    width: 6rem;
+    border-radius: var(--radius-lg);
+}
+
+.skeleton-button-sm {
+    height: 2rem;
+    width: 5rem;
+}
+
+.skeleton-button-lg {
+    height: 3rem;
+    width: 8rem;
+}
+
+/* Card */
+.skeleton-card {
+    height: 120px;
+    width: 100%;
+    border-radius: var(--radius-lg);
+}
+
+/* Image */
+.skeleton-image {
+    width: 100%;
+    padding-bottom: 56.25%;
+    /* 16:9 aspect ratio */
+    border-radius: var(--radius-lg);
+}
+
+.skeleton-image-square {
+    padding-bottom: 100%;
+}
+
+.skeleton-image-circle {
+    padding-bottom: 100%;
+    border-radius: 9999px;
+}
+
+/* Stat Card Skeleton */
+.skeleton-stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: var(--spacing-card-md);
+    height: 120px;
+}
+
+.skeleton-stat-card .skeleton-text {
+    width: 40%;
+}
+
+.skeleton-stat-card .skeleton-title {
+    width: 60%;
+}
+
+/* Table Row Skeleton */
+.skeleton-table-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+}
+
+/* Pulse Animation (Alternative) */
+.skeleton-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Shimmer Animation (Default) */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+/* Container for multiple skeletons */
+.skeleton-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.skeleton-group-horizontal {
+    display: flex;
+    gap: 1rem;
+}

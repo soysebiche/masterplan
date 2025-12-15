@@ -1,0 +1,228 @@
+/**
+ * DataTable Component
+ * Professional table/list component for displaying data
+ * 
+ * Usage:
+ * <div class="data-table">
+ *   <div class="data-table-header">
+ *     <h3 class="data-table-title">Recent Plans</h3>
+ *     <button class="btn btn-ghost btn-sm">View All</button>
+ *   </div>
+ *   <div class="data-table-body">
+ *     <div class="data-table-row">
+ *       <div class="data-table-avatar">MB</div>
+ *       <div class="data-table-content">
+ *         <div class="data-table-primary">MBA Spain - IE vs ESADE</div>
+ *         <div class="data-table-secondary">Funding Gap: $18,000</div>
+ *       </div>
+ *       <div class="data-table-meta">2 days ago</div>
+ *     </div>
+ *   </div>
+ * </div>
+ */
+
+/* Container */
+.data-table {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+}
+
+/* Header */
+.data-table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.data-table-title {
+    font-size: var(--font-size-body);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+/* Body */
+.data-table-body {
+    /* No padding - rows handle their own */
+}
+
+/* Row */
+.data-table-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid #F3F4F6;
+    /* gray-100 */
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.data-table-row:last-child {
+    border-bottom: none;
+}
+
+.data-table-row:hover {
+    background-color: var(--color-hover-bg);
+}
+
+/* Avatar/Icon */
+.data-table-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--color-primary), #7C3AED);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-body);
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.data-table-avatar-success {
+    background: linear-gradient(135deg, var(--color-success), #059669);
+}
+
+.data-table-avatar-warning {
+    background: linear-gradient(135deg, var(--color-warning), #D97706);
+}
+
+.data-table-avatar-danger {
+    background: linear-gradient(135deg, var(--color-danger), #DC2626);
+}
+
+/* Content */
+.data-table-content {
+    flex: 1;
+    min-width: 0;
+    /* Allow text truncation */
+}
+
+.data-table-primary {
+    font-size: var(--font-size-body);
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 0.125rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.data-table-row:hover .data-table-primary {
+    color: var(--color-primary);
+}
+
+.data-table-secondary {
+    font-size: var(--font-size-label);
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Meta (timestamp, etc) */
+.data-table-meta {
+    font-size: var(--font-size-label);
+    color: var(--color-text-tertiary);
+    flex-shrink: 0;
+}
+
+/* Badge */
+.data-table-badge {
+    font-size: var(--font-size-label);
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+}
+
+.data-table-badge-success {
+    background-color: var(--color-success-light);
+    color: #047857;
+    /* emerald-700 */
+}
+
+.data-table-badge-warning {
+    background-color: var(--color-warning-light);
+    color: #B45309;
+    /* amber-700 */
+}
+
+.data-table-badge-danger {
+    background-color: var(--color-danger-light);
+    color: #B91C1C;
+    /* red-700 */
+}
+
+.data-table-badge-info {
+    background-color: #DBEAFE;
+    /* blue-100 */
+    color: #1E40AF;
+    /* blue-700 */
+}
+
+/* Empty State */
+.data-table-empty {
+    padding: 3rem 1.25rem;
+    text-align: center;
+}
+
+.data-table-empty-icon {
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto 1rem;
+    color: var(--color-text-tertiary);
+}
+
+.data-table-empty-title {
+    font-size: var(--font-size-heading-md);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.data-table-empty-description {
+    font-size: var(--font-size-body);
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+/* Loading State */
+.data-table-loading .data-table-row {
+    pointer-events: none;
+}
+
+.data-table-skeleton {
+    height: 0.875rem;
+    background: linear-gradient(90deg, #F3F4F6 0%, #E5E7EB 50%, #F3F4F6 100%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite linear;
+    border-radius: var(--radius-sm);
+}
+
+.data-table-skeleton-primary {
+    width: 60%;
+    margin-bottom: 0.25rem;
+}
+
+.data-table-skeleton-secondary {
+    width: 40%;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .data-table-meta {
+        display: none;
+    }
+
+    .data-table-row {
+        padding: 1rem;
+    }
+}
