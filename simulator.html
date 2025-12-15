@@ -311,7 +311,7 @@
             <!-- Smart Recommendations (shows after first program selected) -->
             <div id="smart-recommendations"
                 class="hidden mt-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border-2 border-purple-200 p-6">
-                <h3 class="text-lg font-bold text-gray-900 mb-3">💡 Students like you also considered...</h3>
+                <h3 class="text-lg font-bold text-gray-900 mb-3">Students like you also considered...</h3>
                 <div id="recommendations-list" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
             </div>
 
@@ -1034,7 +1034,7 @@
                     <div class="text-5xl font-bold text-indigo-600 mb-2" id="lifestyle-total">$1,000</div>
                     <div class="flex items-center justify-center gap-4 text-sm">
                         <span class="text-gray-500">Country average: <span id="country-baseline">$1,000</span></span>
-                        <span id="lifestyle-comparison" class="font-semibold text-green-600">✓ Within budget</span>
+                        <span id="lifestyle-comparison" class="font-semibold text-green-600">Within budget</span>
                     </div>
                     <div class="mt-4 flex gap-2 justify-center flex-wrap">
                         <button onclick="setLifestylePreset('frugal')"
@@ -1065,7 +1065,7 @@
                         your home country?</label>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="card-selectable" onclick="selectSalary('yes', this)">
-                            <div class="text-3xl mb-2">✓</div>
+                            <div class="text-3xl mb-2 text-green-600 font-bold">✓</div>
                             <div class="font-semibold text-gray-900">Yes</div>
                             <p class="text-sm text-gray-600 mt-1">Continue earning</p>
                         </div>
@@ -1088,7 +1088,7 @@
                         job?</label>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="card-selectable" onclick="selectOnCampus('yes', this)">
-                            <div class="text-3xl mb-2">✓</div>
+                            <div class="text-3xl mb-2 text-green-600 font-bold">✓</div>
                             <div class="font-semibold text-gray-900">Yes</div>
                             <p class="text-sm text-gray-600 mt-1">Work on campus</p>
                         </div>
@@ -1198,15 +1198,16 @@
                 // Update comparison with country baseline
                 const baseline = parseInt(document.getElementById('country-baseline').textContent.replace(/[$,]/g, '')) || 1000;
                 const comparison = document.getElementById('lifestyle-comparison');
+                const diff = total - baseline;
 
-                if (total <= baseline) {
-                    comparison.textContent = '✓ Within budget';
+                if (diff < 0) {
+                    comparison.textContent = 'Within budget';
                     comparison.className = 'font-semibold text-green-600';
-                } else if (total <= baseline * 1.2) {
-                    comparison.textContent = '⚠️ Slightly over';
+                } else if (diff < 200) {
+                    comparison.textContent = 'Slightly over';
                     comparison.className = 'font-semibold text-yellow-600';
                 } else {
-                    comparison.textContent = '⚠️ Above average';
+                    comparison.textContent = 'Above average';
                     comparison.className = 'font-semibold text-red-600';
                 }
             };

@@ -126,7 +126,7 @@
 
             <!-- Achievement Badges -->
             <div class="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm mb-4">
-                <h3 class="text-xl font-bold text-gray-900 mb-6">🏆 Achievements</h3>
+                <h3 class="text-xl font-bold text-gray-900 mb-6">Achievements</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="achievements-container">
                     <!-- Achievements will be inserted here -->
                 </div>
@@ -201,7 +201,7 @@
 
             <!-- Social Proof -->
             <div class="mt-12 text-gray-500 text-sm">
-                ⭐⭐⭐⭐⭐ Rated 4.9/5 by 1,000+ students
+                Rated 4.9/5 by 1,000+ students
             </div>
         </div>
 
@@ -276,10 +276,10 @@
 
         // Achievement definitions
         const achievements = [
-            { id: 'first_plan', name: 'First Steps', description: 'Created your first plan', icon: '🎯', requirement: 1, type: 'plans' },
-            { id: 'comparison_pro', name: 'Comparison Pro', description: 'Compared 3+ programs', icon: '⚖️', requirement: 3, type: 'comparisons' },
-            { id: 'budget_master', name: 'Budget Master', description: 'Created 5+ plans', icon: '💰', requirement: 5, type: 'plans' },
-            { id: 'early_bird', name: 'Early Bird', description: 'Active for 7+ days', icon: '🌅', requirement: 7, type: 'days' }
+            { id: 'first_plan', name: 'First Steps', description: 'Created your first plan', icon: '1', requirement: 1, type: 'plans' },
+            { id: 'comparison_pro', name: 'Comparison Pro', description: 'Compared 3+ programs', icon: '3', requirement: 3, type: 'comparisons' },
+            { id: 'budget_master', name: 'Budget Master', description: 'Created 5+ plans', icon: '5', requirement: 5, type: 'plans' },
+            { id: 'early_bird', name: 'Early Bird', description: 'Active for 7+ days', icon: '7', requirement: 7, type: 'days' }
         ];
 
         // Initialize or get user progress
@@ -361,7 +361,7 @@
                         <div class="text-4xl mb-2 ${isEarned ? '' : 'grayscale'}">${achievement.icon}</div>
                         <h4 class="font-bold text-sm text-gray-900 mb-1">${achievement.name}</h4>
                         <p class="text-xs text-gray-600">${achievement.description}</p>
-                        ${isEarned ? '<p class="text-xs text-green-600 font-semibold mt-2">✓ Unlocked</p>' : '<p class="text-xs text-gray-400 mt-2">🔒 Locked</p>'}
+                        ${isEarned ? '<p class="text-xs text-green-600 font-semibold mt-2">Unlocked</p>' : '<p class="text-xs text-gray-400 mt-2">Locked</p>'}
                     </div>
                 `;
             }).join('');
