@@ -1,0 +1,31 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Left vertical bar - Dark indigo -->
+  <path d="M20 35 L35 27 L35 65 L20 73 Z" fill="#3730A3"/>
+  
+  <!-- Left top face -->
+  <path d="M20 35 L35 27 L50 35 L35 43 Z" fill="#6366F1"/>
+  
+  <!-- Center cube - Light gray -->
+  <path d="M35 43 L50 35 L50 55 L35 63 Z" fill="#D1D5DB"/>
+  
+  <!-- Center top -->
+  <path d="M35 43 L50 35 L65 43 L50 51 Z" fill="#E5E7EB"/>
+  
+  <!-- Right vertical bar - Bright indigo -->
+  <path d="M65 43 L80 35 L80 73 L65 81 Z" fill="#6366F1"/>
+  
+  <!-- Right top face -->
+  <path d="M65 43 L80 35 L65 27 L50 35 Z" fill="#818CF8"/>
+  
+  <!-- Bottom left connector -->
+  <path d="M35 63 L50 55 L50 73 L35 81 Z" fill="#9CA3AF"/>
+  
+  <!-- Bottom right connector -->
+  <path d="M50 55 L65 47 L65 81 L50 73 Z" fill="#A5B4FC"/>
+  
+  <!-- Left bottom face -->
+  <path d="M20 73 L35 65 L35 81 Z" fill="#4338CA"/>
+  
+  <!-- Right bottom face -->
+  <path d="M65 81 L80 73 L65 65 Z" fill="#4F46E5"/>
+</svg>
