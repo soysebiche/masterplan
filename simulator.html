@@ -7,6 +7,7 @@
     <title>Create Your Financial Plan - MasterPlan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="design-tokens.css">
+    <link rel="stylesheet" href="components/components.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -33,22 +34,29 @@
 
         .card-selectable {
             border: 2px solid #e5e7eb;
-            padding: 1.5rem;
+            padding: 1rem;
+            /* Reduced from 1.5rem */
             text-align: center;
             cursor: pointer;
-            border-radius: 1rem;
-            transition: all 0.3s ease;
+            border-radius: 0.75rem;
+            /* Reduced from 1rem */
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Smoother easing */
             background: white;
         }
 
         .card-selectable:hover {
             border-color: #667eea;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.1);
+            transform: translateY(-4px);
+            /* Increased from -2px for more impact */
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
+            /* Slightly stronger */
         }
 
         .card-selectable.selected {
             border-color: #667eea;
+            border-width: 3px;
+            /* Thicker border for selected state */
             background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
         }
@@ -56,11 +64,15 @@
         .search-dropdown {
             max-height: 400px;
             overflow-y: auto;
-            border: 1px solid #e5e7eb;
+            border: 1px solid rgba(229, 231, 235, 0.5);
+            /* Semi-transparent */
             border-top: none;
             position: absolute;
             width: 100%;
-            background-color: white;
+            background: rgba(255, 255, 255, 0.95);
+            /* Glassmorphism */
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
             z-index: 10;
             border-radius: 0 0 0.75rem 0.75rem;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -68,9 +80,11 @@
 
         .search-result {
             border-bottom: 1px solid #f3f4f6;
-            padding: 1rem;
+            padding: 0.875rem 1rem;
+            /* Reduced from 1rem */
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Faster */
         }
 
         .search-result:hover {
@@ -78,11 +92,14 @@
         }
 
         .selected-program {
-            border: 2px solid #667eea;
-            padding: 1.5rem;
+            border: 3px solid #667eea;
+            /* Thicker border */
+            padding: 1.25rem;
+            /* Reduced from 1.5rem */
             background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
             position: relative;
-            border-radius: 1rem;
+            border-radius: 0.75rem;
+            /* Reduced from 1rem */
         }
 
         .remove-program {
@@ -104,14 +121,18 @@
 
         .remove-program:hover {
             background: #fee2e2;
+            transform: scale(1.1);
+            /* Micro-animation */
         }
 
         .step-indicator {
-            font-size: 1rem;
+            font-size: 0.875rem;
+            /* Reduced from 1rem */
             font-weight: 600;
             color: #9ca3af;
             position: relative;
             padding: 0.5rem 1rem;
+            transition: color 0.2s;
         }
 
         .step-indicator.active {
@@ -136,14 +157,17 @@
             padding: 0.75rem 1rem;
             border-radius: 0.5rem;
             font-size: 1rem;
-            transition: all 0.2s;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         input[type="text"]:focus,
         input[type="number"]:focus {
             outline: none;
             border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            /* Thicker ring */
+            transform: translateY(-1px);
+            /* Subtle lift */
         }
 
         .auth-overlay {
