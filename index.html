@@ -42,6 +42,46 @@
         .avatar-gradient {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
+
+        /* Social Proof Notifications */
+        .social-proof-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            border-radius: 12px;
+            padding: 16px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            animation: slideInLeft 0.5s ease-out;
+            max-width: 350px;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .social-proof-notification.fade-out {
+            animation: fadeOut 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+        }
     </style>
     <!-- Hotjar Tracking Code for https://masterplan-92uay74xk-sebbs21s-projects.vercel.app/ -->
     <script type="module">

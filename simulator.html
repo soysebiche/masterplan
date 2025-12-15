@@ -831,23 +831,144 @@
                         class="px-4 py-2 rounded-md text-sm font-semibold text-gray-500 hover:text-gray-700 transition-all">Semester</button>
                 </div>
             </div>
-            <p class="text-gray-600 mb-6 text-center" id="lifestyle-subtitle">How do you plan to live during your
-                studies? (Monthly estimate)</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="card-selectable" onclick="selectLifestyle('frugal', this)">
-                    <div class="text-4xl mb-3">🎒</div>
-                    <h3 class="text-xl font-bold mb-2">Frugal Student</h3>
-                    <p class="text-sm text-gray-600">Estimated ~$900/mo</p>
+            <p class="text-gray-600 mb-6 text-center" id="lifestyle-subtitle">Break down your monthly expenses by
+                category</p>
+
+            <!-- Interactive Lifestyle Calculator -->
+            <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border-2 border-indigo-200 p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <!-- Food & Dining -->
+                    <div class="bg-white rounded-xl p-5 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <label class="font-semibold text-gray-900 flex items-center">
+                                <span class="text-2xl mr-2">🍔</span>
+                                Food & Dining
+                            </label>
+                            <span class="text-xl font-bold text-indigo-600" id="food-value">$400</span>
+                        </div>
+                        <input type="range" id="food-slider" min="200" max="800" value="400" step="50"
+                            class="w-full h-2 bg-indigo-200 rounded-lg appearance-none cursor-pointer slider"
+                            oninput="updateLifestyleCategory('food', this.value)">
+                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                            <span>$200</span>
+                            <span>$800</span>
+                        </div>
+                    </div>
+
+                    <!-- Transportation -->
+                    <div class="bg-white rounded-xl p-5 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <label class="font-semibold text-gray-900 flex items-center">
+                                <span class="text-2xl mr-2">🚇</span>
+                                Transportation
+                            </label>
+                            <span class="text-xl font-bold text-indigo-600" id="transport-value">$100</span>
+                        </div>
+                        <input type="range" id="transport-slider" min="50" max="300" value="100" step="25"
+                            class="w-full h-2 bg-indigo-200 rounded-lg appearance-none cursor-pointer slider"
+                            oninput="updateLifestyleCategory('transport', this.value)">
+                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                            <span>$50</span>
+                            <span>$300</span>
+                        </div>
+                    </div>
+
+                    <!-- Housing Extras -->
+                    <div class="bg-white rounded-xl p-5 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <label class="font-semibold text-gray-900 flex items-center">
+                                <span class="text-2xl mr-2">🏠</span>
+                                Housing Extras
+                            </label>
+                            <span class="text-xl font-bold text-indigo-600" id="housing-value">$200</span>
+                        </div>
+                        <input type="range" id="housing-slider" min="100" max="500" value="200" step="50"
+                            class="w-full h-2 bg-indigo-200 rounded-lg appearance-none cursor-pointer slider"
+                            oninput="updateLifestyleCategory('housing', this.value)">
+                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                            <span>$100</span>
+                            <span>$500</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Utilities, internet, etc.</p>
+                    </div>
+
+                    <!-- Entertainment -->
+                    <div class="bg-white rounded-xl p-5 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <label class="font-semibold text-gray-900 flex items-center">
+                                <span class="text-2xl mr-2">🎭</span>
+                                Entertainment
+                            </label>
+                            <span class="text-xl font-bold text-indigo-600" id="entertainment-value">$150</span>
+                        </div>
+                        <input type="range" id="entertainment-slider" min="50" max="400" value="150" step="25"
+                            class="w-full h-2 bg-indigo-200 rounded-lg appearance-none cursor-pointer slider"
+                            oninput="updateLifestyleCategory('entertainment', this.value)">
+                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                            <span>$50</span>
+                            <span>$400</span>
+                        </div>
+                    </div>
+
+                    <!-- Phone & Internet -->
+                    <div class="bg-white rounded-xl p-5 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <label class="font-semibold text-gray-900 flex items-center">
+                                <span class="text-2xl mr-2">📱</span>
+                                Phone & Internet
+                            </label>
+                            <span class="text-xl font-bold text-indigo-600" id="phone-value">$50</span>
+                        </div>
+                        <input type="range" id="phone-slider" min="30" max="150" value="50" step="10"
+                            class="w-full h-2 bg-indigo-200 rounded-lg appearance-none cursor-pointer slider"
+                            oninput="updateLifestyleCategory('phone', this.value)">
+                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                            <span>$30</span>
+                            <span>$150</span>
+                        </div>
+                    </div>
+
+                    <!-- Personal Care -->
+                    <div class="bg-white rounded-xl p-5 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <label class="font-semibold text-gray-900 flex items-center">
+                                <span class="text-2xl mr-2">💇</span>
+                                Personal Care
+                            </label>
+                            <span class="text-xl font-bold text-indigo-600" id="personal-value">$100</span>
+                        </div>
+                        <input type="range" id="personal-slider" min="50" max="250" value="100" step="25"
+                            class="w-full h-2 bg-indigo-200 rounded-lg appearance-none cursor-pointer slider"
+                            oninput="updateLifestyleCategory('personal', this.value)">
+                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                            <span>$50</span>
+                            <span>$250</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-selectable selected" onclick="selectLifestyle('balanced', this)">
-                    <div class="text-4xl mb-3">☕</div>
-                    <h3 class="text-xl font-bold mb-2">Balanced</h3>
-                    <p class="text-sm text-gray-600">Estimated ~$1,400/mo</p>
-                </div>
-                <div class="card-selectable" onclick="selectLifestyle('comfortable', this)">
-                    <div class="text-4xl mb-3">🍽️</div>
-                    <h3 class="text-xl font-bold mb-2">Comfortable</h3>
-                    <p class="text-sm text-gray-600">Estimated ~$2,100/mo</p>
+
+                <!-- Total Display -->
+                <div class="bg-white rounded-2xl border-2 border-indigo-300 p-6 text-center">
+                    <p class="text-sm text-gray-600 mb-2">Your Monthly Living Cost</p>
+                    <div class="text-5xl font-bold text-indigo-600 mb-2" id="lifestyle-total">$1,000</div>
+                    <div class="flex items-center justify-center gap-4 text-sm">
+                        <span class="text-gray-500">Country average: <span id="country-baseline">$1,000</span></span>
+                        <span id="lifestyle-comparison" class="font-semibold text-green-600">✓ Within budget</span>
+                    </div>
+                    <div class="mt-4 flex gap-2 justify-center flex-wrap">
+                        <button onclick="setLifestylePreset('frugal')"
+                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-semibold transition-all">
+                            🎒 Frugal ($900)
+                        </button>
+                        <button onclick="setLifestylePreset('balanced')"
+                            class="px-4 py-2 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 rounded-lg text-sm font-semibold transition-all">
+                            ☕ Balanced ($1,400)
+                        </button>
+                        <button onclick="setLifestylePreset('comfortable')"
+                            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-semibold transition-all">
+                            🍽️ Comfortable ($2,100)
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -968,9 +1089,73 @@
                     semesterBtn.classList.remove('text-gray-500');
                     monthlyBtn.classList.remove('bg-white', 'shadow-sm', 'text-indigo-600');
                     monthlyBtn.classList.add('text-gray-500');
-                    subtitle.textContent = 'How do you plan to live during your studies? (Semester/6-month estimate)';
+                    subtitle.textContent = 'How do you plan to live during your studies? (Semester estimate)';
                 }
             }
+
+            // New Lifestyle Calculator Functions
+            window.lifestyleCategories = {
+                food: 400,
+                transport: 100,
+                housing: 200,
+                entertainment: 150,
+                phone: 50,
+                personal: 100
+            };
+
+            window.updateLifestyleCategory = function (category, value) {
+                value = parseInt(value);
+                window.lifestyleCategories[category] = value;
+
+                // Update display
+                document.getElementById(`${category}-value`).textContent = `$${value}`;
+
+                // Calculate total
+                const total = Object.values(window.lifestyleCategories).reduce((sum, val) => sum + val, 0);
+                document.getElementById('lifestyle-total').textContent = `$${total.toLocaleString()}`;
+
+                // Update comparison with country baseline
+                const baseline = parseInt(document.getElementById('country-baseline').textContent.replace(/[$,]/g, '')) || 1000;
+                const comparison = document.getElementById('lifestyle-comparison');
+
+                if (total <= baseline) {
+                    comparison.textContent = '✓ Within budget';
+                    comparison.className = 'font-semibold text-green-600';
+                } else if (total <= baseline * 1.2) {
+                    comparison.textContent = '⚠️ Slightly over';
+                    comparison.className = 'font-semibold text-yellow-600';
+                } else {
+                    comparison.textContent = '⚠️ Above average';
+                    comparison.className = 'font-semibold text-red-600';
+                }
+            };
+
+            window.setLifestylePreset = function (preset) {
+                const presets = {
+                    frugal: { food: 300, transport: 75, housing: 150, entertainment: 75, phone: 40, personal: 60 },
+                    balanced: { food: 450, transport: 125, housing: 250, entertainment: 175, phone: 60, personal: 125 },
+                    comfortable: { food: 650, transport: 200, housing: 400, entertainment: 300, phone: 100, personal: 200 }
+                };
+
+                const values = presets[preset];
+                if (!values) return;
+
+                // Update all sliders and values
+                Object.keys(values).forEach(category => {
+                    const slider = document.getElementById(`${category}-slider`);
+                    if (slider) {
+                        slider.value = values[category];
+                        window.updateLifestyleCategory(category, values[category]);
+                    }
+                });
+            };
+
+            // Initialize lifestyle calculator on load
+            document.addEventListener('DOMContentLoaded', () => {
+                // Set initial total
+                const initialTotal = Object.values(window.lifestyleCategories).reduce((sum, val) => sum + val, 0);
+                document.getElementById('lifestyle-total').textContent = `$${initialTotal.toLocaleString()}`;
+            });
 
             function calculatePlan() {
                 const programs = window.selectedPrograms || [];
