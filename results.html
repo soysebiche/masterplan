@@ -7,6 +7,7 @@
     <title>Results Dashboard - MasterPlan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="design-tokens.css">
+    <link rel="stylesheet" href="components/components.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -78,8 +79,12 @@
             font-weight: 600;
             margin-bottom: 0.5rem;
             display: block;
-            font-size: 0.875rem;
-            color: #374151;
+            font-size: 0.75rem;
+            /* Reduced from 0.875rem */
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #6B7280;
+            /* gray-500 */
         }
 
         .sidebar-input,
@@ -87,16 +92,52 @@
             border: 2px solid #e5e7eb;
             padding: 0.625rem 0.875rem;
             width: 100%;
-            font-size: 0.9375rem;
+            font-size: 0.875rem;
+            /* Reduced from 0.9375rem */
             border-radius: 0.5rem;
-            transition: all 0.2s;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .sidebar-input:focus,
         .sidebar-select:focus {
             outline: none;
             border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            /* Thicker ring */
+            transform: translateY(-1px);
+            /* Subtle lift */
+        }
+
+        /* Collapsible Sidebar */
+        .sidebar-collapsed {
+            transform: translateX(100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 40;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Border accents based on state */
+        .card-surplus {
+            border-left: 4px solid #10B981;
+            /* green-500 */
+        }
+
+        .card-deficit {
+            border-left: 4px solid #EF4444;
+            /* red-500 */
+        }
+
+        .card-neutral {
+            border-left: 4px solid #6366F1;
+            /* indigo-500 */
         }
 
         .hidden-view {
