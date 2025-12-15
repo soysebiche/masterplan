@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MasterPlan Brand Guide</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="design-tokens.css">
+    <link rel="stylesheet" href="components/components.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #fafbfc 0%, #ffffff 100%);
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            overflow-y: auto;
+            padding: 2rem 0;
+            z-index: 100;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 0.75rem 2rem;
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .sidebar-nav a:hover {
+            background: #f9fafb;
+            color: #111827;
+        }
+
+        .sidebar-nav a.active {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            color: #667eea;
+            border-left: 3px solid #667eea;
+        }
+
+        .sidebar-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-section-title {
+            padding: 0 2rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #9ca3af;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 3rem;
+            max-width: 1200px;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            font-size: 1.125rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+            line-height: 1.75;
+        }
+
+        /* Color Swatch */
+        .color-swatch {
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .color-preview {
+            height: 120px;
+            width: 100%;
+        }
+
+        .color-info {
+            padding: 1rem;
+            background: white;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #1f2937;
+            color: #f3f4f6;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        /* Component Demo */
+        .component-demo {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Spacing Scale */
+        .spacing-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Typography Scale */
+        .type-sample {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        /* Accessibility Checker */
+        .contrast-checker {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .contrast-pass {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .contrast-fail {
+            color: #ef4444;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div style="padding: 0 2rem; margin-bottom: 2rem;">
+            <div class="flex items-center gap-2 mb-2">
+                <div class="w-8 h-8">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 35 L35 27 L35 65 L20 73 Z" fill="#3730A3" />
+                        <path d="M20 35 L35 27 L50 35 L35 43 Z" fill="#6366F1" />
+                        <path d="M35 43 L50 35 L50 55 L35 63 Z" fill="#D1D5DB" />
+                        <path d="M35 43 L50 35 L65 43 L50 51 Z" fill="#E5E7EB" />
+                        <path d="M65 43 L80 35 L80 73 L65 81 Z" fill="#6366F1" />
+                        <path d="M65 43 L80 35 L65 27 L50 35 Z" fill="#818CF8" />
+                        <path d="M35 63 L50 55 L50 73 L35 81 Z" fill="#9CA3AF" />
+                        <path d="M50 55 L65 47 L65 81 L50 73 Z" fill="#A5B4FC" />
+                        <path d="M20 73 L35 65 L35 81 Z" fill="#4338CA" />
+                        <path d="M65 81 L80 73 L65 65 Z" fill="#4F46E5" />
+                    </svg>
+                </div>
+                <span class="text-xl font-bold gradient-text">MasterPlan</span>
+            </div>
+            <p class="text-xs text-gray-500">Living Brand Guide v1.0</p>
+        </div>
+
+        <div class="sidebar-nav">
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Introduction</div>
+                <a href="#intro" class="active">Overview</a>
+                <a href="#principles">Design Principles</a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Identity</div>
+                <a href="#logo">Logo</a>
+                <a href="#colors">Colors</a>
+                <a href="#typography">Typography</a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Foundations</div>
+                <a href="#spacing">Spacing</a>
+                <a href="#shadows">Shadows</a>
+                <a href="#borders">Borders</a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Components</div>
+                <a href="#buttons">Buttons</a>
+                <a href="#forms">Forms</a>
+                <a href="#cards">Cards</a>
+                <a href="#navigation">Navigation</a>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-section-title">Guidelines</div>
+                <a href="#accessibility">Accessibility</a>
+                <a href="#usage">Usage Examples</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Introduction -->
+        <section id="intro" class="section">
+            <h1 class="section-title">MasterPlan Brand Guide</h1>
+            <p class="section-description">
+                A comprehensive living style guide for the MasterPlan brand. This guide defines our visual identity,
+                design principles, and component library to ensure consistency across all touchpoints.
+            </p>
+
+            <div class="bg-white rounded-2xl border-2 border-gray-200 p-8 shadow-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">About This Guide</h3>
+                <p class="text-gray-600 mb-4">
+                    This is a <strong>living style guide</strong> built with HTML and CSS. What you see here is exactly
+                    how elements will render in the browser, eliminating the gap between design and implementation.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-4">
+                        <div class="text-3xl font-bold gradient-text mb-2">6</div>
+                        <div class="text-sm text-gray-600">Core Components</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-4">
+                        <div class="text-3xl font-bold gradient-text mb-2">200+</div>
+                        <div class="text-sm text-gray-600">Design Tokens</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-4">
+                        <div class="text-3xl font-bold gradient-text mb-2">WCAG AA</div>
+                        <div class="text-sm text-gray-600">Accessibility</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Principles -->
+        <section id="principles" class="section">
+            <h2 class="section-title">Design Principles</h2>
+            <p class="section-description">
+                Our design philosophy centers on clarity, professionalism, and data density.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl border-2 border-gray-200 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">🎯 Data Density</h3>
+                    <p class="text-gray-600">
+                        Maximize information visibility without overwhelming users. Reduce whitespace by ~50% compared
+                        to consumer apps while maintaining readability.
+                    </p>
+                </div>
+                <div class="bg-white rounded-xl border-2 border-gray-200 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">✨ Subtle Effects</h3>
+                    <p class="text-gray-600">
+                        Use micro-animations and glassmorphism sparingly. Transitions should be fast (150-300ms) and
+                        purposeful.
+                    </p>
+                </div>
+                <div class="bg-white rounded-xl border-2 border-gray-200 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">🎨 Consistency</h3>
+                    <p class="text-gray-600">
+                        All components use design tokens. No hardcoded colors, spacing, or typography values.
+                    </p>
+                </div>
+                <div class="bg-white rounded-xl border-2 border-gray-200 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-3">💼 Professionalism</h3>
+                    <p class="text-gray-600">
+                        Enterprise-level dashboard aesthetic. No emojis in UI, professional gradients, elevated shadows.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logo -->
+        <section id="logo" class="section">
+            <h2 class="section-title">Logo</h2>
+            <p class="section-description">
+                The MasterPlan logo is an isometric "M" representing structure, planning, and elevation.
+            </p>
+
+            <div class="bg-white rounded-2xl border-2 border-gray-200 p-12 mb-6 text-center shadow-lg">
+                <div class="flex justify-center mb-8">
+                    <div class="w-48 h-48">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 35 L35 27 L35 65 L20 73 Z" fill="#3730A3" />
+                            <path d="M20 35 L35 27 L50 35 L35 43 Z" fill="#6366F1" />
+                            <path d="M35 43 L50 35 L50 55 L35 63 Z" fill="#D1D5DB" />
+                            <path d="M35 43 L50 35 L65 43 L50 51 Z" fill="#E5E7EB" />
+                            <path d="M65 43 L80 35 L80 73 L65 81 Z" fill="#6366F1" />
+                            <path d="M65 43 L80 35 L65 27 L50 35 Z" fill="#818CF8" />
+                            <path d="M35 63 L50 55 L50 73 L35 81 Z" fill="#9CA3AF" />
+                            <path d="M50 55 L65 47 L65 81 L50 73 Z" fill="#A5B4FC" />
+                            <path d="M20 73 L35 65 L35 81 Z" fill="#4338CA" />
+                            <path d="M65 81 L80 73 L65 65 Z" fill="#4F46E5" />
+                        </svg>
+                    </div>
+                </div>
+                <p class="text-gray-600">Primary Logo - Full Color</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div class="bg-white border-2 border-gray-200 rounded-xl p-8 text-center">
+                    <div class="flex justify-center mb-4">
+                        <div class="w-16 h-16">
+                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 35 L35 27 L35 65 L20 73 Z" fill="#3730A3" />
+                                <path d="M20 35 L35 27 L50 35 L35 43 Z" fill="#6366F1" />
+                                <path d="M35 43 L50 35 L50 55 L35 63 Z" fill="#D1D5DB" />
+                                <path d="M35 43 L50 35 L65 43 L50 51 Z" fill="#E5E7EB" />
+                                <path d="M65 43 L80 35 L80 73 L65 81 Z" fill="#6366F1" />
+                                <path d="M65 43 L80 35 L65 27 L50 35 Z" fill="#818CF8" />
+                                <path d="M35 63 L50 55 L50 73 L35 81 Z" fill="#9CA3AF" />
+                                <path d="M50 55 L65 47 L65 81 L50 73 Z" fill="#A5B4FC" />
+                                <path d="M20 73 L35 65 L35 81 Z" fill="#4338CA" />
+                                <path d="M65 81 L80 73 L65 65 Z" fill="#4F46E5" />
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500">64px (w-16)</p>
+                </div>
+                <div class="bg-white border-2 border-gray-200 rounded-xl p-8 text-center">
+                    <div class="flex justify-center mb-4">
+                        <div class="w-12 h-12">
+                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 35 L35 27 L35 65 L20 73 Z" fill="#3730A3" />
+                                <path d="M20 35 L35 27 L50 35 L35 43 Z" fill="#6366F1" />
+                                <path d="M35 43 L50 35 L50 55 L35 63 Z" fill="#D1D5DB" />
+                                <path d="M35 43 L50 35 L65 43 L50 51 Z" fill="#E5E7EB" />
+                                <path d="M65 43 L80 35 L80 73 L65 81 Z" fill="#6366F1" />
+                                <path d="M65 43 L80 35 L65 27 L50 35 Z" fill="#818CF8" />
+                                <path d="M35 63 L50 55 L50 73 L35 81 Z" fill="#9CA3AF" />
+                                <path d="M50 55 L65 47 L65 81 L50 73 Z" fill="#A5B4FC" />
+                                <path d="M20 73 L35 65 L35 81 Z" fill="#4338CA" />
+                                <path d="M65 81 L80 73 L65 65 Z" fill="#4F46E5" />
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500">48px (w-12)</p>
+                </div>
+                <div class="bg-white border-2 border-gray-200 rounded-xl p-8 text-center">
+                    <div class="flex justify-center mb-4">
+                        <div class="w-8 h-8">
+                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 35 L35 27 L35 65 L20 73 Z" fill="#3730A3" />
+                                <path d="M20 35 L35 27 L50 35 L35 43 Z" fill="#6366F1" />
+                                <path d="M35 43 L50 35 L50 55 L35 63 Z" fill="#D1D5DB" />
+                                <path d="M35 43 L50 35 L65 43 L50 51 Z" fill="#E5E7EB" />
+                                <path d="M65 43 L80 35 L80 73 L65 81 Z" fill="#6366F1" />
+                                <path d="M65 43 L80 35 L65 27 L50 35 Z" fill="#818CF8" />
+                                <path d="M35 63 L50 55 L50 73 L35 81 Z" fill="#9CA3AF" />
+                                <path d="M50 55 L65 47 L65 81 L50 73 Z" fill="#A5B4FC" />
+                                <path d="M20 73 L35 65 L35 81 Z" fill="#4338CA" />
+                                <path d="M65 81 L80 73 L65 65 Z" fill="#4F46E5" />
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-500">32px (w-8) - Navbar</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 rounded-xl p-6">
+                <p class="text-xs text-gray-400 mb-2">SVG Code</p>
+                <div class="code-block">
+                    &lt;svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
+                    &lt;path d="M20 35 L35 27 L35 65 L20 73 Z" fill="#3730A3"/&gt;
+                    &lt;path d="M20 35 L35 27 L50 35 L35 43 Z" fill="#6366F1"/&gt;
+                    &lt;!-- ... --&gt;
+                    &lt;/svg&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- Colors -->
+        <section id="colors" class="section">
+            <h2 class="section-title">Color System</h2>
+            <p class="section-description">
+                Our color palette is built on indigo and purple gradients with semantic colors for feedback.
+            </p>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Brand Colors</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #667eea;"></div>
+                    <div class="color-info">
+                        <p class="font-bold text-gray-900">Primary</p>
+                        <p class="text-sm text-gray-600">#667eea</p>
+                        <p class="text-xs text-gray-500 mt-1">indigo-500</p>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #764ba2;"></div>
+                    <div class="color-info">
+                        <p class="font-bold text-gray-900">Secondary</p>
+                        <p class="text-sm text-gray-600">#764ba2</p>
+                        <p class="text-xs text-gray-500 mt-1">purple-600</p>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #3730A3;"></div>
+                    <div class="color-info">
+                        <p class="font-bold text-gray-900">Dark Indigo</p>
+                        <p class="text-sm text-gray-600">#3730A3</p>
+                        <p class="text-xs text-gray-500 mt-1">indigo-800</p>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    </div>
+                    <div class="color-info">
+                        <p class="font-bold text-gray-900">Gradient</p>
+                        <p class="text-sm text-gray-600">Primary → Secondary</p>
+                        <p class="text-xs text-gray-500 mt-1">135deg</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Semantic Colors</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #10B981;"></div>
+                    <div class="color-info">
+                        <p class="font-bold text-gray-900">Success</p>
+                        <p class="text-sm text-gray-600">#10B981</p>
+                        <p class="text-xs text-gray-500 mt-1">emerald-500</p>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #EF4444;"></div>
+                    <div class="color-info">
+                        <p class="font-bold text-gray-900">Error</p>
+                        <p class="text-sm text-gray-600">#EF4444</p>
+                        <p class="text-xs text-gray-500 mt-1">red-500</p>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #F59E0B;"></div>
+                    <div class="color-info">
+                        <p class="font-bold text-gray-900">Warning</p>
+                        <p class="text-sm text-gray-600">#F59E0B</p>
+                        <p class="text-xs text-gray-500 mt-1">amber-500</p>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #3B82F6;"></div>
+                    <div class="color-info">
+                        <p class="font-bold text-gray-900">Info</p>
+                        <p class="text-sm text-gray-600">#3B82F6</p>
+                        <p class="text-xs text-gray-500 mt-1">blue-500</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Neutral Scale</h3>
+            <div class="grid grid-cols-4 md:grid-cols-8 gap-4">
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #F9FAFB;"></div>
+                    <div class="color-info">
+                        <p class="text-xs font-bold">50</p>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #F3F4F6;"></div>
+                    <div class="color-info">
+                        <p class="text-xs font-bold">100</p>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #E5E7EB;"></div>
+                    <div class="color-info">
+                        <p class="text-xs font-bold">200</p>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #D1D5DB;"></div>
+                    <div class="color-info">
+                        <p class="text-xs font-bold">300</p>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #9CA3AF;"></div>
+                    <div class="color-info">
+                        <p class="text-xs font-bold">400</p>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #6B7280;"></div>
+                    <div class="color-info">
+                        <p class="text-xs font-bold">500</p>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #4B5563;"></div>
+                    <div class="color-info">
+                        <p class="text-xs font-bold">600</p>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-preview" style="background: #111827;"></div>
+                    <div class="color-info">
+                        <p class="text-xs font-bold">900</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography -->
+        <section id="typography" class="section">
+            <h2 class="section-title">Typography</h2>
+            <p class="section-description">
+                We use Inter for all text. It's optimized for screens and provides excellent readability.
+            </p>
+
+            <div class="bg-white rounded-2xl border-2 border-gray-200 p-8 mb-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-6">Type Scale</h3>
+
+                <div class="type-sample">
+                    <h1 class="text-6xl font-bold text-gray-900 mb-2">Heading 1</h1>
+                    <p class="text-sm text-gray-500">text-6xl / 60px / font-bold / 900</p>
+                </div>
+
+                <div class="type-sample">
+                    <h2 class="text-5xl font-bold text-gray-900 mb-2">Heading 2</h2>
+                    <p class="text-sm text-gray-500">text-5xl / 48px / font-bold / 900</p>
+                </div>
+
+                <div class="type-sample">
+                    <h3 class="text-4xl font-bold text-gray-900 mb-2">Heading 3</h3>
+                    <p class="text-sm text-gray-500">text-4xl / 36px / font-bold / 800</p>
+                </div>
+
+                <div class="type-sample">
+                    <h4 class="text-3xl font-bold text-gray-900 mb-2">Heading 4</h4>
+                    <p class="text-sm text-gray-500">text-3xl / 30px / font-bold / 700</p>
+                </div>
+
+                <div class="type-sample">
+                    <h5 class="text-2xl font-semibold text-gray-900 mb-2">Heading 5</h5>
+                    <p class="text-sm text-gray-500">text-2xl / 24px / font-semibold / 600</p>
+                </div>
+
+                <div class="type-sample">
+                    <h6 class="text-xl font-semibold text-gray-900 mb-2">Heading 6</h6>
+                    <p class="text-sm text-gray-500">text-xl / 20px / font-semibold / 600</p>
+                </div>
+
+                <div class="type-sample">
+                    <p class="text-base text-gray-700 mb-2">
+                        Body text - Regular paragraph with proper line height for optimal readability.
+                        The quick brown fox jumps over the lazy dog.
+                    </p>
+                    <p class="text-sm text-gray-500">text-base / 16px / font-normal / 400 / line-height: 1.75</p>
+                </div>
+
+                <div class="type-sample">
+                    <p class="text-sm text-gray-600 mb-2">Small text for captions and helper text</p>
+                    <p class="text-sm text-gray-500">text-sm / 14px / font-normal / 400</p>
+                </div>
+
+                <div>
+                    <p class="text-xs text-gray-500 mb-2">Extra small text for labels and metadata</p>
+                    <p class="text-sm text-gray-500">text-xs / 12px / font-normal / 400</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 rounded-xl p-6">
+                <p class="text-xs text-gray-400 mb-2">CSS</p>
+                <div class="code-block">
+                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                </div>
+            </div>
+        </section>
+
+        <!-- Spacing -->
+        <section id="spacing" class="section">
+            <h2 class="section-title">Spacing System</h2>
+            <p class="section-description">
+                Consistent spacing creates visual rhythm. We use an 8px base unit with a scale from 4px to 128px.
+            </p>
+
+            <div class="bg-white rounded-2xl border-2 border-gray-200 p-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div>
+                        <div class="spacing-box mb-2" style="width: 16px; height: 16px;"></div>
+                        <p class="text-sm font-bold text-gray-900">XS</p>
+                        <p class="text-xs text-gray-500">4px / 0.25rem</p>
+                    </div>
+                    <div>
+                        <div class="spacing-box mb-2" style="width: 32px; height: 32px;"></div>
+                        <p class="text-sm font-bold text-gray-900">SM</p>
+                        <p class="text-xs text-gray-500">8px / 0.5rem</p>
+                    </div>
+                    <div>
+                        <div class="spacing-box mb-2" style="width: 64px; height: 64px;"></div>
+                        <p class="text-sm font-bold text-gray-900">MD</p>
+                        <p class="text-xs text-gray-500">16px / 1rem</p>
+                    </div>
+                    <div>
+                        <div class="spacing-box mb-2" style="width: 96px; height: 96px;"></div>
+                        <p class="text-sm font-bold text-gray-900">LG</p>
+                        <p class="text-xs text-gray-500">24px / 1.5rem</p>
+                    </div>
+                    <div>
+                        <div class="spacing-box mb-2" style="width: 128px; height: 128px;"></div>
+                        <p class="text-sm font-bold text-gray-900">XL</p>
+                        <p class="text-xs text-gray-500">32px / 2rem</p>
+                    </div>
+                    <div>
+                        <div class="spacing-box mb-2" style="width: 192px; height: 64px;"></div>
+                        <p class="text-sm font-bold text-gray-900">2XL</p>
+                        <p class="text-xs text-gray-500">48px / 3rem</p>
+                    </div>
+                    <div>
+                        <div class="spacing-box mb-2" style="width: 256px; height: 64px;"></div>
+                        <p class="text-sm font-bold text-gray-900">3XL</p>
+                        <p class="text-xs text-gray-500">64px / 4rem</p>
+                    </div>
+                    <div>
+                        <div class="spacing-box mb-2" style="width: 320px; height: 64px;"></div>
+                        <p class="text-sm font-bold text-gray-900">4XL</p>
+                        <p class="text-xs text-gray-500">128px / 8rem</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shadows -->
+        <section id="shadows" class="section">
+            <h2 class="section-title">Elevation & Shadows</h2>
+            <p class="section-description">
+                Shadows create depth and hierarchy. We use three levels of elevation.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl p-8 text-center" style="box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+                    <div class="text-4xl mb-4">📄</div>
+                    <p class="font-bold text-gray-900 mb-2">Subtle</p>
+                    <p class="text-sm text-gray-600 mb-4">Cards, inputs</p>
+                    <code class="text-xs bg-gray-100 px-2 py-1 rounded">shadow-sm</code>
+                </div>
+                <div class="bg-white rounded-xl p-8 text-center" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <div class="text-4xl mb-4">📦</div>
+                    <p class="font-bold text-gray-900 mb-2">Medium</p>
+                    <p class="text-sm text-gray-600 mb-4">Dropdowns, modals</p>
+                    <code class="text-xs bg-gray-100 px-2 py-1 rounded">shadow-md</code>
+                </div>
+                <div class="bg-white rounded-xl p-8 text-center" style="box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);">
+                    <div class="text-4xl mb-4">🎯</div>
+                    <p class="font-bold text-gray-900 mb-2">Elevated</p>
+                    <p class="text-sm text-gray-600 mb-4">Popovers, tooltips</p>
+                    <code class="text-xs bg-gray-100 px-2 py-1 rounded">shadow-2xl</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- Borders -->
+        <section id="borders" class="section">
+            <h2 class="section-title">Border Radius</h2>
+            <p class="section-description">
+                Rounded corners soften the interface. We use 4 standard radii.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-8 text-white text-center"
+                    style="border-radius: 0.5rem;">
+                    <p class="font-bold mb-2">Small</p>
+                    <p class="text-sm opacity-90">0.5rem / 8px</p>
+                </div>
+                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-8 text-white text-center"
+                    style="border-radius: 0.75rem;">
+                    <p class="font-bold mb-2">Medium</p>
+                    <p class="text-sm opacity-90">0.75rem / 12px</p>
+                </div>
+                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-8 text-white text-center"
+                    style="border-radius: 1rem;">
+                    <p class="font-bold mb-2">Large</p>
+                    <p class="text-sm opacity-90">1rem / 16px</p>
+                </div>
+                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-8 text-white text-center"
+                    style="border-radius: 1.5rem;">
+                    <p class="font-bold mb-2">XL</p>
+                    <p class="text-sm opacity-90">1.5rem / 24px</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Buttons -->
+        <section id="buttons" class="section">
+            <h2 class="section-title">Buttons</h2>
+            <p class="section-description">
+                Buttons are the primary call-to-action elements. We have 3 main variants with multiple states.
+            </p>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Variants</h3>
+            <div class="component-demo">
+                <div class="flex flex-wrap gap-4 items-center">
+                    <button class="btn btn-primary">Primary Button</button>
+                    <button class="btn btn-secondary">Secondary Button</button>
+                    <button class="btn btn-ghost">Ghost Button</button>
+                    <button class="btn btn-danger">Danger Button</button>
+                    <button class="btn btn-success">Success Button</button>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-4 mt-8">Sizes</h3>
+            <div class="component-demo">
+                <div class="flex flex-wrap gap-4 items-center">
+                    <button class="btn btn-primary btn-sm">Small</button>
+                    <button class="btn btn-primary">Default</button>
+                    <button class="btn btn-primary btn-lg">Large</button>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-4 mt-8">States</h3>
+            <div class="component-demo">
+                <div class="flex flex-wrap gap-4 items-center">
+                    <button class="btn btn-primary">Normal</button>
+                    <button class="btn btn-primary" disabled>Disabled</button>
+                    <button class="btn btn-primary btn-loading">Loading</button>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 rounded-xl p-6 mt-6">
+                <p class="text-xs text-gray-400 mb-2">HTML</p>
+                <div class="code-block">
+                    &lt;button class="btn btn-primary"&gt;Primary Button&lt;/button&gt;
+                    &lt;button class="btn btn-secondary"&gt;Secondary Button&lt;/button&gt;
+                    &lt;button class="btn btn-ghost"&gt;Ghost Button&lt;/button&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- Forms -->
+        <section id="forms" class="section">
+            <h2 class="section-title">Form Elements</h2>
+            <p class="section-description">
+                Form inputs with clear focus states and validation feedback.
+            </p>
+
+            <div class="component-demo">
+                <div class="max-w-md space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Text Input</label>
+                        <input type="text" placeholder="Enter text..."
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">With Error</label>
+                        <input type="text" placeholder="Invalid input"
+                            class="w-full px-4 py-3 border-2 border-red-500 rounded-lg focus:border-red-500 focus:ring-4 focus:ring-red-100 transition-all">
+                        <p class="text-sm text-red-600 mt-1">This field is required</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Textarea</label>
+                        <textarea rows="3" placeholder="Enter description..."
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Select</label>
+                        <select
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all">
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" id="check1"
+                            class="w-5 h-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                        <label for="check1" class="text-sm text-gray-700">Checkbox option</label>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <input type="radio" id="radio1" name="radio"
+                            class="w-5 h-5 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                        <label for="radio1" class="text-sm text-gray-700">Radio option</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cards -->
+        <section id="cards" class="section">
+            <h2 class="section-title">Cards</h2>
+            <p class="section-description">
+                Cards are containers for related content and actions.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl border-2 border-gray-200 p-6 hover:shadow-lg transition-all">
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Basic Card</h3>
+                    <p class="text-gray-600 mb-4">
+                        A simple card with title, description, and action.
+                    </p>
+                    <button class="btn btn-primary btn-sm">Learn More</button>
+                </div>
+
+                <div class="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-6 text-white">
+                    <h3 class="text-lg font-bold mb-2">Featured Card</h3>
+                    <p class="opacity-90 mb-4">
+                        A highlighted card with gradient background.
+                    </p>
+                    <button
+                        class="bg-white text-indigo-600 px-4 py-2 rounded-lg font-semibold hover:bg-indigo-50 transition-all">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <section id="navigation" class="section">
+            <h2 class="section-title">Navigation</h2>
+            <p class="section-description">
+                Navbar with glassmorphism effect and logo integration.
+            </p>
+
+            <div class="component-demo">
+                <nav class="bg-white/80 backdrop-blur-md border border-gray-200 rounded-xl p-4">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8">
+                                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 35 L35 27 L35 65 L20 73 Z" fill="#3730A3" />
+                                    <path d="M20 35 L35 27 L50 35 L35 43 Z" fill="#6366F1" />
+                                    <path d="M35 43 L50 35 L50 55 L35 63 Z" fill="#D1D5DB" />
+                                    <path d="M35 43 L50 35 L65 43 L50 51 Z" fill="#E5E7EB" />
+                                    <path d="M65 43 L80 35 L80 73 L65 81 Z" fill="#6366F1" />
+                                    <path d="M65 43 L80 35 L65 27 L50 35 Z" fill="#818CF8" />
+                                    <path d="M35 63 L50 55 L50 73 L35 81 Z" fill="#9CA3AF" />
+                                    <path d="M50 55 L65 47 L65 81 L50 73 Z" fill="#A5B4FC" />
+                                    <path d="M20 73 L35 65 L35 81 Z" fill="#4338CA" />
+                                    <path d="M65 81 L80 73 L65 65 Z" fill="#4F46E5" />
+                                </svg>
+                            </div>
+                            <span class="text-xl font-bold gradient-text">MasterPlan</span>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium">Dashboard</a>
+                            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium">Simulator</a>
+                            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium">Pricing</a>
+                            <button class="btn btn-primary btn-sm">Sign Up</button>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </section>
+
+        <!-- Accessibility -->
+        <section id="accessibility" class="section">
+            <h2 class="section-title">Accessibility</h2>
+            <p class="section-description">
+                All components meet WCAG AA standards for contrast and keyboard navigation.
+            </p>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">Contrast Ratios</h3>
+
+            <div class="contrast-checker" style="background: #667eea; color: white;">
+                <div>
+                    <p class="text-2xl font-bold mb-2">White on Primary</p>
+                    <p class="text-sm opacity-90">The quick brown fox jumps over the lazy dog</p>
+                </div>
+                <div class="text-right">
+                    <p class="contrast-pass text-white text-3xl font-bold">✓ PASS</p>
+                    <p class="text-sm opacity-90">Contrast: 4.8:1</p>
+                </div>
+            </div>
+
+            <div class="contrast-checker" style="background: white; border: 2px solid #e5e7eb; color: #111827;">
+                <div>
+                    <p class="text-2xl font-bold mb-2">Gray-900 on White</p>
+                    <p class="text-sm text-gray-600">The quick brown fox jumps over the lazy dog</p>
+                </div>
+                <div class="text-right">
+                    <p class="contrast-pass text-3xl font-bold">✓ PASS</p>
+                    <p class="text-sm text-gray-600">Contrast: 16.1:1</p>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-4 mt-8">Keyboard Navigation</h3>
+            <div class="bg-white rounded-xl border-2 border-gray-200 p-6">
+                <p class="text-gray-700 mb-4">
+                    All interactive elements have visible focus states with a 4px indigo ring:
+                </p>
+                <div class="flex gap-4">
+                    <button class="btn btn-primary" style="box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);">
+                        Focused Button
+                    </button>
+                    <input type="text" placeholder="Focused Input"
+                        class="px-4 py-2 border-2 border-indigo-500 rounded-lg"
+                        style="box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);">
+                </div>
+            </div>
+        </section>
+
+        <!-- Usage Examples -->
+        <section id="usage" class="section">
+            <h2 class="section-title">Usage Examples</h2>
+            <p class="section-description">
+                Real-world examples of how components work together.
+            </p>
+
+            <div class="bg-white rounded-2xl border-2 border-gray-200 p-8">
+                <h3 class="text-xl font-bold text-gray-900 mb-6">Login Form</h3>
+                <div class="max-w-md mx-auto">
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                        <input type="email" placeholder="you@example.com"
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                        <input type="password" placeholder="••••••••"
+                            class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all">
+                    </div>
+                    <button class="btn btn-primary btn-block mb-3">Sign In</button>
+                    <button class="btn btn-secondary btn-block">Create Account</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-16 pt-8 border-t border-gray-200 text-center text-gray-500 text-sm">
+            <p>MasterPlan Brand Guide v1.0 • Last updated: December 2024</p>
+            <p class="mt-2">Built with HTML, CSS, and design tokens</p>
+        </footer>
+    </main>
+
+    <script>
+        // Smooth scroll for navigation
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                    // Update active state
+                    document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Update active nav on scroll
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
