@@ -471,15 +471,8 @@
                                 </p>
                             </div>
 
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4" id="similar-programs-container">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="similar-programs-container">
                                 <!-- Similar programs will be inserted here by JavaScript -->
-                            </div>
-
-                            <div class="text-center">
-                                <button onclick="startComparison()"
-                                    class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-md transition-all">
-                                    Compare All Options
-                                </button>
                             </div>
                         </div>
 
@@ -1196,6 +1189,51 @@
             window.location.href = 'simulator.html?mode=compare';
         };
 
+        // Store current program data for comparison
+        let currentProgramData = null;
+
+        const addToComparison = (programB) => {
+            if (!currentProgramData) return;
+            
+            // Get current sidebar values for funds
+            const savings = parseFloat(document.getElementById('input-savings').value) || 0;
+            const family = parseFloat(document.getElementById('input-family').value) || 0;
+            const scholarships = parseFloat(document.getElementById('input-scholarships').value) || 0;
+            const loans = parseFloat(document.getElementById('input-loans').value) || 0;
+            const monthlyLiving = parseFloat(document.getElementById('input-living-monthly').value) || 1400;
+            
+            // Calculate costs for program B
+            const livingCostB = monthlyLiving * programB.duration;
+            const totalCostB = programB.tuition + livingCostB;
+            const personalFunds = savings + family + scholarships + loans;
+            const gapB = totalCostB - personalFunds;
+            
+            // Build comparison URL with both programs
+            const params = new URLSearchParams({
+                simType: 'compare',
+                // Program A (current)
+                nameA: currentProgramData.name,
+                tuitionA: currentProgramData.tuition,
+                livingA: currentProgramData.living,
+                costA: currentProgramData.cost,
+                gapA: currentProgramData.gap,
+                duration: currentProgramData.duration,
+                // Program B (selected similar program)
+                nameB: `${programB.name} - ${programB.program}`,
+                tuitionB: programB.tuition,
+                livingB: livingCostB,
+                costB: totalCostB,
+                gapB: gapB,
+                durationB: programB.duration,
+                // Shared funds
+                savings: savings,
+                family: family,
+                scholarships: scholarships
+            });
+            
+            window.location.href = `results.html?${params.toString()}`;
+        };
+
         const generateSimilarPrograms = (currentProgram, currentTuition) => {
             // Generate 3 similar programs with varied tuition (±20%)
             const similarPrograms = [
@@ -1225,10 +1263,13 @@
                 }
             ];
 
+            // Store for global access
+            window.similarProgramsList = similarPrograms;
+
             const container = document.getElementById('similar-programs-container');
             if (!container) return;
 
-            container.innerHTML = similarPrograms.map(prog => `
+            container.innerHTML = similarPrograms.map((prog, index) => `
                 <div class="card-hover bg-white rounded-lg border border-indigo-100 p-4 shadow-sm">
                     <div class="flex justify-between items-start mb-3">
                         <span class="text-xs font-semibold px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">${prog.tag}</span>
@@ -1244,7 +1285,7 @@
                             <span class="text-xs text-gray-500">Duration</span>
                             <span class="text-sm font-semibold text-gray-700">${prog.duration} months</span>
                         </div>
-                        <button onclick="alert('Feature coming soon: Add to comparison')" class="w-full bg-indigo-50 text-indigo-700 px-4 py-2 rounded-lg font-semibold text-sm hover:bg-indigo-100 transition-all">
+                        <button onclick="addToComparison(window.similarProgramsList[${index}])" class="w-full bg-indigo-50 text-indigo-700 px-4 py-2 rounded-lg font-semibold text-sm hover:bg-indigo-100 transition-all">
                             Add to Comparison
                         </button>
                     </div>
@@ -1316,6 +1357,20 @@
                 });
 
                 updateDashboard();
+
+                // Store current program data for comparison feature
+                currentProgramData = {
+                    name: nameA,
+                    tuition: tuitionA,
+                    living: livingA,
+                    cost: costA,
+                    gap: gapA,
+                    duration: durationA,
+                    personalFunds: personalFundsA,
+                    savings: savingsA,
+                    family: familyA,
+                    scholarships: scholarshipsA
+                };
 
                 // Generate similar programs for comparison preview
                 generateSimilarPrograms(nameA, tuitionA);
