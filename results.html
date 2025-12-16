@@ -612,8 +612,7 @@
                         ← Start Over
                     </a>
                     <a href="dashboard.html" id="save-button"
-                        class="gradient-bg text-white px-6 py-3 rounded-lg font-semibold hover:shadow-md transition-all"
-                        onclick="return confirm('Your plan will be saved to your dashboard. Continue?')">
+                        class="gradient-bg text-white px-6 py-3 rounded-lg font-semibold hover:shadow-md transition-all">
                         Save Plan
                     </a>
                 </footer>
@@ -674,9 +673,12 @@
             
             currentSelectedMonth = newIndex;
             
+            // Find the "Today" dataset by label (it's the one with order: 1)
+            const todayDatasetIndex = chart.data.datasets.findIndex(ds => ds.label === 'Today');
+            if (todayDatasetIndex === -1) return;
+            
             // Update the "Today" dataset to show the dot at the new position
-            const todayDataset = chart.data.datasets[1];
-            todayDataset.data = chartBalanceData.map((val, i) => i === newIndex ? val : null);
+            chart.data.datasets[todayDatasetIndex].data = chartBalanceData.map((val, i) => i === newIndex ? val : null);
             
             // Update labels to reflect current position
             chart.data.labels = chartLabels.map((label, i) => {
@@ -994,11 +996,12 @@
             const housing = monthlyLiving * 0.5;
             const lifestyle = monthlyLiving * 0.3;
             const other = monthlyLiving * 0.2;
+            const total = housing + lifestyle + other;
 
             chartInstances[ctxId] = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Housing', 'Lifestyle (Food, etc)', 'Other (Car, etc)'],
+                    labels: ['Housing (50%)', 'Lifestyle (30%)', 'Other (20%)'],
                     datasets: [{
                         data: [housing, lifestyle, other],
                         backgroundColor: ['#667eea', '#fbbf24', '#10b981'],
@@ -1010,8 +1013,39 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { position: 'bottom', labels: { font: { family: "'Inter', sans-serif", size: 14 } } },
-                        tooltip: { callbacks: { label: (context) => `${context.label}: ${formatCurrency(context.raw)}/mo` } }
+                        legend: { 
+                            position: 'bottom', 
+                            labels: { 
+                                font: { family: "'Inter', sans-serif", size: 14 },
+                                generateLabels: (chart) => {
+                                    const data = chart.data;
+                                    if (data.labels.length && data.datasets.length) {
+                                        return data.labels.map((label, i) => {
+                                            const value = data.datasets[0].data[i];
+                                            const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+                                            return {
+                                                text: `${label.split(' (')[0]} - ${formatCurrency(value)} (${percentage}%)`,
+                                                fillStyle: data.datasets[0].backgroundColor[i],
+                                                strokeStyle: data.datasets[0].borderColor,
+                                                lineWidth: data.datasets[0].borderWidth,
+                                                hidden: false,
+                                                index: i
+                                            };
+                                        });
+                                    }
+                                    return [];
+                                }
+                            } 
+                        },
+                        tooltip: { 
+                            callbacks: { 
+                                label: (context) => {
+                                    const value = context.raw;
+                                    const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+                                    return `${context.label.split(' (')[0]}: ${formatCurrency(value)}/mo (${percentage}%)`;
+                                }
+                            } 
+                        }
                     }
                 }
             });
