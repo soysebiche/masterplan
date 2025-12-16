@@ -1578,13 +1578,13 @@
                     const params = new URLSearchParams({
                         simType: 'compare',
                         // Program A
-                        nameA: p1.name,
+                        nameA: p1.program ? `${p1.name} - ${p1.program}` : p1.name,
                         tuitionA: c1.tuition,
                         livingA: c1.living,
                         costA: c1.cost,
                         gapA: gap1,
                         // Program B
-                        nameB: p2.name,
+                        nameB: p2.program ? `${p2.name} - ${p2.program}` : p2.name,
                         tuitionB: c2.tuition,
                         livingB: c2.living,
                         costB: c2.cost,
@@ -1696,7 +1696,8 @@
                     });
 
                     // Program B params (current calculation)
-                    params.append('nameB', program.name);
+                    const programBName = program.program ? `${program.name} - ${program.program}` : program.name;
+                    params.append('nameB', programBName);
                     params.append('tuitionB', tuition);
                     params.append('livingB', totalLiving);
                     params.append('costB', totalCost);
@@ -1705,9 +1706,10 @@
                     // The comparison view in results.html uses personalFundsA and personalFundsB calculated from cost - gap.
 
                 } else {
+                    const programName = program.program ? `${program.name} - ${program.program}` : program.name;
                     params = new URLSearchParams({
                         simType: 'single',
-                        nameA: program.name,
+                        nameA: programName,
                         tuitionA: tuition,
                         livingA: totalLiving,
                         costA: totalCost,
