@@ -1506,15 +1506,21 @@
                     return;
                 }
 
-                const savings = parseFloat(document.getElementById('input-savings').value) || 0;
-                const family = parseFloat(document.getElementById('input-family').value) || 0;
-                const scholarships = parseFloat(document.getElementById('input-scholarships').value) || 0;
+                // Helper function to safely get input value
+                function getInputValue(id, defaultValue = 0) {
+                    const element = document.getElementById(id);
+                    return element ? (parseFloat(element.value) || defaultValue) : defaultValue;
+                }
 
-                // Hidden Costs
-                const flights = parseFloat(document.getElementById('input-flights').value) || 0;
-                const visa = parseFloat(document.getElementById('input-visa').value) || 0;
-                const insurance = parseFloat(document.getElementById('input-insurance').value) || 0;
-                const deposit = parseFloat(document.getElementById('input-deposit').value) || 0;
+                const savings = getInputValue('input-savings', 0);
+                const family = getInputValue('input-family', 0);
+                const scholarships = getInputValue('input-scholarships', 0);
+
+                // Hidden Costs - flights field doesn't exist, so default to 0
+                const flights = 0; // No flights input field in current HTML
+                const visa = getInputValue('input-visa', 0);
+                const insurance = getInputValue('input-insurance', 0);
+                const deposit = getInputValue('input-deposit', 0);
 
                 const lifestyle = window.selectedLifestyle || 'balanced';
                 const lifestyleMap = {
@@ -1526,11 +1532,11 @@
                 let baseMonthlyLiving = lifestyleMap[lifestyle] || 1400;
 
                 const hasHomeSalary = window.selectedSalary === 'yes';
-                const homeSalaryMonthly = hasHomeSalary ? parseFloat(document.getElementById('input-home-salary').value) || 0 : 0;
+                const homeSalaryMonthly = hasHomeSalary ? getInputValue('input-home-salary', 0) : 0;
 
                 const hasOnCampusJob = window.selectedOnCampus === 'yes';
-                const hoursPerWeek = hasOnCampusJob ? parseFloat(document.getElementById('input-hours-week').value) || 0 : 0;
-                const hourlyRate = hasOnCampusJob ? parseFloat(document.getElementById('input-hourly-rate').value) || 0 : 0;
+                const hoursPerWeek = hasOnCampusJob ? getInputValue('input-hours-week', 0) : 0;
+                const hourlyRate = hasOnCampusJob ? getInputValue('input-hourly-rate', 0) : 0;
                 const monthlyOnCampusIncome = hoursPerWeek * hourlyRate * 4;
 
                 const totalMonthlyIncome = homeSalaryMonthly + monthlyOnCampusIncome;
