@@ -603,24 +603,54 @@
                         </section>
                     </div>
 
-                    <!-- Row 2: Programs C & D (hidden by default, shown when added) -->
+                    <!-- Row 2: Programs C & D (add program search cards) -->
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-3" id="compare-cards-row-2">
-                        <!-- Card C: Initially "Add Program" placeholder -->
-                        <section id="compare-card-c" class="relative border-2 border-dashed border-gray-300 rounded-lg text-center p-4 cursor-pointer hover:border-indigo-500 hover:bg-indigo-50 transition-all"
-                            onclick="addProgramToComparison('C')">
-                            <div class="py-6">
-                                <div class="text-3xl text-gray-400 mb-2">+</div>
-                                <h3 class="text-lg font-semibold text-gray-600">Add 3rd Program</h3>
-                                <p class="text-sm text-gray-500 mt-1">Compare with another option</p>
+                        <!-- Card C: Search to add 3rd program -->
+                        <section id="compare-card-c" class="relative border-2 border-dashed border-gray-300 rounded-lg p-4 transition-all">
+                            <div class="text-center mb-3">
+                                <h3 class="text-lg font-semibold text-gray-700">Add 3rd Program</h3>
+                                <p class="text-xs text-gray-500">Search to compare another option</p>
+                            </div>
+                            <div class="relative">
+                                <div class="flex items-center border border-gray-300 rounded-lg focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-100 bg-white">
+                                    <div class="pl-3 pr-2">
+                                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <input type="text" id="compare-search-input-c"
+                                        class="flex-1 py-2 pr-3 text-sm border-0 focus:outline-none focus:ring-0 bg-transparent"
+                                        placeholder="Search university or program..."
+                                        oninput="searchInComparisonCard(this.value, 'C')"
+                                        autocomplete="off">
+                                </div>
+                                <div id="compare-search-results-c"
+                                    class="hidden absolute w-full bg-white border border-gray-200 rounded-lg shadow-lg mt-1 max-h-48 overflow-y-auto z-20">
+                                </div>
                             </div>
                         </section>
-                        <!-- Card D: Initially hidden -->
-                        <section id="compare-card-d" class="hidden relative border-2 border-dashed border-gray-300 rounded-lg text-center p-4 cursor-pointer hover:border-indigo-500 hover:bg-indigo-50 transition-all"
-                            onclick="addProgramToComparison('D')">
-                            <div class="py-6">
-                                <div class="text-3xl text-gray-400 mb-2">+</div>
-                                <h3 class="text-lg font-semibold text-gray-600">Add 4th Program</h3>
-                                <p class="text-sm text-gray-500 mt-1">Compare with another option</p>
+                        <!-- Card D: Initially hidden, search to add 4th program -->
+                        <section id="compare-card-d" class="hidden relative border-2 border-dashed border-gray-300 rounded-lg p-4 transition-all">
+                            <div class="text-center mb-3">
+                                <h3 class="text-lg font-semibold text-gray-700">Add 4th Program</h3>
+                                <p class="text-xs text-gray-500">Search to compare another option</p>
+                            </div>
+                            <div class="relative">
+                                <div class="flex items-center border border-gray-300 rounded-lg focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-100 bg-white">
+                                    <div class="pl-3 pr-2">
+                                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <input type="text" id="compare-search-input-d"
+                                        class="flex-1 py-2 pr-3 text-sm border-0 focus:outline-none focus:ring-0 bg-transparent"
+                                        placeholder="Search university or program..."
+                                        oninput="searchInComparisonCard(this.value, 'D')"
+                                        autocomplete="off">
+                                </div>
+                                <div id="compare-search-results-d"
+                                    class="hidden absolute w-full bg-white border border-gray-200 rounded-lg shadow-lg mt-1 max-h-48 overflow-y-auto z-20">
+                                </div>
                             </div>
                         </section>
                     </div>
@@ -1750,13 +1780,14 @@
             updateCompareCountBadge();
         };
 
-        // Add a new program to comparison (C or D)
+        // Focus on search input for adding program (C or D)
         window.addProgramToComparison = function (slot) {
-            // Redirect to simulator in compare mode, passing current comparison data
-            const currentParams = new URLSearchParams(window.location.search);
-            currentParams.set('addSlot', slot);
-            sessionStorage.setItem('compare_existing_data', JSON.stringify(window.comparePrograms));
-            window.location.href = `simulator.html?mode=compare&addSlot=${slot}`;
+            // Just render the placeholder with search and focus
+            renderAddProgramPlaceholder(slot);
+            setTimeout(() => {
+                const input = document.getElementById(`compare-search-input-${slot.toLowerCase()}`);
+                if (input) input.focus();
+            }, 100);
         };
 
         // Render a program card (filled state)
@@ -1780,7 +1811,150 @@
             `;
         };
 
-        // Render empty "Add Program" placeholder
+        // Universities database for comparison search
+        const comparisonUniversitiesDB = (() => {
+            const data = [];
+            const countries = [
+                { code: 'US', name: 'United States', livingCost: 1500 },
+                { code: 'UK', name: 'United Kingdom', livingCost: 1400 },
+                { code: 'ES', name: 'Spain', livingCost: 900 },
+                { code: 'FR', name: 'France', livingCost: 1200 },
+                { code: 'DE', name: 'Germany', livingCost: 1000 },
+                { code: 'NL', name: 'Netherlands', livingCost: 1100 },
+                { code: 'CH', name: 'Switzerland', livingCost: 1600 },
+                { code: 'IT', name: 'Italy', livingCost: 950 },
+                { code: 'CA', name: 'Canada', livingCost: 1200 },
+                { code: 'AU', name: 'Australia', livingCost: 1300 },
+                { code: 'SG', name: 'Singapore', livingCost: 1400 },
+                { code: 'HK', name: 'Hong Kong', livingCost: 1500 }
+            ];
+            
+            const universities = {
+                'US': ['Harvard University', 'Stanford University', 'MIT', 'Wharton', 'Columbia University', 'University of Chicago', 'Northwestern University', 'Yale University', 'Duke University', 'UC Berkeley', 'UCLA', 'NYU Stern'],
+                'UK': ['Oxford University', 'Cambridge University', 'London Business School', 'Imperial College', 'LSE', 'Warwick', 'Manchester', 'Edinburgh'],
+                'ES': ['IE Business School', 'ESADE', 'IESE Business School'],
+                'FR': ['INSEAD', 'HEC Paris', 'ESSEC', 'Sciences Po'],
+                'DE': ['WHU', 'Mannheim Business School', 'Frankfurt School', 'ESMT Berlin'],
+                'NL': ['Rotterdam School of Management', 'Amsterdam Business School'],
+                'CH': ['University of St. Gallen', 'IMD', 'ETH Zurich'],
+                'IT': ['Bocconi University', 'SDA Bocconi'],
+                'CA': ['Rotman', 'Ivey Business School', 'McGill University'],
+                'AU': ['Melbourne Business School', 'UNSW', 'University of Sydney'],
+                'SG': ['NUS', 'Nanyang Business School', 'Singapore Management University'],
+                'HK': ['HKU', 'HKUST', 'CUHK']
+            };
+            
+            const programs = ['MBA', 'Master of Finance', 'Master in Management', 'Master of Data Science', 'Master of Marketing', 'MSc Economics', 'Master of Accounting', 'LLM'];
+            
+            Object.keys(universities).forEach(countryCode => {
+                const country = countries.find(c => c.code === countryCode);
+                if (!country) return;
+                
+                universities[countryCode].forEach(uni => {
+                    programs.forEach(prog => {
+                        const baseTuition = countryCode === 'US' ? 65000 : countryCode === 'UK' ? 45000 : 35000;
+                        const tuitionVariation = 0.7 + Math.random() * 0.6;
+                        const tuition = Math.round(baseTuition * tuitionVariation);
+                        const duration = prog === 'MBA' ? 24 : (Math.random() > 0.5 ? 12 : 24);
+                        
+                        data.push({
+                            name: uni,
+                            program: prog,
+                            country: countryCode,
+                            countryName: country.name,
+                            tuition: tuition,
+                            duration: duration,
+                            livingCost: country.livingCost
+                        });
+                    });
+                });
+            });
+            
+            return data;
+        })();
+
+        // Search in comparison card (exposed globally)
+        window.searchInComparisonCard = function(query, slot) {
+            const resultsId = `compare-search-results-${slot.toLowerCase()}`;
+            const resultsDiv = document.getElementById(resultsId);
+            if (!resultsDiv) return;
+            
+            if (query.length < 2) {
+                resultsDiv.classList.add('hidden');
+                resultsDiv.innerHTML = '';
+                return;
+            }
+            
+            const matches = comparisonUniversitiesDB.filter(item => {
+                const uniMatch = item.name.toLowerCase().includes(query.toLowerCase());
+                const programMatch = item.program.toLowerCase().includes(query.toLowerCase());
+                return uniMatch || programMatch;
+            }).slice(0, 6);
+            
+            if (matches.length === 0) {
+                resultsDiv.innerHTML = '<div class="p-3 text-center text-gray-500 text-sm">No programs found</div>';
+            } else {
+                resultsDiv.innerHTML = matches.map(item => `
+                    <div class="border-b border-gray-100 px-3 py-2 cursor-pointer hover:bg-indigo-50 transition-all text-left"
+                         onclick="selectProgramForComparison('${slot}', '${item.name.replace(/'/g, "\\'")}', '${item.program.replace(/'/g, "\\'")}', '${item.country}', '${item.countryName}', ${item.tuition}, ${item.duration}, ${item.livingCost})">
+                        <div class="font-semibold text-gray-900 text-sm">${item.name}</div>
+                        <div class="text-xs text-gray-600">${item.program} • ${item.countryName}</div>
+                        <div class="text-xs font-bold text-indigo-600 mt-1">$${item.tuition.toLocaleString()} • ${item.duration}mo</div>
+                    </div>
+                `).join('');
+            }
+            
+            resultsDiv.classList.remove('hidden');
+        };
+
+        // Select program and add to comparison
+        window.selectProgramForComparison = function(slot, uniName, programName, countryCode, countryName, tuition, duration, livingCost) {
+            // Get current sidebar funds
+            const savings = parseFloat(document.getElementById('input-savings').value) || 0;
+            const family = parseFloat(document.getElementById('input-family').value) || 0;
+            const scholarships = parseFloat(document.getElementById('input-scholarships').value) || 0;
+            const loans = parseFloat(document.getElementById('input-loans').value) || 0;
+            const monthlyLiving = parseFloat(document.getElementById('input-living-monthly').value) || livingCost;
+            
+            const personalFunds = savings + family + scholarships + loans;
+            const livingTotal = monthlyLiving * duration;
+            const totalCost = tuition + livingTotal;
+            const gap = totalCost - personalFunds;
+            
+            // Create program object
+            const program = {
+                name: `${uniName} - ${programName}`,
+                tuition: tuition,
+                living: livingTotal,
+                cost: totalCost,
+                gap: gap,
+                duration: duration,
+                personalFunds: personalFunds,
+                monthlyLiving: monthlyLiving,
+                savings: savings,
+                family: family,
+                scholarships: scholarships,
+                lifestyle: 'balanced',
+                monthlyLivingInput: monthlyLiving
+            };
+            
+            // Add to comparePrograms
+            if (!window.comparePrograms) window.comparePrograms = { A: null, B: null, C: null, D: null };
+            window.comparePrograms[slot] = program;
+            
+            // Render the card with program data
+            renderProgramCard(slot, program);
+            
+            // Create chart
+            const chartId = `compare-chart-${slot.toLowerCase()}`;
+            document.getElementById(`compare-chart-title-${slot.toLowerCase()}`).textContent = `24-Month Cash Flow: ${program.name}`;
+            createCashFlowChart(chartId, duration, personalFunds, monthlyLiving, tuition);
+            
+            // Update placeholders
+            updateAddProgramPlaceholders();
+        };
+
+        // Render empty "Add Program" placeholder with search
         const renderAddProgramPlaceholder = (side) => {
             const cardId = `compare-card-${side.toLowerCase()}`;
             const cardEl = document.getElementById(cardId);
@@ -1788,13 +1962,29 @@
             
             const number = side === 'C' ? '3rd' : '4th';
             
-            cardEl.className = 'relative border-2 border-dashed border-gray-300 rounded-lg text-center p-4 cursor-pointer hover:border-indigo-500 hover:bg-indigo-50 transition-all';
-            cardEl.onclick = () => addProgramToComparison(side);
+            cardEl.className = 'relative border-2 border-dashed border-gray-300 rounded-lg p-4 transition-all';
+            cardEl.onclick = null;
             cardEl.innerHTML = `
-                <div class="py-6">
-                    <div class="text-3xl text-gray-400 mb-2">+</div>
-                    <h3 class="text-lg font-semibold text-gray-600">Add ${number} Program</h3>
-                    <p class="text-sm text-gray-500 mt-1">Compare with another option</p>
+                <div class="text-center mb-3">
+                    <h3 class="text-lg font-semibold text-gray-700">Add ${number} Program</h3>
+                    <p class="text-xs text-gray-500">Search to compare another option</p>
+                </div>
+                <div class="relative">
+                    <div class="flex items-center border border-gray-300 rounded-lg focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-100 bg-white">
+                        <div class="pl-3 pr-2">
+                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <input type="text" id="compare-search-input-${side.toLowerCase()}"
+                            class="flex-1 py-2 pr-3 text-sm border-0 focus:outline-none focus:ring-0 bg-transparent"
+                            placeholder="Search university or program..."
+                            oninput="searchInComparisonCard(this.value, '${side}')"
+                            autocomplete="off">
+                    </div>
+                    <div id="compare-search-results-${side.toLowerCase()}"
+                        class="hidden absolute w-full bg-white border border-gray-200 rounded-lg shadow-lg mt-1 max-h-48 overflow-y-auto z-20">
+                    </div>
                 </div>
             `;
         };
