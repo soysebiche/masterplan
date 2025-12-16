@@ -525,32 +525,38 @@
                 <main id="compare-result-view" class="space-y-6 hidden-view">
                     <h1 class="text-3xl font-bold text-center text-gray-900 mb-4">Your Roadmap Comparison
                     </h1>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        <section class="bg-white rounded-lg border border-gray-200 text-center p-5 shadow-sm">
-                            <h2 id="compare-name-a" class="text-xl font-bold text-gray-900 mb-4">[Program A]</h2>
-                            <p class="text-base text-gray-700 mb-2">Total Funding Gap:</p>
-                            <p id="compare-gap-a" class="text-4xl font-bold text-red-600 my-4">$22,000</p>
-                            <p class="text-sm text-gray-600">Starting Balance: <span id="compare-balance-a"
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                        <section class="relative bg-white rounded-lg border border-gray-200 text-center p-4 shadow-sm cursor-pointer hover:shadow-md transition-all"
+                            onclick="openSingleFromCompare('A')">
+                            <button type="button" class="absolute top-2 right-2 text-xs text-gray-400 hover:text-red-500"
+                                onclick="event.stopPropagation(); removeCompareProgram('A');">✕</button>
+                            <h2 id="compare-name-a" class="text-lg font-bold text-gray-900 mb-3">[Program A]</h2>
+                            <p class="text-sm text-gray-700 mb-1">Total Funding Gap:</p>
+                            <p id="compare-gap-a" class="text-3xl font-bold text-red-600 my-3">$22,000</p>
+                            <p class="text-xs text-gray-600">Starting Balance: <span id="compare-balance-a"
                                     class="font-semibold">$43,000</span></p>
                         </section>
-                        <section class="bg-white rounded-lg border border-gray-200 text-center p-5 shadow-sm">
-                            <h2 id="compare-name-b" class="text-xl font-bold text-gray-900 mb-4">[Program B]</h2>
-                            <p class="text-base text-gray-700 mb-2">Total Funding Gap:</p>
-                            <p id="compare-gap-b" class="text-4xl font-bold text-green-600 my-4">$14,500</p>
-                            <p class="text-sm text-gray-600">Starting Balance: <span id="compare-balance-b"
+                        <section class="relative bg-white rounded-lg border border-gray-200 text-center p-4 shadow-sm cursor-pointer hover:shadow-md transition-all"
+                            onclick="openSingleFromCompare('B')">
+                            <button type="button" class="absolute top-2 right-2 text-xs text-gray-400 hover:text-red-500"
+                                onclick="event.stopPropagation(); removeCompareProgram('B');">✕</button>
+                            <h2 id="compare-name-b" class="text-lg font-bold text-gray-900 mb-3">[Program B]</h2>
+                            <p class="text-sm text-gray-700 mb-1">Total Funding Gap:</p>
+                            <p id="compare-gap-b" class="text-3xl font-bold text-green-600 my-3">$14,500</p>
+                            <p class="text-xs text-gray-600">Starting Balance: <span id="compare-balance-b"
                                     class="font-semibold">$43,000</span></p>
                         </section>
                     </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        <section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
-                            <h2 id="compare-chart-title-a" class="text-lg font-bold text-gray-900 mb-4">24-Month Cash
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                        <section class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
+                            <h2 id="compare-chart-title-a" class="text-base font-bold text-gray-900 mb-3">24-Month Cash
                                 Flow: [Program A]</h2>
                             <div class="w-full h-80">
                                 <canvas id="compare-chart-a"></canvas>
                             </div>
                         </section>
-                        <section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
-                            <h2 id="compare-chart-title-b" class="text-lg font-bold text-gray-900 mb-4">24-Month Cash
+                        <section class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
+                            <h2 id="compare-chart-title-b" class="text-base font-bold text-gray-900 mb-3">24-Month Cash
                                 Flow: [Program B]</h2>
                             <div class="w-full h-80">
                                 <canvas id="compare-chart-b"></canvas>
@@ -1002,30 +1008,40 @@
             const costA = parseFloat(params.get('costA')) || 65000;
             const tuitionA = parseFloat(params.get('tuitionA')) || 45000;
             const livingA = parseFloat(params.get('livingA')) || 20000;
-            const durationA = 24;
+            const durationA = parseFloat(params.get('duration')) || 24;
             const personalFundsA = costA - gapA;
             const monthlyLivingA = livingA / durationA;
             const savingsA = parseFloat(params.get('savings')) || 18000;
             const familyA = parseFloat(params.get('family')) || 20000;
             const scholarshipsA = parseFloat(params.get('scholarships')) || 5000;
 
-            if (simType === 'single') {
-                // Ensure correct classes for single view (default)
+            // Helpers to toggle layouts
+            const showSidebar = () => {
                 const sidebarColumn = document.getElementById('sidebar-column');
                 const sidebarControls = document.getElementById('sidebar-controls');
                 const mainContentArea = document.getElementById('main-content-area');
-
-                if (sidebarColumn) {
-                    sidebarColumn.classList.remove('hidden', 'lg:hidden');
-                }
-                if (sidebarControls) {
-                    sidebarControls.classList.remove('hidden-view');
-                }
+                if (sidebarColumn) sidebarColumn.classList.remove('hidden', 'lg:hidden');
+                if (sidebarControls) sidebarControls.classList.remove('hidden-view');
                 if (mainContentArea) {
                     mainContentArea.classList.remove('lg:col-span-4');
                     mainContentArea.classList.add('lg:col-span-3');
                 }
+            };
 
+            const hideSidebar = () => {
+                const sidebarColumn = document.getElementById('sidebar-column');
+                const sidebarControls = document.getElementById('sidebar-controls');
+                const mainContentArea = document.getElementById('main-content-area');
+                if (sidebarColumn) sidebarColumn.classList.add('hidden', 'lg:hidden');
+                if (sidebarControls) sidebarControls.classList.add('hidden-view');
+                if (mainContentArea) {
+                    mainContentArea.classList.remove('lg:col-span-3');
+                    mainContentArea.classList.add('lg:col-span-4');
+                }
+            };
+
+            if (simType === 'single') {
+                showSidebar();
                 document.getElementById('single-result-view').classList.remove('hidden-view');
 
                 const savingsFromUrl = parseFloat(params.get('savings')) || savingsA;
@@ -1077,21 +1093,8 @@
                 generateSimilarPrograms(nameA, tuitionA);
 
             } else {
-                // Comparison mode: hide sidebar column completely and expand main content
-                const sidebarColumn = document.getElementById('sidebar-column');
-                const sidebarControls = document.getElementById('sidebar-controls');
-                const mainContentArea = document.getElementById('main-content-area');
-
-                if (sidebarColumn) {
-                    sidebarColumn.classList.add('hidden', 'lg:hidden');
-                }
-                if (sidebarControls) {
-                    sidebarControls.classList.add('hidden-view');
-                }
-                if (mainContentArea) {
-                    mainContentArea.classList.add('lg:col-span-4');
-                }
-
+                // Comparison mode: keep sidebar visible but reduce card widths
+                showSidebar();
                 document.getElementById('compare-result-view').classList.remove('hidden-view');
 
                 const nameB = params.get('nameB') || 'MSc in Finance';
@@ -1099,9 +1102,43 @@
                 const costB = parseFloat(params.get('costB')) || 52500;
                 const tuitionB = parseFloat(params.get('tuitionB')) || 38000;
                 const livingB = parseFloat(params.get('livingB')) || 14500;
-                const durationB = 24;
+                const durationB = parseFloat(params.get('duration')) || 24;
                 const personalFundsB = costB - gapB;
                 const monthlyLivingB = livingB / durationB;
+
+                // Store current compare payloads for interactions
+                window.comparePrograms = {
+                    A: {
+                        name: nameA,
+                        tuition: tuitionA,
+                        living: livingA,
+                        cost: costA,
+                        gap: gapA,
+                        duration: durationA,
+                        personalFunds: personalFundsA,
+                        monthlyLiving: monthlyLivingA,
+                        savings: savingsA,
+                        family: familyA,
+                        scholarships: scholarshipsA,
+                        lifestyle: params.get('lifestyle') || 'balanced',
+                        monthlyLivingInput: monthlyLivingA,
+                    },
+                    B: {
+                        name: nameB,
+                        tuition: tuitionB,
+                        living: livingB,
+                        cost: costB,
+                        gap: gapB,
+                        duration: durationB,
+                        personalFunds: personalFundsB,
+                        monthlyLiving: monthlyLivingB,
+                        savings: savingsA,
+                        family: familyA,
+                        scholarships: scholarshipsA,
+                        lifestyle: params.get('lifestyle') || 'balanced',
+                        monthlyLivingInput: monthlyLivingB,
+                    }
+                };
 
                 document.getElementById('compare-name-a').textContent = nameA;
                 document.getElementById('compare-gap-a').textContent = formatCurrency(gapA);
@@ -1129,6 +1166,88 @@
                 createCashFlowChart('compare-chart-b', durationB, personalFundsB, monthlyLivingB, tuitionB);
             }
         });
+
+        // Toggle to single view from comparison
+        window.openSingleFromCompare = function (side) {
+            if (!window.comparePrograms || !window.comparePrograms[side]) return;
+            const prog = window.comparePrograms[side];
+            const mainContentArea = document.getElementById('main-content-area');
+            const singleView = document.getElementById('single-result-view');
+            const compareView = document.getElementById('compare-result-view');
+
+            showSidebar();
+            if (mainContentArea) {
+                mainContentArea.classList.remove('lg:col-span-4');
+                mainContentArea.classList.add('lg:col-span-3');
+            }
+            if (singleView) singleView.classList.remove('hidden-view');
+            if (compareView) compareView.classList.add('hidden-view');
+
+            // Populate sidebar inputs with selected program data
+            document.getElementById('single-title').textContent = `Your Financial Roadmap: ${prog.name}`;
+            document.getElementById('save-button').textContent = 'Save Plan to Dashboard';
+
+            document.getElementById('input-savings').value = prog.savings || 0;
+            document.getElementById('input-family').value = prog.family || 0;
+            document.getElementById('input-scholarships').value = prog.scholarships || 0;
+            document.getElementById('input-tuition').value = prog.tuition || 0;
+            document.getElementById('input-duration').value = prog.duration || 24;
+            document.getElementById('input-living-monthly').value = Math.round(prog.monthlyLivingInput || prog.monthlyLiving || 1400);
+            document.getElementById('input-home-salary-result').value = 0;
+            document.getElementById('input-oncampus-income').value = 0;
+            document.getElementById('input-lifestyle').value = prog.lifestyle === 'frugal' ? 900 : prog.lifestyle === 'comfortable' ? 2100 : 1400;
+
+            updateDashboard();
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // Return to comparison view
+        window.showCompareView = function () {
+            const mainContentArea = document.getElementById('main-content-area');
+            const singleView = document.getElementById('single-result-view');
+            const compareView = document.getElementById('compare-result-view');
+
+            showSidebar();
+            if (mainContentArea) {
+                mainContentArea.classList.remove('lg:col-span-4');
+                mainContentArea.classList.add('lg:col-span-3');
+            }
+            if (compareView) compareView.classList.remove('hidden-view');
+            if (singleView) singleView.classList.add('hidden-view');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // Remove a program and return to simulator to pick another
+        window.removeCompareProgram = function (side) {
+            if (!window.comparePrograms) return;
+            const keepSide = side === 'A' ? 'B' : 'A';
+            const keepProg = window.comparePrograms[keepSide];
+
+            // If we have another program, save it as the base for comparison
+            if (keepProg) {
+                const params = new URLSearchParams({
+                    simType: 'single',
+                    nameA: keepProg.name,
+                    tuitionA: keepProg.tuition || 0,
+                    livingA: keepProg.living || 0,
+                    costA: keepProg.cost || 0,
+                    gapA: keepProg.gap || 0,
+                    savings: keepProg.savings || 0,
+                    family: keepProg.family || 0,
+                    scholarships: keepProg.scholarships || 0,
+                    lifestyle: keepProg.lifestyle || 'balanced',
+                    monthlyLiving: keepProg.monthlyLiving || 0,
+                    duration: keepProg.duration || 24
+                });
+                sessionStorage.setItem('compare_program_a', params.toString());
+            } else {
+                sessionStorage.removeItem('compare_program_a');
+            }
+
+            window.location.href = 'simulator.html?mode=compare';
+        };
     </script>
     <script type="module" src="./js/auth-state.js"></script>
     <script>
