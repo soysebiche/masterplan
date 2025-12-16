@@ -222,7 +222,7 @@
                     <span>Show Filters</span>
                 </button>
                 <aside id="sidebar-controls" class="space-y-6 hidden lg:block">
-                    <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+                    <div class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
                         <h3 class="text-lg font-bold text-gray-900 mb-4">Your Funds</h3>
                         <div class="space-y-4">
                             <div>
@@ -240,7 +240,7 @@
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+                    <div class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
                         <h3 class="text-lg font-bold text-gray-900 mb-4">Program Costs</h3>
                         <div class="space-y-4">
                             <div>
@@ -254,7 +254,7 @@
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+                    <div class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
                         <h3 class="text-lg font-bold text-gray-900 mb-4">Your Lifestyle</h3>
                         <div class="space-y-4">
                             <div>
@@ -273,7 +273,7 @@
                         </div>
                     </div>
 
-                    <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+                    <div class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
                         <h3 class="text-lg font-bold text-gray-900 mb-4">Your Income</h3>
                         <div class="space-y-4">
                             <div>
@@ -302,7 +302,7 @@
             <div id="main-content-area" class="lg:col-span-3">
                 <!-- Single Result View -->
                 <main id="single-result-view" class="space-y-8 hidden-view">
-                    <h1 id="single-title" class="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-4">Your
+                    <h1 id="single-title" class="text-3xl font-bold text-center text-gray-900 mb-4">Your
                         Financial Roadmap: [Program]</h1>
 
                     <!-- New 2-Column Layout (Inflows vs Outflows) -->
@@ -310,7 +310,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                             <!-- Inflows -->
                             <div
-                                class="card-hover bg-white rounded-2xl border-2 border-green-200 p-5 shadow-sm relative overflow-hidden">
+                                class="card-hover bg-white rounded-lg border border-green-200 p-5 shadow-sm relative overflow-hidden">
                                 <div class="absolute top-0 left-0 w-2 h-full bg-green-500"></div>
                                 <h3 class="text-xl font-bold text-gray-900 mb-6">What You Have (Inflows)</h3>
                                 <div class="space-y-4">
@@ -335,7 +335,7 @@
 
                             <!-- Outflows -->
                             <div
-                                class="card-hover bg-white rounded-2xl border-2 border-red-200 p-5 shadow-sm relative overflow-hidden">
+                                class="card-hover bg-white rounded-lg border border-red-200 p-5 shadow-sm relative overflow-hidden">
                                 <div class="absolute top-0 left-0 w-2 h-full bg-red-500"></div>
                                 <h3 class="text-xl font-bold text-gray-900 mb-6">What It Costs (Outflows)</h3>
                                 <div class="space-y-4">
@@ -360,34 +360,32 @@
                         </div>
 
                         <!-- Funding Gap Hero Card -->
-                        <div class="rounded-3xl border-2 p-12 shadow-2xl text-center relative overflow-hidden transition-all animate-slideInUp"
+                        <div class="rounded-xl border-2 p-6 shadow-lg text-center relative overflow-hidden transition-all animate-slideInUp"
                             id="gap-card">
                             <div class="relative z-10">
-                                <h2 class="text-3xl font-bold text-white mb-3" id="gap-title">Your Funding Gap</h2>
-                                <p class="text-white/90 mb-4 text-lg" id="gap-text">Calculating...</p>
-                                <div class="text-8xl md:text-9xl font-extrabold mb-6 text-white animate-pulse-subtle"
+                                <h2 class="text-2xl font-bold text-white mb-3" id="gap-title">Your Funding Gap</h2>
+                                <p class="text-white/90 mb-4 text-base" id="gap-text">Calculating...</p>
+                                <div class="text-5xl md:text-6xl font-extrabold mb-6 text-white animate-pulse-subtle"
                                     id="funding-gap-display">$0</div>
-                                <p class="text-lg text-white/80 font-semibold" id="gap-subtext">Funding Gap</p>
+                                <p class="text-base text-white/80 font-semibold" id="gap-subtext">Funding Gap</p>
                             </div>
                         </div>
 
                         <!-- Action Recommendations Box (only shows when gap > 0) -->
                         <div id="action-recommendations"
-                            class="hidden mt-8 bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-200 rounded-2xl p-5 shadow-lg">
-                            <div class="flex items-start mb-6">
-                                <!-- Icon removed for professional look -->
+                            class="hidden mt-6 bg-orange-50 border border-orange-200 rounded-lg p-5 shadow-sm">
+                            <div class="flex items-start mb-4">
                                 <div>
-                                    <h3 class="text-2xl font-bold text-gray-900 mb-2">How to Close Your Gap</h3>
-                                    <p class="text-gray-600">Here are practical ways to bridge your funding gap:</p>
+                                    <h3 class="text-xl font-bold text-gray-900 mb-2">How to Close Your Gap</h3>
+                                    <p class="text-sm text-gray-600">Here are practical ways to bridge your funding gap:</p>
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                                 <!-- Scholarships -->
-                                <div class="bg-white rounded-xl p-6 border border-orange-100 card-hover">
-                                    <div class="text-3xl mb-3">🎓</div>
+                                <div class="bg-white rounded-lg p-4 border border-orange-100 card-hover">
                                     <h4 class="font-bold text-gray-900 mb-2">Scholarships</h4>
-                                    <p class="text-2xl font-bold text-orange-600 mb-2" id="scholarship-amount">$10-15K
+                                    <p class="text-xl font-bold text-orange-600 mb-2" id="scholarship-amount">$10-15K
                                     </p>
                                     <p class="text-sm text-gray-600 mb-3">Merit-based and need-based options available
                                     </p>
@@ -399,10 +397,9 @@
                                 </div>
 
                                 <!-- Part-time Work -->
-                                <div class="bg-white rounded-xl p-6 border border-orange-100 card-hover">
-                                    <div class="text-3xl mb-3">💼</div>
+                                <div class="bg-white rounded-lg p-4 border border-orange-100 card-hover">
                                     <h4 class="font-bold text-gray-900 mb-2">Part-Time Work</h4>
-                                    <p class="text-2xl font-bold text-orange-600 mb-2" id="work-amount">$800-1,200/mo
+                                    <p class="text-xl font-bold text-orange-600 mb-2" id="work-amount">$800-1,200/mo
                                     </p>
                                     <p class="text-sm text-gray-600 mb-3">On-campus or remote opportunities</p>
                                     <ul class="text-xs text-gray-500 space-y-1">
@@ -413,10 +410,9 @@
                                 </div>
 
                                 <!-- Student Loans -->
-                                <div class="bg-white rounded-xl p-6 border border-orange-100 card-hover">
-                                    <div class="text-3xl mb-3">🏦</div>
+                                <div class="bg-white rounded-lg p-4 border border-orange-100 card-hover">
                                     <h4 class="font-bold text-gray-900 mb-2">Student Loans</h4>
-                                    <p class="text-2xl font-bold text-orange-600 mb-2" id="loan-amount">Varies</p>
+                                    <p class="text-xl font-bold text-orange-600 mb-2" id="loan-amount">Varies</p>
                                     <p class="text-sm text-gray-600 mb-3">Competitive rates for international students
                                     </p>
                                     <ul class="text-xs text-gray-500 space-y-1">
@@ -429,7 +425,7 @@
 
                             <div class="text-center">
                                 <button
-                                    class="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl transition-all transform hover:-translate-y-1">
+                                    class="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-md transition-all">
                                     Explore Funding Solutions
                                 </button>
                             </div>
@@ -437,31 +433,31 @@
 
                         <!-- Comparison Preview Teaser -->
                         <div id="comparison-preview"
-                            class="mt-8 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border-2 border-indigo-200 p-5 shadow-lg">
-                            <div class="text-center mb-6">
-                                <h3 class="text-2xl font-bold text-gray-900 mb-2">How does this compare?</h3>
-                                <p class="text-gray-600">Students with similar profiles also considered these programs
+                            class="mt-6 bg-indigo-50 rounded-lg border border-indigo-200 p-5 shadow-sm">
+                            <div class="text-center mb-4">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">How does this compare?</h3>
+                                <p class="text-sm text-gray-600">Students with similar profiles also considered these programs
                                 </p>
                             </div>
 
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6" id="similar-programs-container">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4" id="similar-programs-container">
                                 <!-- Similar programs will be inserted here by JavaScript -->
                             </div>
 
                             <div class="text-center">
                                 <button onclick="startComparison()"
-                                    class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl transition-all transform hover:-translate-y-1">
+                                    class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-md transition-all">
                                     Compare All Options
                                 </button>
                             </div>
                         </div>
 
                         <!-- Comparison Card (Task C) -->
-                        <div class="mt-8 border-2 border-dashed border-gray-300 rounded-2xl p-5 text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-50 transition-all group"
+                        <div class="mt-6 border border-dashed border-gray-300 rounded-lg p-5 text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-50 transition-all group"
                             onclick="startComparison()">
-                            <div class="text-4xl mb-2 text-gray-400 group-hover:text-indigo-500 transition-colors">+
+                            <div class="text-2xl mb-2 text-gray-400 group-hover:text-indigo-500 transition-colors">+
                             </div>
-                            <h3 class="text-xl font-bold text-gray-600 group-hover:text-indigo-700 transition-colors">
+                            <h3 class="text-lg font-bold text-gray-600 group-hover:text-indigo-700 transition-colors">
                                 Compare with another program</h3>
                             <p class="text-sm text-gray-500 mt-2">See how this stacks up against another option</p>
                         </div>
@@ -469,26 +465,26 @@
 
                     <!-- Today View -->
                     <section
-                        class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100 p-5 shadow-sm">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Where You Are Today</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="bg-white p-5 rounded-xl shadow-md">
+                        class="bg-indigo-50 rounded-lg border border-indigo-100 p-5 shadow-sm">
+                        <h2 class="text-xl font-bold text-gray-900 mb-4 text-center">Where You Are Today</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
                                 <p class="text-sm text-gray-600 mb-2">Your Current Bank Balance</p>
-                                <p id="today-balance" class="text-5xl font-bold text-green-600">$0</p>
+                                <p id="today-balance" class="text-3xl font-bold text-green-600">$0</p>
                                 <p class="text-xs text-gray-500 mt-2">Available funds right now</p>
                             </div>
-                            <div class="bg-white p-5 rounded-xl shadow-md">
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
                                 <p class="text-sm text-gray-600 mb-2">Next Payment Due</p>
-                                <p id="today-next-payment" class="text-5xl font-bold text-orange-600">$0</p>
+                                <p id="today-next-payment" class="text-3xl font-bold text-orange-600">$0</p>
                                 <p class="text-xs text-gray-500 mt-2">Due end of this month</p>
                             </div>
                         </div>
                     </section>
 
                     <!-- 24-Month Cash Flow -->
-                    <section class="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-2">Your 24-Month Bank Balance</h2>
-                        <p class="text-gray-600 mb-6">This chart shows your bank balance over time. The red line is your
+                    <section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2">Your 24-Month Bank Balance</h2>
+                        <p class="text-sm text-gray-600 mb-4">This chart shows your bank balance over time. The red line is your
                             "Funding Gap".</p>
                         <div class="w-full h-80">
                             <canvas id="cash-flow-chart"></canvas>
@@ -497,16 +493,16 @@
                             <button
                                 onclick="document.getElementById('sidebar-controls').scrollIntoView({behavior: 'smooth'})"
                                 class="bg-indigo-50 text-indigo-700 px-6 py-2 rounded-lg font-semibold hover:bg-indigo-100 transition-all">
-                                ⚙️ Adjust Scenario
+                                Adjust Scenario
                             </button>
                         </div>
                     </section>
 
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         <!-- Monthly Expense Chart -->
-                        <section class="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
-                            <h2 class="text-xl font-bold text-gray-900 mb-2">Monthly Expense Chart</h2>
-                            <p class="text-sm text-gray-600 mb-6">Note the spikes for tuition payments in September and
+                        <section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
+                            <h2 class="text-lg font-bold text-gray-900 mb-2">Monthly Expense Chart</h2>
+                            <p class="text-sm text-gray-600 mb-4">Note the spikes for tuition payments in September and
                                 January.</p>
                             <div class="w-full h-64">
                                 <canvas id="monthly-expense-chart"></canvas>
@@ -514,10 +510,10 @@
                         </section>
 
                         <!-- Expense Breakdown Pie Chart -->
-                        <section class="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
-                            <h2 id="single-chart-title" class="text-xl font-bold text-gray-900 mb-2">Living Cost
+                        <section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
+                            <h2 id="single-chart-title" class="text-lg font-bold text-gray-900 mb-2">Living Cost
                                 Breakdown</h2>
-                            <p class="text-sm text-gray-600 mb-6">A breakdown of your *monthly* living expenses.</p>
+                            <p class="text-sm text-gray-600 mb-4">A breakdown of your *monthly* living expenses.</p>
                             <div class="w-full h-64">
                                 <canvas id="category-pie-chart"></canvas>
                             </div>
@@ -526,35 +522,35 @@
                 </main>
 
                 <!-- Compare Result View -->
-                <main id="compare-result-view" class="space-y-8 hidden-view">
-                    <h1 class="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-4">Your Roadmap Comparison
+                <main id="compare-result-view" class="space-y-6 hidden-view">
+                    <h1 class="text-3xl font-bold text-center text-gray-900 mb-4">Your Roadmap Comparison
                     </h1>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        <section class="bg-white rounded-2xl border border-gray-200 text-center p-5 shadow-sm">
-                            <h2 id="compare-name-a" class="text-2xl font-bold text-gray-900 mb-4">[Program A]</h2>
-                            <p class="text-lg text-gray-700 mb-2">Total Funding Gap:</p>
-                            <p id="compare-gap-a" class="text-6xl md:text-7xl font-bold text-red-600 my-4">$22,000</p>
-                            <p class="text-md text-gray-600">Starting Balance: <span id="compare-balance-a"
+                        <section class="bg-white rounded-lg border border-gray-200 text-center p-5 shadow-sm">
+                            <h2 id="compare-name-a" class="text-xl font-bold text-gray-900 mb-4">[Program A]</h2>
+                            <p class="text-base text-gray-700 mb-2">Total Funding Gap:</p>
+                            <p id="compare-gap-a" class="text-4xl font-bold text-red-600 my-4">$22,000</p>
+                            <p class="text-sm text-gray-600">Starting Balance: <span id="compare-balance-a"
                                     class="font-semibold">$43,000</span></p>
                         </section>
-                        <section class="bg-white rounded-2xl border border-gray-200 text-center p-5 shadow-sm">
-                            <h2 id="compare-name-b" class="text-2xl font-bold text-gray-900 mb-4">[Program B]</h2>
-                            <p class="text-lg text-gray-700 mb-2">Total Funding Gap:</p>
-                            <p id="compare-gap-b" class="text-6xl md:text-7xl font-bold text-green-600 my-4">$14,500</p>
-                            <p class="text-md text-gray-600">Starting Balance: <span id="compare-balance-b"
+                        <section class="bg-white rounded-lg border border-gray-200 text-center p-5 shadow-sm">
+                            <h2 id="compare-name-b" class="text-xl font-bold text-gray-900 mb-4">[Program B]</h2>
+                            <p class="text-base text-gray-700 mb-2">Total Funding Gap:</p>
+                            <p id="compare-gap-b" class="text-4xl font-bold text-green-600 my-4">$14,500</p>
+                            <p class="text-sm text-gray-600">Starting Balance: <span id="compare-balance-b"
                                     class="font-semibold">$43,000</span></p>
                         </section>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        <section class="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
-                            <h2 id="compare-chart-title-a" class="text-xl font-bold text-gray-900 mb-6">24-Month Cash
+                        <section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
+                            <h2 id="compare-chart-title-a" class="text-lg font-bold text-gray-900 mb-4">24-Month Cash
                                 Flow: [Program A]</h2>
                             <div class="w-full h-80">
                                 <canvas id="compare-chart-a"></canvas>
                             </div>
                         </section>
-                        <section class="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
-                            <h2 id="compare-chart-title-b" class="text-xl font-bold text-gray-900 mb-6">24-Month Cash
+                        <section class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
+                            <h2 id="compare-chart-title-b" class="text-lg font-bold text-gray-900 mb-4">24-Month Cash
                                 Flow: [Program B]</h2>
                             <div class="w-full h-80">
                                 <canvas id="compare-chart-b"></canvas>
@@ -564,13 +560,13 @@
                 </main>
 
                 <!-- Final Actions -->
-                <footer id="final-actions" class="flex flex-col md:flex-row justify-center items-center gap-4 pt-8">
+                <footer id="final-actions" class="flex flex-col md:flex-row justify-center items-center gap-4 pt-6">
                     <a href="simulator.html"
-                        class="bg-white border-2 border-gray-200 text-gray-700 px-6 py-3 rounded-xl font-semibold hover:border-gray-300 hover:shadow-lg transition-all">
+                        class="bg-white border border-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:border-gray-300 hover:shadow-md transition-all">
                         ← Start Over
                     </a>
                     <a href="dashboard.html" id="save-button"
-                        class="gradient-bg text-white px-8 py-3 rounded-xl font-bold text-lg hover:shadow-2xl transition-all transform hover:-translate-y-1"
+                        class="gradient-bg text-white px-6 py-3 rounded-lg font-semibold hover:shadow-md transition-all"
                         onclick="return confirm('Your plan will be saved to your dashboard. Continue?')">
                         Save Plan
                     </a>
@@ -722,18 +718,18 @@
                                     const lines = [`Balance: ${formatCurrency(balance)}`];
 
                                     if (info.hasTuition) {
-                                        lines.push(`⚠️ Tuition payment: ${formatCurrency(info.tuitionAmount)}`);
+                                        lines.push(`Tuition payment: ${formatCurrency(info.tuitionAmount)}`);
                                     }
                                     if (info.income > 0) {
-                                        lines.push(`💰 Income: +${formatCurrency(info.income)}`);
+                                        lines.push(`Income: +${formatCurrency(info.income)}`);
                                     }
-                                    lines.push(`🏠 Living: -${formatCurrency(info.living)}`);
+                                    lines.push(`Living: -${formatCurrency(info.living)}`);
 
                                     return lines;
                                 },
                                 title: (context) => {
                                     const index = context[0].dataIndex;
-                                    return index === currentMonthIndex ? '📍 TODAY' : context[0].label;
+                                    return index === currentMonthIndex ? 'TODAY' : context[0].label;
                                 }
                             }
                         }
@@ -974,7 +970,7 @@
             if (!container) return;
 
             container.innerHTML = similarPrograms.map(prog => `
-                <div class="card-hover bg-white rounded-xl border-2 border-indigo-100 p-6 shadow-sm">
+                <div class="card-hover bg-white rounded-lg border border-indigo-100 p-4 shadow-sm">
                     <div class="flex justify-between items-start mb-3">
                         <span class="text-xs font-semibold px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">${prog.tag}</span>
                     </div>
