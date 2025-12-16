@@ -6,6 +6,13 @@ function initializeUserProfileSection() {
 
     if (!userProfileSection) return;
 
+    // CRITICAL: Always hide nav links initially until Firebase confirms auth state
+    // This prevents showing Dashboard/Simulator links to unauthenticated users
+    const dashboardLink = document.getElementById('nav-dashboard');
+    const simulatorLink = document.getElementById('nav-simulator');
+    if (dashboardLink) dashboardLink.style.display = 'none';
+    if (simulatorLink) simulatorLink.style.display = 'none';
+
     // Check if we have cached user data in localStorage
     const cachedUserData = localStorage.getItem('masterplan_user');
 
@@ -249,17 +256,19 @@ function updateUserUI(user) {
 }
 
 function updateGuestUI() {
-    // Update Nav Bar to Guest
-    const userProfileSection = document.getElementById('user-profile-section') || document.querySelector('.flex.items-center.space-x-3');
-
     // ALWAYS hide restricted nav links first (critical for security)
+    // This must happen regardless of cached data
     const dashboardLink = document.getElementById('nav-dashboard');
     const simulatorLink = document.getElementById('nav-simulator');
     if (dashboardLink) dashboardLink.style.display = 'none';
     if (simulatorLink) simulatorLink.style.display = 'none';
 
+    // Update Nav Bar to Guest
+    const userProfileSection = document.getElementById('user-profile-section') || document.querySelector('.flex.items-center.space-x-3');
+
     // IMPORTANT: Don't show Guest UI if we have cached user data
     // This prevents the flash while Firebase is verifying the auth token
+    // But we already hid the nav links above, which is the critical part
     const cachedUserData = localStorage.getItem('masterplan_user');
     if (cachedUserData) {
         console.log('Skipping Guest UI update - user data cached, waiting for Firebase verification');
