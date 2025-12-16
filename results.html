@@ -554,11 +554,15 @@
                     </div>
                 </main>
 
-                <!-- Compare Result View -->
+                <!-- Compare Result View (supports up to 4 programs) -->
                 <main id="compare-result-view" class="space-y-6 hidden-view">
-                    <h1 class="text-3xl font-bold text-center text-gray-900 mb-4">Your Roadmap Comparison
-                    </h1>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                    <div class="flex items-center justify-center gap-3 mb-4">
+                        <h1 class="text-3xl font-bold text-center text-gray-900">Your Roadmap Comparison</h1>
+                        <span id="compare-count-badge" class="bg-indigo-100 text-indigo-700 text-sm font-semibold px-3 py-1 rounded-full">2 programs</span>
+                    </div>
+                    
+                    <!-- Row 1: Programs A & B (always visible) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3" id="compare-cards-row-1">
                         <section id="compare-card-a" class="relative bg-white rounded-lg border border-gray-200 text-center p-4 shadow-sm cursor-pointer hover:shadow-md transition-all"
                             onclick="openSingleFromCompare('A')">
                             <button type="button" class="absolute top-2 right-2 text-xs text-gray-400 hover:text-red-500"
@@ -580,7 +584,9 @@
                                     class="font-semibold">$43,000</span></p>
                         </section>
                     </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                    
+                    <!-- Row 1 Charts: A & B -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3" id="compare-charts-row-1">
                         <section class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
                             <h2 id="compare-chart-title-a" class="text-base font-bold text-gray-900 mb-3">24-Month Cash
                                 Flow: [Program A]</h2>
@@ -593,6 +599,46 @@
                                 Flow: [Program B]</h2>
                             <div class="w-full h-80">
                                 <canvas id="compare-chart-b"></canvas>
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- Row 2: Programs C & D (hidden by default, shown when added) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3" id="compare-cards-row-2">
+                        <!-- Card C: Initially "Add Program" placeholder -->
+                        <section id="compare-card-c" class="relative border-2 border-dashed border-gray-300 rounded-lg text-center p-4 cursor-pointer hover:border-indigo-500 hover:bg-indigo-50 transition-all"
+                            onclick="addProgramToComparison('C')">
+                            <div class="py-6">
+                                <div class="text-3xl text-gray-400 mb-2">+</div>
+                                <h3 class="text-lg font-semibold text-gray-600">Add 3rd Program</h3>
+                                <p class="text-sm text-gray-500 mt-1">Compare with another option</p>
+                            </div>
+                        </section>
+                        <!-- Card D: Initially hidden -->
+                        <section id="compare-card-d" class="hidden relative border-2 border-dashed border-gray-300 rounded-lg text-center p-4 cursor-pointer hover:border-indigo-500 hover:bg-indigo-50 transition-all"
+                            onclick="addProgramToComparison('D')">
+                            <div class="py-6">
+                                <div class="text-3xl text-gray-400 mb-2">+</div>
+                                <h3 class="text-lg font-semibold text-gray-600">Add 4th Program</h3>
+                                <p class="text-sm text-gray-500 mt-1">Compare with another option</p>
+                            </div>
+                        </section>
+                    </div>
+                    
+                    <!-- Row 2 Charts: C & D (hidden by default) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 hidden" id="compare-charts-row-2">
+                        <section id="compare-chart-section-c" class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm hidden">
+                            <h2 id="compare-chart-title-c" class="text-base font-bold text-gray-900 mb-3">24-Month Cash
+                                Flow: [Program C]</h2>
+                            <div class="w-full h-80">
+                                <canvas id="compare-chart-c"></canvas>
+                            </div>
+                        </section>
+                        <section id="compare-chart-section-d" class="bg-white rounded-lg border border-gray-200 p-4 shadow-sm hidden">
+                            <h2 id="compare-chart-title-d" class="text-base font-bold text-gray-900 mb-3">24-Month Cash
+                                Flow: [Program D]</h2>
+                            <div class="w-full h-80">
+                                <canvas id="compare-chart-d"></canvas>
                             </div>
                         </section>
                     </div>
@@ -1390,6 +1436,7 @@
                 const monthlyLivingB = livingB / durationB;
 
                 // Store current compare payloads for interactions
+                // Initialize comparison with up to 4 programs (A, B always; C, D optional)
                 window.comparePrograms = {
                     A: {
                         name: nameA,
@@ -1420,8 +1467,62 @@
                         scholarships: scholarshipsA,
                         lifestyle: params.get('lifestyle') || 'balanced',
                         monthlyLivingInput: monthlyLivingB,
-                    }
+                    },
+                    C: null, // Slot for 3rd program
+                    D: null  // Slot for 4th program
                 };
+                
+                // Check if C and D are provided in URL params
+                const nameC = params.get('nameC');
+                const nameD = params.get('nameD');
+                
+                if (nameC) {
+                    const tuitionC = parseFloat(params.get('tuitionC')) || 0;
+                    const livingC = parseFloat(params.get('livingC')) || 0;
+                    const costC = parseFloat(params.get('costC')) || 0;
+                    const gapC = parseFloat(params.get('gapC')) || 0;
+                    const durationC = parseFloat(params.get('durationC')) || 24;
+                    
+                    window.comparePrograms.C = {
+                        name: nameC,
+                        tuition: tuitionC,
+                        living: livingC,
+                        cost: costC,
+                        gap: gapC,
+                        duration: durationC,
+                        personalFunds: costC - gapC,
+                        monthlyLiving: livingC / durationC,
+                        savings: savingsA,
+                        family: familyA,
+                        scholarships: scholarshipsA,
+                        lifestyle: params.get('lifestyle') || 'balanced',
+                        monthlyLivingInput: livingC / durationC,
+                    };
+                }
+                
+                if (nameD) {
+                    const tuitionD = parseFloat(params.get('tuitionD')) || 0;
+                    const livingD = parseFloat(params.get('livingD')) || 0;
+                    const costD = parseFloat(params.get('costD')) || 0;
+                    const gapD = parseFloat(params.get('gapD')) || 0;
+                    const durationD = parseFloat(params.get('durationD')) || 24;
+                    
+                    window.comparePrograms.D = {
+                        name: nameD,
+                        tuition: tuitionD,
+                        living: livingD,
+                        cost: costD,
+                        gap: gapD,
+                        duration: durationD,
+                        personalFunds: costD - gapD,
+                        monthlyLiving: livingD / durationD,
+                        savings: savingsA,
+                        family: familyA,
+                        scholarships: scholarshipsA,
+                        lifestyle: params.get('lifestyle') || 'balanced',
+                        monthlyLivingInput: livingD / durationD,
+                    };
+                }
 
                 document.getElementById('compare-name-a').textContent = nameA;
                 document.getElementById('compare-gap-a').textContent = formatCurrency(gapA);
@@ -1451,6 +1552,7 @@
                     const savings = parseFloat(document.getElementById('input-savings').value) || 0;
                     const family = parseFloat(document.getElementById('input-family').value) || 0;
                     const scholarships = parseFloat(document.getElementById('input-scholarships').value) || 0;
+                    const loans = parseFloat(document.getElementById('input-loans').value) || 0;
                     const homeSalaryMonthly = parseFloat(document.getElementById('input-home-salary-result').value) || 0;
                     const oncampusIncome = parseFloat(document.getElementById('input-oncampus-income').value) || 0;
                     const monthlyIncome = homeSalaryMonthly + oncampusIncome;
@@ -1461,11 +1563,13 @@
                     const deposit = parseFloat(document.getElementById('input-deposit').value) || 0;
                     const oneTimeExpenses = flights + visa + deposit;
 
-                    const totalPersonalFunds = savings + family + scholarships;
+                    const totalPersonalFunds = savings + family + scholarships + loans;
 
-                    ['A', 'B'].forEach(side => {
+                    // Support up to 4 programs (A, B, C, D)
+                    ['A', 'B', 'C', 'D'].forEach(side => {
                         const prog = window.comparePrograms[side];
                         if (!prog) return;
+                        
                         const dur = prog.duration || 24;
                         const tuition = prog.tuition || 0;
                         const livingTotal = prog.living || 0;
@@ -1477,9 +1581,10 @@
 
                         prog.gap = gap;
                         prog.cost = totalCost;
+                        prog.personalFunds = personalFunds;
 
-                        const gapEl = document.getElementById(side === 'A' ? 'compare-gap-a' : 'compare-gap-b');
-                        const balEl = document.getElementById(side === 'A' ? 'compare-balance-a' : 'compare-balance-b');
+                        const gapEl = document.getElementById(`compare-gap-${side.toLowerCase()}`);
+                        const balEl = document.getElementById(`compare-balance-${side.toLowerCase()}`);
                         if (gapEl) {
                             gapEl.textContent = formatCurrency(gap);
                             gapEl.style.color = getGapColor(gap);
@@ -1488,7 +1593,7 @@
                             balEl.textContent = formatCurrency(personalFunds);
                         }
 
-                        const chartId = side === 'A' ? 'compare-chart-a' : 'compare-chart-b';
+                        const chartId = `compare-chart-${side.toLowerCase()}`;
                         createCashFlowChart(chartId, dur, personalFunds, monthlyLiving, tuition, monthlyIncome);
                     });
                 };
@@ -1499,9 +1604,27 @@
                     input.addEventListener('change', recalcComparisonFromSidebar);
                 });
 
-                // Initial charts
+                // Initial charts for A and B
                 createCashFlowChart('compare-chart-a', durationA, personalFundsA, monthlyLivingA, tuitionA);
                 createCashFlowChart('compare-chart-b', durationB, personalFundsB, monthlyLivingB, tuitionB);
+                
+                // Render cards and charts for C and D if they exist
+                if (window.comparePrograms.C) {
+                    const progC = window.comparePrograms.C;
+                    renderProgramCard('C', progC);
+                    createCashFlowChart('compare-chart-c', progC.duration, progC.personalFunds, progC.monthlyLiving, progC.tuition);
+                    document.getElementById('compare-chart-title-c').textContent = `24-Month Cash Flow: ${progC.name}`;
+                }
+                
+                if (window.comparePrograms.D) {
+                    const progD = window.comparePrograms.D;
+                    renderProgramCard('D', progD);
+                    createCashFlowChart('compare-chart-d', progD.duration, progD.personalFunds, progD.monthlyLiving, progD.tuition);
+                    document.getElementById('compare-chart-title-d').textContent = `24-Month Cash Flow: ${progD.name}`;
+                }
+                
+                // Update visibility of add program placeholders
+                updateAddProgramPlaceholders();
             }
         });
 
@@ -1580,29 +1703,140 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
+        // Update comparison count badge
+        const updateCompareCountBadge = () => {
+            const count = ['A', 'B', 'C', 'D'].filter(s => window.comparePrograms && window.comparePrograms[s]).length;
+            const badge = document.getElementById('compare-count-badge');
+            if (badge) {
+                badge.textContent = `${count} program${count !== 1 ? 's' : ''}`;
+            }
+        };
+
+        // Show/hide add program placeholders based on current state
+        const updateAddProgramPlaceholders = () => {
+            const hasC = window.comparePrograms && window.comparePrograms.C;
+            const hasD = window.comparePrograms && window.comparePrograms.D;
+            
+            const cardC = document.getElementById('compare-card-c');
+            const cardD = document.getElementById('compare-card-d');
+            const chartsRow2 = document.getElementById('compare-charts-row-2');
+            const chartSectionC = document.getElementById('compare-chart-section-c');
+            const chartSectionD = document.getElementById('compare-chart-section-d');
+            
+            // Show D placeholder only if C is filled
+            if (cardD) {
+                if (hasC && !hasD) {
+                    cardD.classList.remove('hidden');
+                } else if (hasD) {
+                    cardD.classList.remove('hidden');
+                } else {
+                    cardD.classList.add('hidden');
+                }
+            }
+            
+            // Show charts row 2 if C or D exists
+            if (chartsRow2) {
+                if (hasC || hasD) {
+                    chartsRow2.classList.remove('hidden');
+                } else {
+                    chartsRow2.classList.add('hidden');
+                }
+            }
+            
+            // Show individual chart sections
+            if (chartSectionC) chartSectionC.classList.toggle('hidden', !hasC);
+            if (chartSectionD) chartSectionD.classList.toggle('hidden', !hasD);
+            
+            updateCompareCountBadge();
+        };
+
+        // Add a new program to comparison (C or D)
+        window.addProgramToComparison = function (slot) {
+            // Redirect to simulator in compare mode, passing current comparison data
+            const currentParams = new URLSearchParams(window.location.search);
+            currentParams.set('addSlot', slot);
+            sessionStorage.setItem('compare_existing_data', JSON.stringify(window.comparePrograms));
+            window.location.href = `simulator.html?mode=compare&addSlot=${slot}`;
+        };
+
+        // Render a program card (filled state)
+        const renderProgramCard = (side, program) => {
+            const cardId = `compare-card-${side.toLowerCase()}`;
+            const cardEl = document.getElementById(cardId);
+            if (!cardEl || !program) return;
+            
+            const gapColor = program.gap > 0 ? 'text-red-600' : 'text-green-600';
+            
+            cardEl.className = 'relative bg-white rounded-lg border border-gray-200 text-center p-4 shadow-sm cursor-pointer hover:shadow-md transition-all';
+            cardEl.onclick = () => openSingleFromCompare(side);
+            cardEl.innerHTML = `
+                <button type="button" class="absolute top-2 right-2 text-xs text-gray-400 hover:text-red-500"
+                    onclick="event.stopPropagation(); removeCompareProgram('${side}');">✕</button>
+                <h2 id="compare-name-${side.toLowerCase()}" class="text-lg font-bold text-gray-900 mb-3">${program.name}</h2>
+                <p class="text-sm text-gray-700 mb-1">Total Funding Gap:</p>
+                <p id="compare-gap-${side.toLowerCase()}" class="text-3xl font-bold ${gapColor} my-3">${formatCurrency(program.gap)}</p>
+                <p class="text-xs text-gray-600">Starting Balance: <span id="compare-balance-${side.toLowerCase()}"
+                        class="font-semibold">${formatCurrency(program.personalFunds)}</span></p>
+            `;
+        };
+
+        // Render empty "Add Program" placeholder
+        const renderAddProgramPlaceholder = (side) => {
+            const cardId = `compare-card-${side.toLowerCase()}`;
+            const cardEl = document.getElementById(cardId);
+            if (!cardEl) return;
+            
+            const number = side === 'C' ? '3rd' : '4th';
+            
+            cardEl.className = 'relative border-2 border-dashed border-gray-300 rounded-lg text-center p-4 cursor-pointer hover:border-indigo-500 hover:bg-indigo-50 transition-all';
+            cardEl.onclick = () => addProgramToComparison(side);
+            cardEl.innerHTML = `
+                <div class="py-6">
+                    <div class="text-3xl text-gray-400 mb-2">+</div>
+                    <h3 class="text-lg font-semibold text-gray-600">Add ${number} Program</h3>
+                    <p class="text-sm text-gray-500 mt-1">Compare with another option</p>
+                </div>
+            `;
+        };
+
         // Remove a program from comparison without leaving results page
         window.removeCompareProgram = function (side) {
             if (!window.comparePrograms) return;
-            const cardId = side === 'A' ? 'compare-card-a' : 'compare-card-b';
-            const chartId = side === 'A' ? 'compare-chart-a' : 'compare-chart-b';
+            
+            const cardId = `compare-card-${side.toLowerCase()}`;
+            const chartId = `compare-chart-${side.toLowerCase()}`;
 
             // Clear stored data
             window.comparePrograms[side] = null;
 
-            // Visually clear card
+            // For C and D, convert back to placeholder
+            if (side === 'C' || side === 'D') {
+                renderAddProgramPlaceholder(side);
+                destroyChart(chartId);
+                updateAddProgramPlaceholders();
+                return;
+            }
+
+            // For A and B, show removed message
             const cardEl = document.getElementById(cardId);
             if (cardEl) {
                 cardEl.innerHTML = `
-                    <div class="h-full flex flex-col items-center justify-center text-center text-gray-500 text-sm">
+                    <div class="h-full flex flex-col items-center justify-center text-center text-gray-500 text-sm py-6">
+                        <div class="text-3xl text-gray-300 mb-2">○</div>
                         <p class="mb-2">Program removed.</p>
-                        <p class="mb-2">Use the simulator to add another option when you're ready.</p>
+                        <button onclick="event.stopPropagation(); addProgramToComparison('${side}')" 
+                            class="text-indigo-600 hover:text-indigo-800 font-semibold">
+                            + Add another program
+                        </button>
                     </div>
                 `;
                 cardEl.classList.remove('cursor-pointer');
+                cardEl.onclick = null;
             }
 
             // Clear chart
             destroyChart(chartId);
+            updateCompareCountBadge();
         };
     </script>
     <script type="module" src="./js/auth-state.js"></script>
