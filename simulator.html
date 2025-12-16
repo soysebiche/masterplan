@@ -81,6 +81,13 @@
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        .steps-navigation > div {
+            background: #FFFFFF !important;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
         .step-indicator {
             position: relative;
             padding: 0.75rem 1rem;
@@ -264,7 +271,7 @@
 
         <!-- Sticky Step Navigation -->
         <div class="steps-navigation mb-4">
-            <div class="bg-white rounded-lg border border-gray-200 p-3 shadow-sm">
+            <div class="bg-white rounded-lg border border-gray-200 p-3" style="background: #FFFFFF !important;">
                 <div class="flex justify-around gap-2 flex-wrap">
                     <div class="step-indicator" id="step-1-indicator" onclick="scrollToStep(1)">1. Programs</div>
                     <div class="step-indicator" id="step-2-indicator" onclick="scrollToStep(2)">2. Funds</div>
