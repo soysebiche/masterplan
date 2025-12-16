@@ -212,15 +212,25 @@
         <div class="lg:grid lg:grid-cols-4 gap-4">
             <!-- Sidebar Controls -->
             <div id="sidebar-column" class="lg:col-span-1">
-                <button id="sidebar-toggle"
-                    class="mb-4 flex items-center gap-2 text-gray-600 hover:text-indigo-600 font-medium transition-colors"
-                    onclick="toggleSidebar()">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                    <span>Show Filters</span>
-                </button>
+                <div class="mb-4 flex items-center justify-between gap-2">
+                    <button id="sidebar-toggle"
+                        class="flex items-center gap-2 text-gray-600 hover:text-indigo-600 font-medium transition-colors"
+                        onclick="toggleSidebar()">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <span>Show Filters</span>
+                    </button>
+                    <!-- Back to Comparison Button (only shown when coming from comparison) -->
+                    <button id="back-to-comparison-btn" onclick="showCompareView()"
+                        class="hidden bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-lg font-semibold hover:border-gray-300 hover:shadow-md transition-all flex items-center gap-2 text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Back to Comparison
+                    </button>
+                </div>
                 <aside id="sidebar-controls" class="space-y-6 hidden lg:block">
                     <div class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
                         <h3 class="text-lg font-bold text-gray-900 mb-4">Your Funds</h3>
@@ -302,16 +312,6 @@
             <div id="main-content-area" class="lg:col-span-3">
                 <!-- Single Result View -->
                 <main id="single-result-view" class="space-y-8 hidden-view">
-                    <!-- Back to Comparison Button (only shown when coming from comparison) -->
-                    <div id="back-to-comparison-btn" class="hidden mb-4">
-                        <button onclick="showCompareView()"
-                            class="bg-white border border-gray-200 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:border-gray-300 hover:shadow-md transition-all flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                            </svg>
-                            Back to Comparison
-                        </button>
-                    </div>
                     <h1 id="single-title" class="text-3xl font-bold text-center text-gray-900 mb-4">Your
                         Financial Roadmap: [Program]</h1>
 
@@ -1251,7 +1251,7 @@
             if (singleView) singleView.classList.remove('hidden-view');
             if (compareView) compareView.classList.add('hidden-view');
 
-            // Show back button and hide comparison sections
+            // Show back button in sidebar and hide comparison sections
             const backBtn = document.getElementById('back-to-comparison-btn');
             const comparisonPreview = document.getElementById('comparison-preview');
             const compareAnotherCard = document.getElementById('compare-another-card');
@@ -1296,7 +1296,7 @@
             if (compareView) compareView.classList.remove('hidden-view');
             if (singleView) singleView.classList.add('hidden-view');
 
-            // Hide back button and show comparison sections again
+            // Hide back button in sidebar and show comparison sections again
             const backBtn = document.getElementById('back-to-comparison-btn');
             const comparisonPreview = document.getElementById('comparison-preview');
             const compareAnotherCard = document.getElementById('compare-another-card');
