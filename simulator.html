@@ -76,9 +76,23 @@
         /* Step Navigation - Sticky & Interactive */
         .steps-navigation {
             position: sticky;
-            top: 5rem; /* Below header (header is ~64px + 1rem spacing) */
+            top: 4.5rem; /* Below header */
             z-index: 40; /* Below header (z-50) */
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: -1rem; /* Negative margin to eliminate gap */
+            padding-top: 1rem; /* Restore spacing visually */
+            background: #FFFFFF; /* Solid background to cover gap */
+        }
+
+        .steps-navigation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1rem; /* Height to cover the gap */
+            background: #FFFFFF;
+            z-index: -1;
         }
 
         .steps-navigation > div {
