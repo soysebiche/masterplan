@@ -324,14 +324,14 @@
                         </div>
                         <input type="text" id="intelligent-search"
                             class="flex-1 py-4 pr-4 text-base border-0 focus:outline-none focus:ring-0 bg-transparent"
-                            placeholder="Try 'Harvard MBA' or 'IE Business School'..." autocomplete="off"
+                            placeholder="Try 'Spain', 'Harvard MBA', or 'Master of Finance'..." autocomplete="off"
                             oninput="intelligentSearch(this.value)">
                     </div>
                     <div id="search-results"
                         class="max-h-96 overflow-y-auto border border-gray-200 border-t-0 absolute w-full bg-white/95 backdrop-blur-md z-10 rounded-b-lg shadow-lg hidden mt-1">
                     </div>
                 </div>
-                <p class="text-xs text-gray-500 mt-2">Search by university name, program, or both</p>
+                <p class="text-xs text-gray-500 mt-2">Search by country, university, or program</p>
             </div>
 
             <!-- Selected Programs -->
@@ -693,7 +693,7 @@
 
             const universitiesDatabase = generateUniversitiesDatabase();
 
-            // Intelligent search function - searches both universities and programs
+            // Intelligent search function - searches universities, programs, AND countries
             window.intelligentSearch = function (query) {
                 const resultsDiv = document.getElementById('search-results');
 
@@ -702,24 +702,36 @@
                     return;
                 }
 
-                // Search in universitiesDatabase for matches in university name OR program name
+                const queryLower = query.toLowerCase();
+                
+                // Search in universitiesDatabase for matches in university name, program name, OR country name
                 const matches = universitiesDatabase.filter(item => {
-                    const uniMatch = item.name.toLowerCase().includes(query.toLowerCase());
-                    const programMatch = item.program.toLowerCase().includes(query.toLowerCase());
-                    return uniMatch || programMatch;
-                }).slice(0, 10); // Limit to 10 results
+                    const uniMatch = item.name.toLowerCase().includes(queryLower);
+                    const programMatch = item.program.toLowerCase().includes(queryLower);
+                    const countryMatch = item.countryName.toLowerCase().includes(queryLower);
+                    return uniMatch || programMatch || countryMatch;
+                }).slice(0, 12); // Limit to 12 results
 
                 if (matches.length === 0) {
-                    resultsDiv.innerHTML = '<div class="search-result p-4 text-center text-gray-500">No programs found</div>';
+                    resultsDiv.innerHTML = '<div class="search-result p-4 text-center text-gray-500">No programs found. Try searching by country, university, or program name.</div>';
                 } else {
-                    resultsDiv.innerHTML = matches.map(item => `
+                    // Group by match type for better UX
+                    resultsDiv.innerHTML = matches.map(item => {
+                        // Highlight what matched
+                        const uniMatch = item.name.toLowerCase().includes(queryLower);
+                        const countryMatch = item.countryName.toLowerCase().includes(queryLower);
+                        
+                        return `
                         <div class="border-b border-gray-100 px-4 py-3 cursor-pointer hover:bg-gray-50 transition-all"
                              onclick="selectProgram('${item.name.replace(/'/g, "\\'")}', '${item.program.replace(/'/g, "\\'")}', '${item.country}', '${item.countryName}', ${item.tuition}, ${item.duration}, ${item.livingCost})">
-                            <div class="font-semibold text-gray-900">${item.name}</div>
-                            <div class="text-sm text-gray-600">${item.program} - ${item.countryName}</div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-semibold text-gray-900">${item.name}</span>
+                                <span class="text-xs px-2 py-0.5 rounded-full ${countryMatch ? 'bg-indigo-100 text-indigo-700' : 'bg-gray-100 text-gray-600'}">${item.countryName}</span>
+                            </div>
+                            <div class="text-sm text-gray-600">${item.program}</div>
                             <div class="text-sm font-bold text-indigo-600 mt-1">$${item.tuition.toLocaleString()} • ${item.duration} months</div>
                         </div>
-                    `).join('');
+                    `}).join('');
                 }
 
                 resultsDiv.classList.remove('hidden');

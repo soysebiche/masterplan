@@ -609,7 +609,7 @@
                         <section id="compare-card-c" class="relative border-2 border-dashed border-gray-300 rounded-lg p-4 transition-all">
                             <div class="text-center mb-3">
                                 <h3 class="text-lg font-semibold text-gray-700">Add 3rd Program</h3>
-                                <p class="text-xs text-gray-500">Search to compare another option</p>
+                                <p class="text-xs text-gray-500">Search by country, university, or program</p>
                             </div>
                             <div class="relative">
                                 <div class="flex items-center border border-gray-300 rounded-lg focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-100 bg-white">
@@ -620,7 +620,7 @@
                                     </div>
                                     <input type="text" id="compare-search-input-c"
                                         class="flex-1 py-2 pr-3 text-sm border-0 focus:outline-none focus:ring-0 bg-transparent"
-                                        placeholder="Search university or program..."
+                                        placeholder="Try 'Spain', 'Harvard', 'MBA'..."
                                         oninput="searchInComparisonCard(this.value, 'C')"
                                         autocomplete="off">
                                 </div>
@@ -633,7 +633,7 @@
                         <section id="compare-card-d" class="hidden relative border-2 border-dashed border-gray-300 rounded-lg p-4 transition-all">
                             <div class="text-center mb-3">
                                 <h3 class="text-lg font-semibold text-gray-700">Add 4th Program</h3>
-                                <p class="text-xs text-gray-500">Search to compare another option</p>
+                                <p class="text-xs text-gray-500">Search by country, university, or program</p>
                             </div>
                             <div class="relative">
                                 <div class="flex items-center border border-gray-300 rounded-lg focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-100 bg-white">
@@ -644,7 +644,7 @@
                                     </div>
                                     <input type="text" id="compare-search-input-d"
                                         class="flex-1 py-2 pr-3 text-sm border-0 focus:outline-none focus:ring-0 bg-transparent"
-                                        placeholder="Search university or program..."
+                                        placeholder="Try 'UK', 'INSEAD', 'Finance'..."
                                         oninput="searchInComparisonCard(this.value, 'D')"
                                         autocomplete="off">
                                 </div>
@@ -1873,7 +1873,7 @@
             return data;
         })();
 
-        // Search in comparison card (exposed globally)
+        // Search in comparison card (exposed globally) - searches university, program, AND country
         window.searchInComparisonCard = function(query, slot) {
             const resultsId = `compare-search-results-${slot.toLowerCase()}`;
             const resultsDiv = document.getElementById(resultsId);
@@ -1885,20 +1885,29 @@
                 return;
             }
             
+            const queryLower = query.toLowerCase();
+            
+            // Search by university, program, OR country
             const matches = comparisonUniversitiesDB.filter(item => {
-                const uniMatch = item.name.toLowerCase().includes(query.toLowerCase());
-                const programMatch = item.program.toLowerCase().includes(query.toLowerCase());
-                return uniMatch || programMatch;
-            }).slice(0, 6);
+                const uniMatch = item.name.toLowerCase().includes(queryLower);
+                const programMatch = item.program.toLowerCase().includes(queryLower);
+                const countryMatch = item.countryName.toLowerCase().includes(queryLower);
+                return uniMatch || programMatch || countryMatch;
+            }).slice(0, 8);
             
             if (matches.length === 0) {
-                resultsDiv.innerHTML = '<div class="p-3 text-center text-gray-500 text-sm">No programs found</div>';
+                resultsDiv.innerHTML = '<div class="p-3 text-center text-gray-500 text-sm">No results. Try country, university, or program.</div>';
             } else {
-                resultsDiv.innerHTML = matches.map(item => `
+                resultsDiv.innerHTML = matches.map(item => {
+                    const countryMatch = item.countryName.toLowerCase().includes(queryLower);
+                    return `
                     <div class="border-b border-gray-100 px-3 py-2 cursor-pointer hover:bg-indigo-50 transition-all text-left"
                          onclick="selectProgramForComparison('${slot}', '${item.name.replace(/'/g, "\\'")}', '${item.program.replace(/'/g, "\\'")}', '${item.country}', '${item.countryName}', ${item.tuition}, ${item.duration}, ${item.livingCost})">
-                        <div class="font-semibold text-gray-900 text-sm">${item.name}</div>
-                        <div class="text-xs text-gray-600">${item.program} • ${item.countryName}</div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-semibold text-gray-900 text-sm">${item.name}</span>
+                            <span class="text-xs px-1.5 py-0.5 rounded-full ${countryMatch ? 'bg-indigo-100 text-indigo-700' : 'bg-gray-100 text-gray-500'}">${item.countryName}</span>
+                        </div>
+                        <div class="text-xs text-gray-600">${item.program}</div>
                         <div class="text-xs font-bold text-indigo-600 mt-1">$${item.tuition.toLocaleString()} • ${item.duration}mo</div>
                     </div>
                 `).join('');
@@ -1978,7 +1987,7 @@
                         </div>
                         <input type="text" id="compare-search-input-${side.toLowerCase()}"
                             class="flex-1 py-2 pr-3 text-sm border-0 focus:outline-none focus:ring-0 bg-transparent"
-                            placeholder="Search university or program..."
+                            placeholder="Try country, university, or program..."
                             oninput="searchInComparisonCard(this.value, '${side}')"
                             autocomplete="off">
                     </div>
