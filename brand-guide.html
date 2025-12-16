@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         * {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -210,6 +211,7 @@
             <div class="sidebar-section">
                 <div class="sidebar-section-title">Identity</div>
                 <a href="#logo">Logo</a>
+                <a href="#logo-3d">Logo 3D</a>
                 <a href="#colors">Colors</a>
                 <a href="#typography">Typography</a>
             </div>
@@ -403,6 +405,279 @@
                     &lt;!-- ... --&gt;
                     &lt;/svg&gt;
                 </div>
+            </div>
+        </section>
+
+        <!-- Logo 3D -->
+        <section id="logo-3d" class="section">
+            <h2 class="section-title">Logo 3D - Three.js Implementation</h2>
+            <p class="section-description">
+                The MasterPlan logo converted to 3D geometry using Three.js ExtrudeGeometry. Perfect for hero sections, 
+                loading animations, and interactive experiences.
+            </p>
+
+            <!-- Live Demo -->
+            <div class="bg-white rounded-2xl border-2 border-gray-200 p-8 mb-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Live 3D Preview</h3>
+                <div class="relative bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl overflow-hidden" style="height: 400px;">
+                    <canvas id="logo-3d-canvas" style="width: 100%; height: 100%;"></canvas>
+                </div>
+                <p class="text-sm text-gray-500 mt-4 text-center">Interactive 3D logo - Move your mouse to see rotation</p>
+            </div>
+
+            <!-- Technical Specifications -->
+            <div class="bg-white rounded-2xl border-2 border-gray-200 p-8 mb-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Technical Specifications</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-semibold text-gray-900 mb-2">Dependencies</h4>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Three.js r128 or higher</li>
+                            <li>• CDN: cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900 mb-2">Performance</h4>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• 10 meshes per logo</li>
+                            <li>• ~500-700 triangles per logo</li>
+                            <li>• Optimized for real-time rendering</li>
+                            <li>• Mobile compatible</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900 mb-2">Dimensions</h4>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Base SVG: 100x100 units</li>
+                            <li>• Recommended scale: 0.35 (satellite), 1.0 (main)</li>
+                            <li>• Depth: 3.5 units (cube formation)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-900 mb-2">Material Properties</h4>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• Metalness: 0.3</li>
+                            <li>• Roughness: 0.4</li>
+                            <li>• Opacity: 0.7 (recommended)</li>
+                            <li>• Emissive intensity: 0.2</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Color Reference -->
+            <div class="bg-white rounded-2xl border-2 border-gray-200 p-8 mb-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Logo Piece Colors</h3>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <div class="text-center">
+                        <div class="w-full h-16 rounded-lg mb-2" style="background: #3730A3;"></div>
+                        <p class="text-xs font-semibold text-gray-900">Dark Indigo</p>
+                        <p class="text-xs text-gray-500">#3730A3</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-full h-16 rounded-lg mb-2" style="background: #6366F1;"></div>
+                        <p class="text-xs font-semibold text-gray-900">Indigo</p>
+                        <p class="text-xs text-gray-500">#6366F1</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-full h-16 rounded-lg mb-2" style="background: #818CF8;"></div>
+                        <p class="text-xs font-semibold text-gray-900">Light Indigo</p>
+                        <p class="text-xs text-gray-500">#818CF8</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-full h-16 rounded-lg mb-2" style="background: #A5B4FC;"></div>
+                        <p class="text-xs font-semibold text-gray-900">Very Light</p>
+                        <p class="text-xs text-gray-500">#A5B4FC</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-full h-16 rounded-lg mb-2" style="background: #D1D5DB;"></div>
+                        <p class="text-xs font-semibold text-gray-900">Gray</p>
+                        <p class="text-xs text-gray-500">#D1D5DB</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Complete Code -->
+            <div class="bg-gray-900 rounded-xl p-6">
+                <p class="text-xs text-gray-400 mb-2">Complete Three.js Implementation</p>
+                <div class="code-block" style="max-height: 600px; overflow-y: auto;">
+// THREE.JS 3D LOGO - MasterPlan Brand
+// Versión: Final v1.0
+// Descripción: Logo isométrico convertido a geometría 3D con ExtrudeGeometry
+
+// ============================================
+// CONFIGURACIÓN DE EXTRUSIÓN
+// ============================================
+const extrudeSettings = {
+    depth: 3.5,            // Profundidad del cubo (igual al ancho)
+    bevelEnabled: true,     // Bordes redondeados activados
+    bevelThickness: 0.25,   // Grosor del bevel
+    bevelSize: 0.25,        // Tamaño del bevel
+    bevelSegments: 5        // Suavidad del bevel
+};
+
+// ============================================
+// PATHS SVG - PIEZAS DEL LOGO
+// ============================================
+const logoPieces = [
+    { path: "M20 35 L35 27 L35 65 L20 73 Z", color: 0x3730A3, name: "Left Vertical Bar - Dark Indigo" },
+    { path: "M20 35 L35 27 L50 35 L35 43 Z", color: 0x6366F1, name: "Left Top Connector - Indigo" },
+    { path: "M35 43 L50 35 L50 55 L35 63 Z", color: 0xD1D5DB, name: "Center Cube - Gray" },
+    { path: "M35 43 L50 35 L65 43 L50 51 Z", color: 0xE5E7EB, name: "Center Top - Light Gray" },
+    { path: "M65 43 L80 35 L80 73 L65 81 Z", color: 0x6366F1, name: "Right Vertical Bar - Indigo" },
+    { path: "M65 43 L80 35 L65 27 L50 35 Z", color: 0x818CF8, name: "Right Top Connector - Light Indigo" },
+    { path: "M35 63 L50 55 L50 73 L35 81 Z", color: 0x9CA3AF, name: "Bottom Left Connector - Medium Gray" },
+    { path: "M50 55 L65 47 L65 81 L50 73 Z", color: 0xA5B4FC, name: "Bottom Right Connector - Very Light Indigo" },
+    { path: "M20 73 L35 65 L35 81 Z", color: 0x4338CA, name: "Base Left Triangle - Deep Indigo" },
+    { path: "M65 81 L80 73 L65 65 Z", color: 0x4F46E5, name: "Base Right Triangle - Primary Indigo" }
+];
+
+// ============================================
+// FUNCIÓN: CONVERTIR SVG PATH A THREE.SHAPE
+// ============================================
+function pathToShape(pathString) {
+    const shape = new THREE.Shape();
+    const commands = pathString.match(/[MLHVCSQTAZ][^MLHVCSQTAZ]*/gi);
+    
+    commands.forEach((cmd) => {
+        const type = cmd[0];
+        const coords = cmd.slice(1).trim().split(/[\s,]+/).map(Number);
+        
+        if (type === 'M') {
+            shape.moveTo(coords[0] / 10, -coords[1] / 10);
+        } else if (type === 'L') {
+            shape.lineTo(coords[0] / 10, -coords[1] / 10);
+        } else if (type === 'Z') {
+            shape.closePath();
+        }
+    });
+    
+    return shape;
+}
+
+// ============================================
+// CREAR LOGO 3D
+// ============================================
+function createMasterPlanLogo3D() {
+    const logoGroup = new THREE.Group();
+
+    logoPieces.forEach((piece) => {
+        // Convertir path SVG a shape
+        const shape = pathToShape(piece.path);
+        
+        // Crear geometría 3D extruida
+        const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+        
+        // Material con propiedades premium
+        const material = new THREE.MeshStandardMaterial({
+            color: piece.color,
+            metalness: 0.3,          // Reflectividad metálica sutil
+            roughness: 0.4,          // Superficie semi-mate
+            flatShading: false,      // Sombreado suave
+            transparent: true,
+            opacity: 0.7,            // Semi-transparente para elegancia
+            emissive: piece.color,   // Auto-iluminación (glow)
+            emissiveIntensity: 0.2   // Intensidad del glow
+        });
+        
+        const mesh = new THREE.Mesh(geometry, material);
+        logoGroup.add(mesh);
+    });
+
+    return logoGroup;
+}
+
+// ============================================
+// ILUMINACIÓN RECOMENDADA
+// ============================================
+function setupLogoLighting(scene) {
+    // Luz ambiental base
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    scene.add(ambientLight);
+
+    // Luz direccional principal (indigo)
+    const directionalLight1 = new THREE.DirectionalLight(0x667eea, 1.2);
+    directionalLight1.position.set(10, 10, 10);
+    scene.add(directionalLight1);
+
+    // Luz direccional secundaria (púrpura)
+    const directionalLight2 = new THREE.DirectionalLight(0x764ba2, 0.8);
+    directionalLight2.position.set(-10, -10, 10);
+    scene.add(directionalLight2);
+
+    // Luz puntual para highlights
+    const pointLight = new THREE.PointLight(0x6366F1, 0.7);
+    pointLight.position.set(0, 5, 10);
+    scene.add(pointLight);
+
+    // Luz de borde (rim light) para glow
+    const rimLight = new THREE.DirectionalLight(0xA5B4FC, 0.6);
+    rimLight.position.set(0, 0, -10);
+    scene.add(rimLight);
+}
+
+// ============================================
+// CONFIGURACIÓN DE ESCENA RECOMENDADA
+// ============================================
+function setupScene() {
+    const scene = new THREE.Scene();
+    
+    // Niebla atmosférica para profundidad
+    scene.fog = new THREE.Fog(0xfafbfc, 15, 40);
+    
+    return scene;
+}
+
+// ============================================
+// ANIMACIÓN RECOMENDADA (Rotación suave)
+// ============================================
+function animateLogo(logo, time) {
+    const rotationSpeed = 0.275;
+    
+    logo.rotation.x = time * rotationSpeed * 0.44;
+    logo.rotation.y = time * rotationSpeed * 0.77;
+    logo.rotation.z = Math.sin(time * 0.66) * 0.15;
+}
+
+// ============================================
+// USO COMPLETO
+// ============================================
+// 1. Setup básico
+const scene = setupScene();
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+camera.position.z = 25;
+
+// 2. Crear logo
+const logo = createMasterPlanLogo3D();
+logo.scale.set(0.35, 0.35, 0.35); // Escala recomendada
+scene.add(logo);
+
+// 3. Iluminación
+setupLogoLighting(scene);
+
+// 4. Loop de animación
+function animate() {
+    requestAnimationFrame(animate);
+    const time = Date.now() * 0.001;
+    animateLogo(logo, time);
+    renderer.render(scene, camera);
+}
+animate();
+                </div>
+            </div>
+
+            <!-- Brand Guidelines -->
+            <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl border-2 border-indigo-200 p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Brand Guidelines</h3>
+                <ul class="text-sm text-gray-700 space-y-2">
+                    <li>✓ <strong>Proportions:</strong> Maintain exact proportions (do not distort X, Y, Z independently)</li>
+                    <li>✓ <strong>Rotation:</strong> Recommended smooth continuous rotation, speed 0.275 rad/s</li>
+                    <li>✓ <strong>Opacity:</strong> 0.7 for elegance, 1.0 for maximum visibility</li>
+                    <li>✓ <strong>Lighting:</strong> Always use complete setup to show 3D depth</li>
+                    <li>✓ <strong>Background:</strong> Light (#fafbfc) or transparent</li>
+                    <li>✓ <strong>Scale:</strong> 0.35 for satellite logos, 1.0 for main hero logo</li>
+                </ul>
             </div>
         </section>
 
@@ -1006,6 +1281,159 @@
                 }
             });
         });
+
+        // Three.js 3D Logo Demo
+        if (typeof THREE !== 'undefined') {
+            // Configuration
+            const extrudeSettings = {
+                depth: 3.5,
+                bevelEnabled: true,
+                bevelThickness: 0.25,
+                bevelSize: 0.25,
+                bevelSegments: 5
+            };
+
+            const logoPieces = [
+                { path: "M20 35 L35 27 L35 65 L20 73 Z", color: 0x3730A3 },
+                { path: "M20 35 L35 27 L50 35 L35 43 Z", color: 0x6366F1 },
+                { path: "M35 43 L50 35 L50 55 L35 63 Z", color: 0xD1D5DB },
+                { path: "M35 43 L50 35 L65 43 L50 51 Z", color: 0xE5E7EB },
+                { path: "M65 43 L80 35 L80 73 L65 81 Z", color: 0x6366F1 },
+                { path: "M65 43 L80 35 L65 27 L50 35 Z", color: 0x818CF8 },
+                { path: "M35 63 L50 55 L50 73 L35 81 Z", color: 0x9CA3AF },
+                { path: "M50 55 L65 47 L65 81 L50 73 Z", color: 0xA5B4FC },
+                { path: "M20 73 L35 65 L35 81 Z", color: 0x4338CA },
+                { path: "M65 81 L80 73 L65 65 Z", color: 0x4F46E5 }
+            ];
+
+            function pathToShape(pathString) {
+                const shape = new THREE.Shape();
+                const commands = pathString.match(/[MLHVCSQTAZ][^MLHVCSQTAZ]*/gi);
+                
+                commands.forEach((cmd) => {
+                    const type = cmd[0];
+                    const coords = cmd.slice(1).trim().split(/[\s,]+/).map(Number);
+                    
+                    if (type === 'M') {
+                        shape.moveTo(coords[0] / 10, -coords[1] / 10);
+                    } else if (type === 'L') {
+                        shape.lineTo(coords[0] / 10, -coords[1] / 10);
+                    } else if (type === 'Z') {
+                        shape.closePath();
+                    }
+                });
+                
+                return shape;
+            }
+
+            function createMasterPlanLogo3D() {
+                const logoGroup = new THREE.Group();
+
+                logoPieces.forEach((piece) => {
+                    const shape = pathToShape(piece.path);
+                    const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+                    const material = new THREE.MeshStandardMaterial({
+                        color: piece.color,
+                        metalness: 0.3,
+                        roughness: 0.4,
+                        flatShading: false,
+                        transparent: true,
+                        opacity: 0.7,
+                        emissive: piece.color,
+                        emissiveIntensity: 0.2
+                    });
+                    const mesh = new THREE.Mesh(geometry, material);
+                    logoGroup.add(mesh);
+                });
+
+                return logoGroup;
+            }
+
+            function setupLogoLighting(scene) {
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+                scene.add(ambientLight);
+
+                const directionalLight1 = new THREE.DirectionalLight(0x667eea, 1.2);
+                directionalLight1.position.set(10, 10, 10);
+                scene.add(directionalLight1);
+
+                const directionalLight2 = new THREE.DirectionalLight(0x764ba2, 0.8);
+                directionalLight2.position.set(-10, -10, 10);
+                scene.add(directionalLight2);
+
+                const pointLight = new THREE.PointLight(0x6366F1, 0.7);
+                pointLight.position.set(0, 5, 10);
+                scene.add(pointLight);
+
+                const rimLight = new THREE.DirectionalLight(0xA5B4FC, 0.6);
+                rimLight.position.set(0, 0, -10);
+                scene.add(rimLight);
+            }
+
+            // Initialize 3D logo demo
+            const canvas = document.getElementById('logo-3d-canvas');
+            if (canvas) {
+                const scene = new THREE.Scene();
+                scene.fog = new THREE.Fog(0xfafbfc, 15, 40);
+                
+                const camera = new THREE.PerspectiveCamera(50, canvas.offsetWidth / canvas.offsetHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+                renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+                renderer.setPixelRatio(window.devicePixelRatio);
+
+                camera.position.z = 25;
+
+                const logo = createMasterPlanLogo3D();
+                logo.scale.set(0.35, 0.35, 0.35);
+                scene.add(logo);
+
+                setupLogoLighting(scene);
+
+                // Mouse interaction
+                let mouseX = 0;
+                let mouseY = 0;
+                let smoothMouseX = 0;
+                let smoothMouseY = 0;
+                
+                canvas.addEventListener('mousemove', (e) => {
+                    const rect = canvas.getBoundingClientRect();
+                    mouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+                    mouseY = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+                });
+
+                // Animation loop
+                function animate() {
+                    requestAnimationFrame(animate);
+
+                    const time = Date.now() * 0.001;
+                    const rotationSpeed = 0.275;
+
+                    smoothMouseX += (mouseX - smoothMouseX) * 0.05;
+                    smoothMouseY += (mouseY - smoothMouseY) * 0.05;
+
+                    const mouseInfluenceX = smoothMouseY * 8;
+                    const mouseInfluenceY = smoothMouseX * 8;
+                    const mouseInfluenceZ = smoothMouseX * 3;
+
+                    logo.rotation.x = time * rotationSpeed * 0.44 + mouseInfluenceX * 0.15;
+                    logo.rotation.y = time * rotationSpeed * 0.77 + mouseInfluenceY * 0.15;
+                    logo.rotation.z = Math.sin(time * 0.66) * 0.15 + mouseInfluenceZ * 0.1;
+
+                    renderer.render(scene, camera);
+                }
+
+                // Handle resize
+                function handleResize() {
+                    const rect = canvas.getBoundingClientRect();
+                    camera.aspect = rect.width / rect.height;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(rect.width, rect.height);
+                }
+
+                window.addEventListener('resize', handleResize);
+                animate();
+            }
+        }
     </script>
 </body>
 
