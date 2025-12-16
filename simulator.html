@@ -76,8 +76,8 @@
         /* Step Navigation - Sticky & Interactive */
         .steps-navigation {
             position: sticky;
-            top: 1rem;
-            z-index: 50;
+            top: 5rem; /* Below header (header is ~64px + 1rem spacing) */
+            z-index: 40; /* Below header (z-50) */
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -136,7 +136,7 @@
 
         @media (max-width: 768px) {
             .steps-navigation {
-                top: 0.5rem;
+                top: 4.5rem; /* Slightly less on mobile for smaller header */
             }
             
             .step-indicator {
@@ -410,7 +410,10 @@
             function scrollToStep(stepNumber) {
                 const section = document.getElementById(`step-${stepNumber}`);
                 if (section) {
-                    const offset = 100; // Offset for sticky nav
+                    // Calculate offset: header height (~64px) + steps nav height (~60px) + spacing
+                    const headerHeight = 64; // Approximate header height
+                    const stepsNavHeight = 60; // Approximate steps nav height
+                    const offset = headerHeight + stepsNavHeight + 20; // Extra spacing
                     const elementPosition = section.getBoundingClientRect().top + window.pageYOffset;
                     const offsetPosition = elementPosition - offset;
                     
