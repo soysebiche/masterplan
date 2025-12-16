@@ -232,79 +232,100 @@
                     </button>
                 </div>
                 <aside id="sidebar-controls" class="space-y-6 hidden lg:block">
+                    <!-- Program Costs (Read-only) -->
+                    <div class="bg-gray-50 rounded-lg border border-gray-200 p-5 shadow-sm">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">Program Costs</h3>
+                        <p class="text-xs text-gray-500 mb-4">These values come from your selected program</p>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="input-tuition" class="sidebar-label">Total Tuition ($)</label>
+                                <input type="number" id="input-tuition" class="sidebar-input bg-gray-100 text-gray-600 cursor-not-allowed" value="45000" readonly>
+                            </div>
+                            <div>
+                                <label for="input-duration" class="sidebar-label">Duration (Months)</label>
+                                <input type="number" id="input-duration" class="sidebar-input bg-gray-100 text-gray-600 cursor-not-allowed" value="24" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Your Funds -->
                     <div class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
                         <h3 class="text-lg font-bold text-gray-900 mb-4">Your Funds</h3>
                         <div class="space-y-4">
                             <div>
-                                <label for="input-savings" class="sidebar-label">My Personal Savings ($)</label>
+                                <label for="input-savings" class="sidebar-label">Current Savings ($)</label>
                                 <input type="number" id="input-savings" class="sidebar-input" value="5000">
                             </div>
                             <div>
-                                <label for="input-family" class="sidebar-label">Family Contribution ($)</label>
+                                <label for="input-family" class="sidebar-label">Family Support ($)</label>
                                 <input type="number" id="input-family" class="sidebar-input" value="10000">
                             </div>
                             <div>
-                                <label for="input-scholarships" class="sidebar-label">Confirmed Scholarships ($)</label>
+                                <label for="input-scholarships" class="sidebar-label">Scholarships & Grants ($)</label>
                                 <input type="number" id="input-scholarships" class="sidebar-input" value="3000">
                             </div>
+                            <div>
+                                <label for="input-loans" class="sidebar-label">Loans ($)</label>
+                                <input type="number" id="input-loans" class="sidebar-input" value="0">
+                            </div>
                         </div>
                     </div>
 
+                    <!-- Hidden Costs -->
                     <div class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
-                        <h3 class="text-lg font-bold text-gray-900 mb-4">Program Costs</h3>
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">One-Time & Hidden Costs</h3>
                         <div class="space-y-4">
                             <div>
-                                <label for="input-tuition" class="sidebar-label">Total Tuition ($)</label>
-                                <input type="number" id="input-tuition" class="sidebar-input" value="45000">
+                                <label for="input-visa" class="sidebar-label">Visa & Immigration ($)</label>
+                                <input type="number" id="input-visa" class="sidebar-input" value="500">
                             </div>
                             <div>
-                                <label for="input-duration" class="sidebar-label">Duration (Months)</label>
-                                <input type="number" id="input-duration" class="sidebar-input" value="24" min="1">
+                                <label for="input-insurance" class="sidebar-label">Health Insurance ($/year)</label>
+                                <input type="number" id="input-insurance" class="sidebar-input" value="2000">
+                            </div>
+                            <div>
+                                <label for="input-deposit" class="sidebar-label">Accommodation Deposit ($)</label>
+                                <input type="number" id="input-deposit" class="sidebar-input" value="1000">
                             </div>
                         </div>
                     </div>
 
+                    <!-- Your Lifestyle -->
                     <div class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
                         <h3 class="text-lg font-bold text-gray-900 mb-4">Your Lifestyle</h3>
                         <div class="space-y-4">
                             <div>
-                                <label for="input-lifestyle" class="sidebar-label">Lifestyle Choice</label>
+                                <label for="input-lifestyle" class="sidebar-label">Lifestyle Preset</label>
                                 <select id="input-lifestyle" class="sidebar-select">
-                                    <option value="900">Frugal Student (~$900/mo)</option>
+                                    <option value="900">Frugal (~$900/mo)</option>
                                     <option value="1400" selected>Balanced (~$1,400/mo)</option>
                                     <option value="2100">Comfortable (~$2,100/mo)</option>
                                 </select>
                             </div>
                             <div>
-                                <label for="input-living-monthly" class="sidebar-label">Custom Monthly Living
-                                    ($)</label>
+                                <label for="input-living-monthly" class="sidebar-label">Monthly Living Cost ($)</label>
                                 <input type="number" id="input-living-monthly" class="sidebar-input" value="1400">
                             </div>
                         </div>
                     </div>
 
+                    <!-- Your Income -->
                     <div class="bg-white rounded-lg border border-gray-200 p-5 shadow-sm">
                         <h3 class="text-lg font-bold text-gray-900 mb-4">Your Income</h3>
                         <div class="space-y-4">
                             <div>
-                                <label for="input-home-salary-result" class="sidebar-label">Home Country Salary
-                                    ($/mo)</label>
+                                <label for="input-home-salary-result" class="sidebar-label">Home Country Salary ($/mo)</label>
                                 <input type="number" id="input-home-salary-result" class="sidebar-input" value="0">
                             </div>
                             <div>
-                                <label for="input-oncampus-income" class="sidebar-label">On-Campus Job Income
-                                    ($/mo)</label>
+                                <label for="input-oncampus-income" class="sidebar-label">On-Campus Job Income ($/mo)</label>
                                 <input type="number" id="input-oncampus-income" class="sidebar-input" value="0">
                             </div>
                         </div>
                     </div>
 
-
-                    <!-- Hidden inputs for new costs -->
+                    <!-- Hidden input for flights (not editable in sidebar) -->
                     <input type="hidden" id="input-flights" value="0">
-                    <input type="hidden" id="input-visa" value="0">
-                    <input type="hidden" id="input-insurance" value="0">
-                    <input type="hidden" id="input-deposit" value="0">
                 </aside>
             </div>
 
@@ -842,17 +863,25 @@
         };
 
         const updateDashboard = () => {
+            // Your Funds
             const savings = parseFloat(document.getElementById('input-savings').value) || 0;
             const family = parseFloat(document.getElementById('input-family').value) || 0;
             const scholarships = parseFloat(document.getElementById('input-scholarships').value) || 0;
+            const loans = parseFloat(document.getElementById('input-loans').value) || 0;
+            
+            // Program Costs (read-only)
             const tuition = parseFloat(document.getElementById('input-tuition').value) || 0;
             const duration = parseFloat(document.getElementById('input-duration').value) || 1;
+            
+            // Lifestyle
             const monthlyLiving = parseFloat(document.getElementById('input-living-monthly').value) || 0;
+            
+            // Income
             const homeSalaryMonthly = parseFloat(document.getElementById('input-home-salary-result').value) || 0;
             const oncampusIncome = parseFloat(document.getElementById('input-oncampus-income').value) || 0;
             const monthlyIncome = homeSalaryMonthly + oncampusIncome;
 
-            // New hidden costs
+            // Hidden costs (now visible in sidebar)
             const flights = parseFloat(document.getElementById('input-flights').value) || 0;
             const visa = parseFloat(document.getElementById('input-visa').value) || 0;
             const insurance = parseFloat(document.getElementById('input-insurance').value) || 0;
@@ -861,7 +890,7 @@
             const recurringAnnual = insurance * (duration / 12);
             const totalHiddenCosts = oneTimeExpenses + recurringAnnual;
 
-            const personalFunds = savings + family + scholarships;
+            const personalFunds = savings + family + scholarships + loans;
             const totalLivingCost = monthlyLiving * duration;
             const totalCost = tuition + totalLivingCost + totalHiddenCosts;
             const totalIncome = monthlyIncome * duration;
