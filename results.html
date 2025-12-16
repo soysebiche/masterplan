@@ -526,7 +526,7 @@
                     <h1 class="text-3xl font-bold text-center text-gray-900 mb-4">Your Roadmap Comparison
                     </h1>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-3">
-                        <section class="relative bg-white rounded-lg border border-gray-200 text-center p-4 shadow-sm cursor-pointer hover:shadow-md transition-all"
+                        <section id="compare-card-a" class="relative bg-white rounded-lg border border-gray-200 text-center p-4 shadow-sm cursor-pointer hover:shadow-md transition-all"
                             onclick="openSingleFromCompare('A')">
                             <button type="button" class="absolute top-2 right-2 text-xs text-gray-400 hover:text-red-500"
                                 onclick="event.stopPropagation(); removeCompareProgram('A');">✕</button>
@@ -536,7 +536,7 @@
                             <p class="text-xs text-gray-600">Starting Balance: <span id="compare-balance-a"
                                     class="font-semibold">$43,000</span></p>
                         </section>
-                        <section class="relative bg-white rounded-lg border border-gray-200 text-center p-4 shadow-sm cursor-pointer hover:shadow-md transition-all"
+                        <section id="compare-card-b" class="relative bg-white rounded-lg border border-gray-200 text-center p-4 shadow-sm cursor-pointer hover:shadow-md transition-all"
                             onclick="openSingleFromCompare('B')">
                             <button type="button" class="absolute top-2 right-2 text-xs text-gray-400 hover:text-red-500"
                                 onclick="event.stopPropagation(); removeCompareProgram('B');">✕</button>
@@ -936,6 +936,31 @@
             createCategoryPieChart('category-pie-chart', monthlyLiving);
         };
 
+        // Layout helpers for sidebar/main content
+        function showSidebar() {
+            const sidebarColumn = document.getElementById('sidebar-column');
+            const sidebarControls = document.getElementById('sidebar-controls');
+            const mainContentArea = document.getElementById('main-content-area');
+            if (sidebarColumn) sidebarColumn.classList.remove('hidden', 'lg:hidden');
+            if (sidebarControls) sidebarControls.classList.remove('hidden-view');
+            if (mainContentArea) {
+                mainContentArea.classList.remove('lg:col-span-4');
+                mainContentArea.classList.add('lg:col-span-3');
+            }
+        }
+
+        function hideSidebar() {
+            const sidebarColumn = document.getElementById('sidebar-column');
+            const sidebarControls = document.getElementById('sidebar-controls');
+            const mainContentArea = document.getElementById('main-content-area');
+            if (sidebarColumn) sidebarColumn.classList.add('hidden', 'lg:hidden');
+            if (sidebarControls) sidebarControls.classList.add('hidden-view');
+            if (mainContentArea) {
+                mainContentArea.classList.remove('lg:col-span-3');
+                mainContentArea.classList.add('lg:col-span-4');
+            }
+        }
+
         const startComparison = () => {
             const params = new URLSearchParams(window.location.search);
             // Save current params to sessionStorage to retrieve later
@@ -1014,31 +1039,6 @@
             const savingsA = parseFloat(params.get('savings')) || 18000;
             const familyA = parseFloat(params.get('family')) || 20000;
             const scholarshipsA = parseFloat(params.get('scholarships')) || 5000;
-
-            // Helpers to toggle layouts
-            const showSidebar = () => {
-                const sidebarColumn = document.getElementById('sidebar-column');
-                const sidebarControls = document.getElementById('sidebar-controls');
-                const mainContentArea = document.getElementById('main-content-area');
-                if (sidebarColumn) sidebarColumn.classList.remove('hidden', 'lg:hidden');
-                if (sidebarControls) sidebarControls.classList.remove('hidden-view');
-                if (mainContentArea) {
-                    mainContentArea.classList.remove('lg:col-span-4');
-                    mainContentArea.classList.add('lg:col-span-3');
-                }
-            };
-
-            const hideSidebar = () => {
-                const sidebarColumn = document.getElementById('sidebar-column');
-                const sidebarControls = document.getElementById('sidebar-controls');
-                const mainContentArea = document.getElementById('main-content-area');
-                if (sidebarColumn) sidebarColumn.classList.add('hidden', 'lg:hidden');
-                if (sidebarControls) sidebarControls.classList.add('hidden-view');
-                if (mainContentArea) {
-                    mainContentArea.classList.remove('lg:col-span-3');
-                    mainContentArea.classList.add('lg:col-span-4');
-                }
-            };
 
             if (simType === 'single') {
                 showSidebar();
@@ -1162,6 +1162,61 @@
                     boxB.classList.add('border-4', 'border-indigo-600');
                 }
 
+                const recalcComparisonFromSidebar = () => {
+                    if (!window.comparePrograms) return;
+
+                    const savings = parseFloat(document.getElementById('input-savings').value) || 0;
+                    const family = parseFloat(document.getElementById('input-family').value) || 0;
+                    const scholarships = parseFloat(document.getElementById('input-scholarships').value) || 0;
+                    const homeSalaryMonthly = parseFloat(document.getElementById('input-home-salary-result').value) || 0;
+                    const oncampusIncome = parseFloat(document.getElementById('input-oncampus-income').value) || 0;
+                    const monthlyIncome = homeSalaryMonthly + oncampusIncome;
+
+                    const flights = parseFloat(document.getElementById('input-flights').value) || 0;
+                    const visa = parseFloat(document.getElementById('input-visa').value) || 0;
+                    const insurance = parseFloat(document.getElementById('input-insurance').value) || 0;
+                    const deposit = parseFloat(document.getElementById('input-deposit').value) || 0;
+                    const oneTimeExpenses = flights + visa + deposit;
+
+                    const totalPersonalFunds = savings + family + scholarships;
+
+                    ['A', 'B'].forEach(side => {
+                        const prog = window.comparePrograms[side];
+                        if (!prog) return;
+                        const dur = prog.duration || 24;
+                        const tuition = prog.tuition || 0;
+                        const livingTotal = prog.living || 0;
+                        const monthlyLiving = livingTotal / dur;
+                        const recurringAnnual = insurance * (dur / 12);
+                        const totalCost = tuition + livingTotal + oneTimeExpenses + recurringAnnual;
+                        const gap = totalCost - totalPersonalFunds;
+                        const personalFunds = totalPersonalFunds;
+
+                        prog.gap = gap;
+                        prog.cost = totalCost;
+
+                        const gapEl = document.getElementById(side === 'A' ? 'compare-gap-a' : 'compare-gap-b');
+                        const balEl = document.getElementById(side === 'A' ? 'compare-balance-a' : 'compare-balance-b');
+                        if (gapEl) {
+                            gapEl.textContent = formatCurrency(gap);
+                            gapEl.style.color = getGapColor(gap);
+                        }
+                        if (balEl) {
+                            balEl.textContent = formatCurrency(personalFunds);
+                        }
+
+                        const chartId = side === 'A' ? 'compare-chart-a' : 'compare-chart-b';
+                        createCashFlowChart(chartId, dur, personalFunds, monthlyLiving, tuition, monthlyIncome);
+                    });
+                };
+
+                // Attach listeners for interactive comparison recalculation
+                const compareInputs = document.querySelectorAll('#sidebar-controls input, #sidebar-controls select');
+                compareInputs.forEach(input => {
+                    input.addEventListener('change', recalcComparisonFromSidebar);
+                });
+
+                // Initial charts
                 createCashFlowChart('compare-chart-a', durationA, personalFundsA, monthlyLivingA, tuitionA);
                 createCashFlowChart('compare-chart-b', durationB, personalFundsB, monthlyLivingB, tuitionB);
             }
@@ -1219,34 +1274,29 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
-        // Remove a program and return to simulator to pick another
+        // Remove a program from comparison without leaving results page
         window.removeCompareProgram = function (side) {
             if (!window.comparePrograms) return;
-            const keepSide = side === 'A' ? 'B' : 'A';
-            const keepProg = window.comparePrograms[keepSide];
+            const cardId = side === 'A' ? 'compare-card-a' : 'compare-card-b';
+            const chartId = side === 'A' ? 'compare-chart-a' : 'compare-chart-b';
 
-            // If we have another program, save it as the base for comparison
-            if (keepProg) {
-                const params = new URLSearchParams({
-                    simType: 'single',
-                    nameA: keepProg.name,
-                    tuitionA: keepProg.tuition || 0,
-                    livingA: keepProg.living || 0,
-                    costA: keepProg.cost || 0,
-                    gapA: keepProg.gap || 0,
-                    savings: keepProg.savings || 0,
-                    family: keepProg.family || 0,
-                    scholarships: keepProg.scholarships || 0,
-                    lifestyle: keepProg.lifestyle || 'balanced',
-                    monthlyLiving: keepProg.monthlyLiving || 0,
-                    duration: keepProg.duration || 24
-                });
-                sessionStorage.setItem('compare_program_a', params.toString());
-            } else {
-                sessionStorage.removeItem('compare_program_a');
+            // Clear stored data
+            window.comparePrograms[side] = null;
+
+            // Visually clear card
+            const cardEl = document.getElementById(cardId);
+            if (cardEl) {
+                cardEl.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center text-gray-500 text-sm">
+                        <p class="mb-2">Program removed.</p>
+                        <p class="mb-2">Use the simulator to add another option when you're ready.</p>
+                    </div>
+                `;
+                cardEl.classList.remove('cursor-pointer');
             }
 
-            window.location.href = 'simulator.html?mode=compare';
+            // Clear chart
+            destroyChart(chartId);
         };
     </script>
     <script type="module" src="./js/auth-state.js"></script>
