@@ -505,6 +505,47 @@
                         observer.observe(section);
                     }
                 });
+
+                // Additional check for when user scrolls to bottom - activate step 5 if near bottom
+                function checkBottomScroll() {
+                    const windowHeight = window.innerHeight;
+                    const documentHeight = document.documentElement.scrollHeight;
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const scrollBottom = scrollTop + windowHeight;
+                    
+                    // If within 200px of bottom, activate step 5
+                    if (documentHeight - scrollBottom < 200) {
+                        const step5Indicator = document.getElementById('step-5-indicator');
+                        const step5Section = document.getElementById('step-5');
+                        if (step5Section && step5Indicator) {
+                            // Check if step 5 is actually visible (even if not in the top 40%)
+                            const rect = step5Section.getBoundingClientRect();
+                            if (rect.top < windowHeight && rect.bottom > 0) {
+                                // Remove active from all indicators
+                                steps.forEach(s => {
+                                    const ind = document.getElementById(s.indicator);
+                                    if (ind) {
+                                        ind.classList.remove('active', 'completed');
+                                    }
+                                });
+                                // Activate step 5
+                                step5Indicator.classList.add('active');
+                                // Mark previous steps as completed
+                                for (let i = 0; i < 4; i++) {
+                                    const prevIndicator = document.getElementById(steps[i].indicator);
+                                    if (prevIndicator) {
+                                        prevIndicator.classList.add('completed');
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Check on scroll
+                window.addEventListener('scroll', checkBottomScroll);
+                // Also check on load in case page loads at bottom
+                checkBottomScroll();
             }
 
             // Initialize on DOM ready
@@ -1694,7 +1735,7 @@
 
         <!-- Final CTA -->
         <div class="text-center">
-            <button type="submit" class="btn btn-primary btn-block">
+            <button type="button" onclick="calculatePlan()" class="btn btn-primary btn-block">
                 Calculate My Plan
             </button>
         </div>
