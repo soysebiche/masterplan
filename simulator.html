@@ -817,47 +817,108 @@
         </script>
 
         <!-- Step 2: Funds -->
-        <section class="bg-white rounded-2xl border border-gray-200 p-5 mb-4 shadow-sm">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Step 2: Enter Your Available Funds</h2>
-            <div class="max-w-md mx-auto space-y-5">
+        <section class="bg-white rounded-xl border border-gray-200 p-8 mb-4 shadow-sm">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Step 2: Your Financial Resources</h2>
+                <p class="text-sm text-gray-500">Tell us about your available funds and financial support</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">My Personal Savings ($)</label>
-                    <input type="text" id="input-savings" placeholder="Enter amount" />
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Current Savings
+                        <span class="text-gray-400 font-normal ml-1">(USD)</span>
+                    </label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
+                        <input type="number" id="input-savings" placeholder="0"
+                            class="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all" />
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Liquid assets you have available now</p>
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Family Contribution ($)</label>
-                    <input type="text" id="input-family" placeholder="Enter amount" />
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Family Support
+                        <span class="text-gray-400 font-normal ml-1">(USD)</span>
+                    </label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
+                        <input type="number" id="input-family" placeholder="0"
+                            class="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all" />
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Financial support from family members</p>
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Confirmed Scholarships ($)</label>
-                    <input type="text" id="input-scholarships" placeholder="Enter amount" />
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Scholarships & Grants
+                        <span class="text-gray-400 font-normal ml-1">(USD)</span>
+                    </label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
+                        <input type="number" id="input-scholarships" placeholder="0"
+                            class="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all" />
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Confirmed scholarships or grants</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Loans
+                        <span class="text-gray-400 font-normal ml-1">(USD)</span>
+                    </label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
+                        <input type="number" id="input-loans" placeholder="0"
+                            class="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all" />
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Student loans you can access</p>
                 </div>
             </div>
         </section>
 
         <!-- Step 3: Hidden Costs (One-time & Annual) -->
-        <section class="bg-white rounded-2xl border border-gray-200 p-5 mb-4 shadow-sm">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Step 3: One-time & Annual Expenses</h2>
-            <p class="text-gray-600 mb-6">Estimate these often overlooked costs to get a realistic plan.</p>
+        <!-- Step 3: Hidden Costs -->
+        <section class="bg-white rounded-xl border border-gray-200 p-8 mb-4 shadow-sm">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Step 3: One-Time & Hidden Costs</h2>
+                <p class="text-sm text-gray-500">Account for expenses beyond tuition and monthly living costs</p>
+            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Flights (Round Trip Estimate)
-                        ($)</label>
-                    <input type="number" id="input-flights" placeholder="e.g. 1500" />
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Visa & Immigration Fees
+                        <span class="text-gray-400 font-normal ml-1">(USD)</span>
+                    </label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
+                        <input type="number" id="input-visa" placeholder="500"
+                            class="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all" />
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Typical range: $300-$800</p>
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Visa & Bureaucracy Fees ($)</label>
-                    <input type="number" id="input-visa" placeholder="e.g. 500" />
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Health Insurance (Annual) ($)</label>
-                    <input type="number" id="input-insurance" placeholder="e.g. 800" />
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Health Insurance
+                        <span class="text-gray-400 font-normal ml-1">(Annual, USD)</span>
+                    </label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
+                        <input type="number" id="input-insurance" placeholder="2000"
+                            class="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all" />
+                    </div>
                     <p class="text-xs text-gray-500 mt-1">If not included in tuition</p>
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Accommodation Deposit ($)</label>
-                    <input type="number" id="input-deposit" placeholder="e.g. 1000" />
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Accommodation Deposit
+                        <span class="text-gray-400 font-normal ml-1">(USD)</span>
+                    </label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
+                        <input type="number" id="input-deposit" placeholder="1000"
+                            class="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all" />
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">First/last month rent</p>
                 </div>
             </div>
         </section>
