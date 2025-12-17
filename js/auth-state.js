@@ -23,7 +23,13 @@ function initializeUserProfileSection() {
             // Display cached user data immediately
             const firstLetter = userData.name ? userData.name.charAt(0).toUpperCase() : 'U';
             const displayName = userData.name || userData.email?.split('@')[0] || 'User';
-
+            const firstName = displayName.split(' ')[0]; // Get first name only
+            
+            // Update welcome message if on dashboard
+            const welcomeUserName = document.getElementById('welcome-user-name');
+            if (welcomeUserName) {
+                welcomeUserName.textContent = firstName;
+            }
 
             userProfileSection.innerHTML = `
                 <div class="relative">
@@ -172,6 +178,13 @@ function updateUserUI(user) {
     if (userProfileSection) {
         const firstLetter = user.displayName ? user.displayName.charAt(0).toUpperCase() : (user.email ? user.email.charAt(0).toUpperCase() : 'U');
         const displayName = user.displayName || user.email.split('@')[0];
+        const firstName = displayName.split(' ')[0]; // Get first name only
+        
+        // Update welcome message if on dashboard
+        const welcomeUserName = document.getElementById('welcome-user-name');
+        if (welcomeUserName) {
+            welcomeUserName.textContent = firstName;
+        }
 
         // Check if UI already shows this user (to avoid unnecessary updates)
         const currentDisplayName = userProfileSection.querySelector('.font-semibold.text-gray-900');
