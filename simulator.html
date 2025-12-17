@@ -1663,57 +1663,37 @@
                 const oneTimeExpenses = flights + visa + deposit;
                 const totalPersonalFunds = savings + family + scholarships;
 
-                if (programs.length === 2) {
-                    // Comparison Mode
-                    const p1 = programs[0];
-                    const p2 = programs[1];
+                // Helper to calc cost for a program
+                const calcCost = (prog) => {
+                    const t = prog.tuitionNum || parseInt(prog.tuition.replace('$', '').replace(/,/g, '')) || 0;
+                    const d = prog.durationNum || parseInt(prog.duration.replace(' months', '').replace(' month', '')) || 12;
+                    const lc = prog.livingCost || baseMonthlyLiving;
+                    let adjLc = lc;
+                    if (lifestyle === 'frugal') adjLc = lc * 0.8;
+                    if (lifestyle === 'comfortable') adjLc = lc * 1.4;
 
-                    // Helper to calc cost for a program
-                    const calcCost = (prog) => {
-                        const t = prog.tuitionNum || parseInt(prog.tuition.replace('$', '').replace(/,/g, '')) || 0;
-                        const d = prog.durationNum || parseInt(prog.duration.replace(' months', '').replace(' month', '')) || 12;
-                        const lc = prog.livingCost || baseMonthlyLiving;
-                        let adjLc = lc;
-                        if (lifestyle === 'frugal') adjLc = lc * 0.8;
-                        if (lifestyle === 'comfortable') adjLc = lc * 1.4;
-
-                        const totalL = adjLc * d;
-                        const recAnn = insurance * (d / 12);
-                        return {
-                            tuition: t,
-                            living: totalL,
-                            cost: t + totalL + oneTimeExpenses + recAnn,
-                            duration: d
-                        };
+                    const totalL = adjLc * d;
+                    const recAnn = insurance * (d / 12);
+                    return {
+                        tuition: t,
+                        living: totalL,
+                        cost: t + totalL + oneTimeExpenses + recAnn,
+                        duration: d
                     };
+                };
 
-                    const c1 = calcCost(p1);
-                    const c2 = calcCost(p2);
-
-                    const gap1 = c1.cost - totalPersonalFunds;
-                    const gap2 = c2.cost - totalPersonalFunds;
-
+                // If 2 or more programs, go to comparison view
+                if (programs.length >= 2) {
+                    // Comparison Mode - supports up to 4 programs (A, B, C, D)
+                    const slots = ['A', 'B', 'C', 'D'];
                     const params = new URLSearchParams({
                         simType: 'compare',
-                        // Program A
-                        nameA: p1.program ? `${p1.name} - ${p1.program}` : p1.name,
-                        tuitionA: c1.tuition,
-                        livingA: c1.living,
-                        costA: c1.cost,
-                        gapA: gap1,
-                        // Program B
-                        nameB: p2.program ? `${p2.name} - ${p2.program}` : p2.name,
-                        tuitionB: c2.tuition,
-                        livingB: c2.living,
-                        costB: c2.cost,
-                        gapB: gap2,
                         // Shared
                         savings: savings,
                         family: family,
                         scholarships: scholarships,
                         lifestyle: lifestyle,
-                        monthlyLiving: baseMonthlyLiving, // Approx
-                        duration: c1.duration, // Use A's duration for charts? Or max? Results.html might need update for this.
+                        monthlyLiving: baseMonthlyLiving,
                         hasHomeSalary: hasHomeSalary,
                         homeSalaryMonthly: homeSalaryMonthly,
                         hasOnCampusJob: hasOnCampusJob,
@@ -1727,6 +1707,26 @@
                         deposit: deposit,
                         oneTimeExpenses: oneTimeExpenses
                     });
+
+                    // Add each program (up to 4)
+                    programs.slice(0, 4).forEach((prog, index) => {
+                        const slot = slots[index];
+                        const cost = calcCost(prog);
+                        const gap = cost.cost - totalPersonalFunds;
+                        const name = prog.program ? `${prog.name} - ${prog.program}` : prog.name;
+                        
+                        params.set(`name${slot}`, name);
+                        params.set(`tuition${slot}`, cost.tuition);
+                        params.set(`living${slot}`, cost.living);
+                        params.set(`cost${slot}`, cost.cost);
+                        params.set(`gap${slot}`, gap);
+                        params.set(`duration${slot}`, cost.duration);
+                    });
+
+                    // Set duration from first program for shared reference
+                    const firstCost = calcCost(programs[0]);
+                    params.set('duration', firstCost.duration);
+
                     window.location.href = `results.html?${params.toString()}`;
                     return;
                 }
