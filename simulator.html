@@ -1456,9 +1456,109 @@
                 personal: 100
             };
 
+            // Lifestyle presets with category breakdowns
+            window.lifestylePresets = {
+                900: {  // Frugal
+                    food: 300,
+                    transport: 75,
+                    housing: 150,
+                    entertainment: 75,
+                    phone: 50,
+                    personal: 250
+                },
+                1400: {  // Balanced
+                    food: 450,
+                    transport: 125,
+                    housing: 300,
+                    entertainment: 175,
+                    phone: 100,
+                    personal: 250
+                },
+                2100: {  // Comfortable
+                    food: 700,
+                    transport: 250,
+                    housing: 450,
+                    entertainment: 350,
+                    phone: 100,
+                    personal: 250
+                }
+            };
+
+            // Set lifestyle preset and update all sliders
+            window.setLifestylePreset = function(amount, buttonElement) {
+                const preset = window.lifestylePresets[amount];
+                if (!preset) return;
+
+                // Update all preset buttons styling
+                document.querySelectorAll('#step-4 .mt-4 button').forEach(btn => {
+                    btn.classList.remove('border-indigo-600', 'bg-indigo-50', 'text-indigo-700');
+                    btn.classList.add('border-gray-200', 'text-gray-700', 'bg-white');
+                });
+
+                // Highlight selected button
+                if (buttonElement) {
+                    buttonElement.classList.remove('border-gray-200', 'text-gray-700', 'bg-white');
+                    buttonElement.classList.add('border-indigo-600', 'bg-indigo-50', 'text-indigo-700');
+                }
+
+                // Store selected preset
+                window.selectedLifestylePreset = amount;
+
+                // Update categories and UI
+                Object.keys(preset).forEach(category => {
+                    const value = preset[category];
+                    window.lifestyleCategories[category] = value;
+
+                    // Update slider
+                    const slider = document.getElementById(`${category}-slider`);
+                    if (slider) slider.value = value;
+
+                    // Update display
+                    const display = document.getElementById(`${category}-value`);
+                    if (display) display.textContent = `$${value}`;
+                });
+
+                // Update total display
+                document.getElementById('lifestyle-total').textContent = `$${amount.toLocaleString()}`;
+
+                // Update comparison
+                const baseline = parseInt(document.getElementById('country-baseline').textContent.replace(/[$,]/g, '')) || 1000;
+                const comparison = document.getElementById('lifestyle-comparison');
+                const diff = amount - baseline;
+
+                if (diff <= 0) {
+                    comparison.textContent = 'Within budget';
+                    comparison.className = 'font-semibold text-green-600';
+                } else if (diff < 300) {
+                    comparison.textContent = 'Slightly over';
+                    comparison.className = 'font-semibold text-yellow-600';
+                } else {
+                    comparison.textContent = 'Above average';
+                    comparison.className = 'font-semibold text-red-600';
+                }
+
+                // Update selected lifestyle for calculation
+                if (amount === 900) window.selectedLifestyle = 'frugal';
+                else if (amount === 2100) window.selectedLifestyle = 'comfortable';
+                else window.selectedLifestyle = 'balanced';
+            };
+
+            // Deselect all presets (called when user manually changes a slider)
+            window.deselectAllPresets = function() {
+                window.selectedLifestylePreset = null;
+                document.querySelectorAll('#step-4 .mt-4 button').forEach(btn => {
+                    btn.classList.remove('border-indigo-600', 'bg-indigo-50', 'text-indigo-700');
+                    btn.classList.add('border-gray-200', 'text-gray-700', 'bg-white');
+                });
+                window.selectedLifestyle = 'custom';
+            };
+
             window.updateLifestyleCategory = function (category, value) {
                 value = parseInt(value);
                 window.lifestyleCategories[category] = value;
+
+                // Deselect presets since user is customizing
+                window.deselectAllPresets();
 
                 // Update display
                 document.getElementById(`${category}-value`).textContent = `$${value}`;
@@ -1472,10 +1572,10 @@
                 const comparison = document.getElementById('lifestyle-comparison');
                 const diff = total - baseline;
 
-                if (diff < 0) {
+                if (diff <= 0) {
                     comparison.textContent = 'Within budget';
                     comparison.className = 'font-semibold text-green-600';
-                } else if (diff < 200) {
+                } else if (diff < 300) {
                     comparison.textContent = 'Slightly over';
                     comparison.className = 'font-semibold text-yellow-600';
                 } else {
@@ -1541,7 +1641,13 @@
                     'comfortable': 2100
                 };
 
-                let baseMonthlyLiving = lifestyleMap[lifestyle] || 1400;
+                // Use actual category sum if user customized, otherwise use preset
+                let baseMonthlyLiving;
+                if (lifestyle === 'custom' || !window.selectedLifestylePreset) {
+                    baseMonthlyLiving = Object.values(window.lifestyleCategories).reduce((sum, val) => sum + val, 0);
+                } else {
+                    baseMonthlyLiving = lifestyleMap[lifestyle] || 1400;
+                }
 
                 const hasHomeSalary = window.selectedSalary === 'yes';
                 const homeSalaryMonthly = hasHomeSalary ? getInputValue('input-home-salary', 0) : 0;
