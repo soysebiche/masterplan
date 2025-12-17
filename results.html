@@ -1568,14 +1568,6 @@
 
                 document.getElementById('save-button').textContent = 'Save Comparison';
 
-                const boxA = document.getElementById('compare-gap-a').closest('section');
-                const boxB = document.getElementById('compare-gap-b').closest('section');
-                if (gapA < gapB) {
-                    boxA.classList.add('border-4', 'border-indigo-600');
-                } else {
-                    boxB.classList.add('border-4', 'border-indigo-600');
-                }
-
                 const recalcComparisonFromSidebar = () => {
                     if (!window.comparePrograms) return;
 
