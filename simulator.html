@@ -618,7 +618,7 @@
                     // USA
                     usaUnis.forEach(uni => {
                         const tuition = Math.floor(Math.random() * 80000) + 60000;
-                        const duration = [12, 15, 18, 21, 24][Math.floor(Math.random() * 5)];
+                        const duration = [12, 24][Math.floor(Math.random() * 2)];
                         universitiesData.push({
                             name: uni,
                             country: 'US',
@@ -633,7 +633,7 @@
                     // UK
                     ukUnis.forEach(uni => {
                         const tuition = Math.floor(Math.random() * 50000) + 40000;
-                        const duration = [12, 15, 18, 21][Math.floor(Math.random() * 4)];
+                        const duration = [12, 24][Math.floor(Math.random() * 2)];
                         universitiesData.push({
                             name: uni,
                             country: 'UK',
@@ -652,7 +652,7 @@
                             europeUnis[countryCode].forEach(uni => {
                                 const baseTuition = country.livingCost * 40;
                                 const tuition = Math.floor(baseTuition * (0.8 + Math.random() * 0.4));
-                                const duration = [10, 12, 15, 18][Math.floor(Math.random() * 4)];
+                                const duration = [12, 24][Math.floor(Math.random() * 2)];
                                 universitiesData.push({
                                     name: uni,
                                     country: countryCode,
@@ -673,7 +673,7 @@
                             otherUnis[countryCode].forEach(uni => {
                                 const baseTuition = country.livingCost * 40;
                                 const tuition = Math.floor(baseTuition * (0.8 + Math.random() * 0.4));
-                                const duration = [12, 15, 18, 21][Math.floor(Math.random() * 4)];
+                                const duration = [12, 24][Math.floor(Math.random() * 2)];
                                 universitiesData.push({
                                     name: uni,
                                     country: countryCode,
