@@ -112,121 +112,36 @@
             </a>
         </div>
 
-        <!-- Stats Row - 4 Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6" id="stats-container">
-            <!-- Stat Card 1: Total Plans -->
-            <div class="stat-card stat-card-primary">
-                <div class="stat-card-header">
-                    <div class="stat-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                    </div>
-                    <span class="stat-card-label">Total Plans</span>
-                    <span class="stat-card-trend stat-card-trend-positive" id="plans-trend">+0%</span>
-                </div>
-                <div class="stat-card-value" id="total-plans">0</div>
-                <div class="stat-card-comparison" id="plans-comparison">No plans yet</div>
+        <!-- Your Saved Plans - Main Section -->
+        <section class="mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-gray-900">Your Financial Overview</h2>
+                <span id="plans-count-text" class="text-sm text-gray-500">0 saved plans</span>
             </div>
+            
+            <!-- Saved Plans Grid -->
+            <div id="saved-plans-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Plan cards will be inserted here by JavaScript -->
+            </div>
+        </section>
 
-            <!-- Stat Card 2: Avg Funding Gap -->
-            <div class="stat-card stat-card-danger">
-                <div class="stat-card-header">
-                    <div class="stat-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div>
-                    <span class="stat-card-label">Avg Gap</span>
-                    <span class="stat-card-trend stat-card-trend-negative" id="gap-trend">-0%</span>
-                </div>
-                <div class="stat-card-value" id="avg-gap">$0</div>
-                <div class="stat-card-comparison" id="gap-comparison">Across all plans</div>
+        <!-- Quick Stats Row -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6" id="quick-stats-row">
+            <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                <p class="text-xs uppercase tracking-wide text-gray-500 mb-1">Total Investment</p>
+                <p class="text-2xl font-bold text-gray-900" id="total-investment">$0</p>
             </div>
-
-            <!-- Stat Card 3: Programs Compared -->
-            <div class="stat-card stat-card-success">
-                <div class="stat-card-header">
-                    <div class="stat-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                        </svg>
-                    </div>
-                    <span class="stat-card-label">Comparisons</span>
-                    <span class="stat-card-trend stat-card-trend-positive" id="comparisons-trend">+0%</span>
-                </div>
-                <div class="stat-card-value" id="total-comparisons">0</div>
-                <div class="stat-card-comparison" id="comparisons-comparison">Programs analyzed</div>
+            <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                <p class="text-xs uppercase tracking-wide text-gray-500 mb-1">Your Funding</p>
+                <p class="text-2xl font-bold text-green-600" id="total-funding">$0</p>
             </div>
-
-            <!-- Stat Card 4: Days Active -->
-            <div class="stat-card stat-card-primary">
-                <div class="stat-card-header">
-                    <div class="stat-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                    </div>
-                    <span class="stat-card-label">Days Active</span>
-                    <span class="stat-card-trend stat-card-trend-positive" id="days-trend">+0%</span>
-                </div>
-                <div class="stat-card-value" id="days-active">0</div>
-                <div class="stat-card-comparison" id="days-comparison">Since you joined</div>
+            <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                <p class="text-xs uppercase tracking-wide text-gray-500 mb-1">Avg Funding Gap</p>
+                <p class="text-2xl font-bold text-red-600" id="avg-funding-gap">$0</p>
             </div>
-        </div>
-
-        <!-- Main Content Grid: Chart + Sidebar -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6" id="main-content-grid">
-            <!-- Main Chart Area (col-span-8) -->
-            <div class="lg:col-span-8 bg-white border border-gray-200 rounded-lg p-5 shadow-card">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Your Financial Overview</h2>
-                <div class="h-80 flex items-center justify-center text-gray-400">
-                    <div class="text-center">
-                        <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                        </svg>
-                        <p class="text-sm">Create your first plan to see your financial overview</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sidebar Info (col-span-4) -->
-            <div class="lg:col-span-4 bg-white border border-gray-200 rounded-lg p-5 shadow-card">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Stats</h3>
-                <div class="space-y-4">
-                    <div>
-                        <p class="text-xs uppercase tracking-wide text-gray-500 mb-1">Total Investment</p>
-                        <p class="text-2xl font-bold text-gray-900" id="total-investment">$0</p>
-                        <p class="text-xs text-gray-500 mt-1">Across all plans</p>
-                    </div>
-                    <div>
-                        <p class="text-xs uppercase tracking-wide text-gray-500 mb-1">Total Funding</p>
-                        <p class="text-2xl font-bold text-green-600" id="total-funding">$0</p>
-                        <p class="text-xs text-gray-500 mt-1">Available resources</p>
-                    </div>
-                    <div>
-                        <p class="text-xs uppercase tracking-wide text-gray-500 mb-1">Success Rate</p>
-                        <p class="text-2xl font-bold text-indigo-600" id="success-rate">0%</p>
-                        <p class="text-xs text-gray-500 mt-1">Fully funded plans</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Recent Plans Table -->
-        <div class="data-table" id="recent-plans-table">
-            <div class="data-table-header">
-                <h3 class="data-table-title">Recent Plans</h3>
-                <button class="btn btn-ghost btn-sm" onclick="window.location.href='simulator.html'">Create New</button>
-            </div>
-            <div class="data-table-body" id="plans-list">
-                <!-- Plans will be inserted here by JavaScript -->
+            <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                <p class="text-xs uppercase tracking-wide text-gray-500 mb-1">Best Option</p>
+                <p class="text-lg font-bold text-indigo-600 truncate" id="best-option">--</p>
             </div>
         </div>
 
@@ -252,155 +167,141 @@
 
 
     <script type="module" src="./js/auth-state.js"></script>
-    <script type="module">
-        import { auth, onAuthStateChanged, db, doc, getDoc, setDoc, onSnapshot, serverTimestamp } from './js/firebase-config.js';
+    <script>
+        // Format currency helper
+        const formatCurrency = (num) => {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+            }).format(num);
+        };
 
-        // Achievement definitions
-        const achievements = [
-            { id: 'first_plan', name: 'First Steps', description: 'Created your first plan', icon: '1', requirement: 1, type: 'plans' },
-            { id: 'comparison_pro', name: 'Comparison Pro', description: 'Compared 3+ programs', icon: '3', requirement: 3, type: 'comparisons' },
-            { id: 'budget_master', name: 'Budget Master', description: 'Created 5+ plans', icon: '5', requirement: 5, type: 'plans' },
-            { id: 'early_bird', name: 'Early Bird', description: 'Active for 7+ days', icon: '7', requirement: 7, type: 'days' }
-        ];
-
-        // Initialize or get user progress
-        async function initializeUserProgress(userId) {
-            const userRef = doc(db, 'users', userId);
-            const userSnap = await getDoc(userRef);
-
-            if (!userSnap.exists()) {
-                // Create new user progress
-                const initialData = {
-                    createdAt: serverTimestamp(),
-                    lastActive: serverTimestamp(),
-                    progress: {
-                        plansCreated: 0,
-                        comparisons: 0,
-                        stepsCompleted: [],
-                        xp: 0,
-                        level: 1
-                    },
-                    achievements: [],
-                    milestones: []
-                };
-                await setDoc(userRef, initialData);
-                return initialData;
+        // Get saved plans from localStorage
+        const getSavedPlans = () => {
+            try {
+                const plans = localStorage.getItem('masterplan_saved_plans');
+                return plans ? JSON.parse(plans) : [];
+            } catch (e) {
+                console.error('Error loading saved plans:', e);
+                return [];
             }
+        };
 
-            return userSnap.data();
-        }
+        // Delete a plan
+        const deletePlan = (planId) => {
+            if (!confirm('Are you sure you want to delete this plan?')) return;
+            
+            const plans = getSavedPlans();
+            const updatedPlans = plans.filter(p => p.id !== planId);
+            localStorage.setItem('masterplan_saved_plans', JSON.stringify(updatedPlans));
+            renderSavedPlans();
+        };
 
-        // Calculate level from XP
-        function calculateLevel(xp) {
-            return Math.floor(xp / 100) + 1;
-        }
-
-        // Calculate days active
-        function calculateDaysActive(createdAt) {
-            if (!createdAt) return 0;
-            const created = createdAt.toDate();
-            const now = new Date();
-            const diffTime = Math.abs(now - created);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            return diffDays;
-        }
-
-        // Check and award achievements
-        function checkAchievements(userData) {
-            const earned = userData.achievements || [];
-            const newAchievements = [];
-
-            achievements.forEach(achievement => {
-                if (!earned.includes(achievement.id)) {
-                    let count = 0;
-                    if (achievement.type === 'plans') {
-                        count = userData.progress?.plansCreated || 0;
-                    } else if (achievement.type === 'comparisons') {
-                        count = userData.progress?.comparisons || 0;
-                    } else if (achievement.type === 'days') {
-                        count = calculateDaysActive(userData.createdAt);
-                    }
-
-                    if (count >= achievement.requirement) {
-                        newAchievements.push(achievement.id);
-                    }
+        // Render saved plans
+        const renderSavedPlans = () => {
+            const plans = getSavedPlans();
+            const grid = document.getElementById('saved-plans-grid');
+            const emptyState = document.getElementById('empty-state');
+            const plansCountText = document.getElementById('plans-count-text');
+            
+            if (!grid) return;
+            
+            // Update count text
+            if (plansCountText) {
+                plansCountText.textContent = `${plans.length} saved plan${plans.length !== 1 ? 's' : ''}`;
+            }
+            
+            // Show/hide empty state
+            if (plans.length === 0) {
+                grid.innerHTML = '';
+                if (emptyState) emptyState.classList.remove('hidden');
+                return;
+            }
+            
+            if (emptyState) emptyState.classList.add('hidden');
+            
+            // Calculate stats
+            let totalInvestment = 0;
+            let totalFunding = 0;
+            let totalGap = 0;
+            let bestPlan = null;
+            let lowestGap = Infinity;
+            
+            plans.forEach(plan => {
+                totalInvestment += plan.cost || 0;
+                totalFunding += plan.personalFunds || 0;
+                totalGap += plan.gap || 0;
+                
+                if (plan.gap < lowestGap) {
+                    lowestGap = plan.gap;
+                    bestPlan = plan;
                 }
             });
-
-            return newAchievements;
-        }
-
-        // Render achievements
-        function renderAchievements(userData) {
-            const container = document.getElementById('achievements-container');
-            const earned = userData.achievements || [];
-
-            container.innerHTML = achievements.map(achievement => {
-                const isEarned = earned.includes(achievement.id);
+            
+            // Update quick stats
+            document.getElementById('total-investment').textContent = formatCurrency(totalInvestment);
+            document.getElementById('total-funding').textContent = formatCurrency(totalFunding);
+            document.getElementById('avg-funding-gap').textContent = formatCurrency(totalGap / plans.length);
+            document.getElementById('best-option').textContent = bestPlan ? bestPlan.name.split(' - ')[0] : '--';
+            
+            // Render plan cards
+            grid.innerHTML = plans.map(plan => {
+                const gapColor = plan.gap > 0 ? 'text-red-600' : 'text-green-600';
+                const gapBg = plan.gap > 0 ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200';
+                const savedDate = new Date(plan.savedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                const isComparison = plan.type === 'comparison';
+                
                 return `
-                    <div class="text-center p-4 rounded-xl border-2 ${isEarned ? 'bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-300' : 'bg-gray-50 border-gray-200 opacity-50'}">
-                        <div class="text-4xl mb-2 ${isEarned ? '' : 'grayscale'}">${achievement.icon}</div>
-                        <h4 class="font-bold text-sm text-gray-900 mb-1">${achievement.name}</h4>
-                        <p class="text-xs text-gray-600">${achievement.description}</p>
-                        ${isEarned ? '<p class="text-xs text-green-600 font-semibold mt-2">Unlocked</p>' : '<p class="text-xs text-gray-400 mt-2">Locked</p>'}
+                <div class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm hover:shadow-md transition-all group relative">
+                    <!-- Delete button -->
+                    <button onclick="deletePlan('${plan.id}')" 
+                        class="absolute top-3 right-3 text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                    
+                    <!-- Badge -->
+                    ${isComparison ? `
+                    <span class="inline-block mb-3 text-xs font-semibold px-2 py-1 bg-indigo-100 text-indigo-700 rounded-full">
+                        Comparison (${plan.programs?.length || 2} programs)
+                    </span>
+                    ` : ''}
+                    
+                    <!-- Program Name -->
+                    <h3 class="font-bold text-gray-900 text-lg mb-1 pr-6">${plan.name}</h3>
+                    <p class="text-sm text-gray-500 mb-4">${plan.university || plan.country || ''}</p>
+                    
+                    <!-- Funding Gap -->
+                    <div class="rounded-lg ${gapBg} border p-3 mb-4">
+                        <p class="text-xs text-gray-600 mb-1">Funding Gap</p>
+                        <p class="text-2xl font-bold ${gapColor}">${formatCurrency(Math.abs(plan.gap))}</p>
+                        <p class="text-xs text-gray-500">${plan.gap > 0 ? 'Still needed' : 'Surplus!'}</p>
                     </div>
+                    
+                    <!-- Quick Info -->
+                    <div class="flex justify-between text-sm text-gray-600 mb-4">
+                        <span>Tuition: ${formatCurrency(plan.tuition)}</span>
+                        <span>${plan.duration}mo</span>
+                    </div>
+                    
+                    <!-- Actions -->
+                    <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+                        <a href="${plan.viewUrl || '#'}" class="text-indigo-600 font-semibold text-sm hover:text-indigo-800">
+                            View Details →
+                        </a>
+                        <span class="text-xs text-gray-400">Saved ${savedDate}</span>
+                    </div>
+                </div>
                 `;
             }).join('');
-        }
+        };
 
-        // Update dashboard UI
-        function updateDashboardUI(userData) {
-            const progress = userData.progress || {};
-            const xp = progress.xp || 0;
-            const level = calculateLevel(xp);
-            const plansCreated = progress.plansCreated || 0;
-            const comparisons = progress.comparisons || 0;
-            const daysActive = calculateDaysActive(userData.createdAt);
-
-            // Update stats
-            document.getElementById('user-level').textContent = level;
-            document.getElementById('user-xp').textContent = xp;
-            document.getElementById('plans-count').textContent = plansCreated;
-            document.getElementById('comparisons-count').textContent = comparisons;
-            document.getElementById('days-active').textContent = daysActive;
-
-            // Calculate completion percentage (out of 100 XP per level)
-            const xpInLevel = xp % 100;
-            const percentage = xpInLevel;
-            document.getElementById('completion-percentage').textContent = `${percentage}%`;
-            document.getElementById('progress-bar').style.width = `${percentage}%`;
-
-            // Render achievements
-            renderAchievements(userData);
-
-            // Show gamification section if user has any activity
-            if (plansCreated > 0 || comparisons > 0) {
-                document.getElementById('gamification-section').classList.remove('hidden');
-            }
-        }
-
-        // Auth state listener
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                const userName = user.displayName || 'User';
-                const firstName = userName.split(' ')[0];
-                const welcomeNameElement = document.getElementById('welcome-user-name');
-                if (welcomeNameElement) {
-                    welcomeNameElement.textContent = firstName;
-                }
-
-                // Initialize user progress
-                const userData = await initializeUserProgress(user.uid);
-                updateDashboardUI(userData);
-
-                // Listen for real-time updates
-                const userRef = doc(db, 'users', user.uid);
-                onSnapshot(userRef, (doc) => {
-                    if (doc.exists()) {
-                        updateDashboardUI(doc.data());
-                    }
-                });
-            }
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSavedPlans();
         });
     </script>
 </body>

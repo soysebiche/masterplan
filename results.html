@@ -680,10 +680,10 @@
                         class="bg-white border border-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:border-gray-300 hover:shadow-md transition-all">
                         ← Start Over
                     </a>
-                    <a href="dashboard.html" id="save-button"
+                    <button id="save-button" onclick="savePlanToDashboard()"
                         class="gradient-bg text-white px-6 py-3 rounded-lg font-semibold hover:shadow-md transition-all">
                         Save Plan
-                    </a>
+                    </button>
                 </footer>
             </div>
         </div>
@@ -2029,6 +2029,101 @@
             // Clear chart
             destroyChart(chartId);
             updateCompareCountBadge();
+        };
+
+        // Save plan or comparison to dashboard (localStorage)
+        window.savePlanToDashboard = function() {
+            const params = new URLSearchParams(window.location.search);
+            const simType = params.get('simType') || 'single';
+            
+            // Get existing saved plans
+            let savedPlans = [];
+            try {
+                const stored = localStorage.getItem('masterplan_saved_plans');
+                savedPlans = stored ? JSON.parse(stored) : [];
+            } catch (e) {
+                savedPlans = [];
+            }
+            
+            const now = new Date().toISOString();
+            const generateId = () => 'plan_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            
+            if (simType === 'compare' && window.comparePrograms) {
+                // Save comparison - save each program as a separate card
+                const programsToSave = ['A', 'B', 'C', 'D'].filter(s => window.comparePrograms[s]);
+                
+                programsToSave.forEach(side => {
+                    const prog = window.comparePrograms[side];
+                    if (!prog) return;
+                    
+                    // Check if already saved (by name)
+                    const exists = savedPlans.find(p => p.name === prog.name);
+                    if (exists) return; // Skip duplicates
+                    
+                    savedPlans.push({
+                        id: generateId(),
+                        name: prog.name,
+                        tuition: prog.tuition,
+                        living: prog.living,
+                        cost: prog.cost,
+                        gap: prog.gap,
+                        duration: prog.duration,
+                        personalFunds: prog.personalFunds,
+                        type: 'comparison',
+                        programs: programsToSave.length,
+                        savedAt: now,
+                        viewUrl: `results.html?simType=single&nameA=${encodeURIComponent(prog.name)}&tuitionA=${prog.tuition}&livingA=${prog.living}&costA=${prog.cost}&gapA=${prog.gap}&duration=${prog.duration}`
+                    });
+                });
+            } else {
+                // Save single plan
+                const nameA = params.get('nameA') || document.getElementById('single-title').textContent.replace('Your Financial Roadmap: ', '');
+                const tuition = parseFloat(document.getElementById('input-tuition').value) || 0;
+                const duration = parseFloat(document.getElementById('input-duration').value) || 24;
+                const monthlyLiving = parseFloat(document.getElementById('input-living-monthly').value) || 1400;
+                const livingTotal = monthlyLiving * duration;
+                
+                const savings = parseFloat(document.getElementById('input-savings').value) || 0;
+                const family = parseFloat(document.getElementById('input-family').value) || 0;
+                const scholarships = parseFloat(document.getElementById('input-scholarships').value) || 0;
+                const loans = parseFloat(document.getElementById('input-loans').value) || 0;
+                const personalFunds = savings + family + scholarships + loans;
+                
+                const cost = tuition + livingTotal;
+                const gap = cost - personalFunds;
+                
+                // Check if already saved (by name)
+                const exists = savedPlans.find(p => p.name === nameA);
+                if (!exists) {
+                    savedPlans.push({
+                        id: generateId(),
+                        name: nameA,
+                        tuition: tuition,
+                        living: livingTotal,
+                        cost: cost,
+                        gap: gap,
+                        duration: duration,
+                        personalFunds: personalFunds,
+                        type: 'single',
+                        savedAt: now,
+                        viewUrl: window.location.href
+                    });
+                }
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('masterplan_saved_plans', JSON.stringify(savedPlans));
+            
+            // Show success feedback and redirect
+            const btn = document.getElementById('save-button');
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Saved!';
+            btn.classList.add('bg-green-600');
+            btn.classList.remove('gradient-bg');
+            
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 800);
         };
     </script>
     <script type="module" src="./js/auth-state.js"></script>
