@@ -1584,26 +1584,6 @@
                 }
             };
 
-            window.setLifestylePreset = function (preset) {
-                const presets = {
-                    frugal: { food: 300, transport: 75, housing: 150, entertainment: 75, phone: 40, personal: 60 },
-                    balanced: { food: 450, transport: 125, housing: 250, entertainment: 175, phone: 60, personal: 125 },
-                    comfortable: { food: 650, transport: 200, housing: 400, entertainment: 300, phone: 100, personal: 200 }
-                };
-
-                const values = presets[preset];
-                if (!values) return;
-
-                // Update all sliders and values
-                Object.keys(values).forEach(category => {
-                    const slider = document.getElementById(`${category}-slider`);
-                    if (slider) {
-                        slider.value = values[category];
-                        window.updateLifestyleCategory(category, values[category]);
-                    }
-                });
-            };
-
             // Initialize lifestyle calculator on load
             document.addEventListener('DOMContentLoaded', () => {
                 // Set initial total
